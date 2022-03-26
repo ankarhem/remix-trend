@@ -1,0 +1,58 @@
+fragment CurrencyFragment on Currency {
+  id
+  name
+  isDefault
+  format {
+    code
+    decimals
+  }
+}
+
+fragment ChannelsFragment on Channel {
+  id
+  name
+  url
+  isDefault
+  displayName
+  url
+  imageUrl
+  requiresAuth
+  countries {
+    name
+    code
+    isDefault
+  }
+  languages {
+    culture
+    name
+    isDefault
+  }
+  currencies {
+    ...CurrencyFragment
+  }
+  defaultCurrency {
+    ...CurrencyFragment
+  }
+  defaultLanguage {
+    culture
+    name
+    isDefault
+  }
+  settings {
+    nostoAccountId
+    tracking {
+      ga {
+        trackingId
+        useArticleNumberAsId
+      }
+      gtm {
+        containerId
+      }
+      fca {
+        accessToken
+        pixelId
+      }
+    }
+    pricesIncVat
+  }
+}

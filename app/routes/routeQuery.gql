@@ -1,6 +1,0 @@
-query RouteQuery {
-  route(path: "/bikes") {
-    id
-    path
-  }
-}

@@ -1,0 +1,89 @@
+#import ./PriceFragment.gql
+#import ./ProductPriceFragment.gql
+#import ./ProductVariantPriceFragment.gql
+
+fragment CartCoreFragment on Cart {
+  id
+  externalCheckoutUrl
+  totalQuantity
+  productTotal {
+    ...Price
+  }
+  productPreviousTotal {
+    ...Price
+  }
+  discountTotal {
+    ...Price
+  }
+  aggregatedDiscounts {
+    name
+    value {
+      ...Price
+    }
+    description
+    campaign {
+      name
+    }
+  }
+  items {
+    id
+    quantity
+    articleNumber
+    subHeading
+    variant {
+      values
+      articleNumber
+      ...ProductVariantPrice
+      images {
+        modifiedDate
+        url
+        alt
+        title
+      }
+    }
+    configurations {
+      name
+      option {
+        id
+        name
+      }
+    }
+    discounts {
+      name
+      description
+      value {
+        ...Price
+      }
+    }
+    discount {
+      ...Price
+    }
+    total {
+      ...Price
+    }
+    previousTotal {
+      ...Price
+    }
+    product {
+      id
+      name
+      articleNumber
+      ...ProductPrice
+      primaryRoute {
+        id
+        path
+      }
+      images {
+        modifiedDate
+        alt
+        title
+        url
+      }
+      canonicalCategory {
+        primaryRoute {
+          path
+        }
+      }
+    }
+  }
+}

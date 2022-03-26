@@ -1,0 +1,6 @@
+fragment CommentsFragment on Product {
+  customerComments {
+    name
+    required
+  }
+}

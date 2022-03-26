@@ -1,0 +1,112 @@
+#import ~/lib/fragments/ProductPriceFragment.gql
+#import ~/lib/fragments/ProductVariantPriceFragment.gql
+#import ~/lib/fragments/StockStatusFragment.gql
+#import ~/lib/fragments/BadgeFragment.gql
+#import ~/lib/fragments/CommentsFragment.gql
+#import ~/lib/fragments/ProductCampaignFragment.gql
+#import ~/lib/fragments/ProductConfigurationsFragment.gql
+#import ~/lib/fragments/PriceFragment.gql
+#
+#import ./InPackagesFragment.gql
+#import ./ProductGridFragment.gql
+#import ./StockStatus/WarehouseStockFragment.gql
+
+fragment ProductPage on Product {
+  id
+  articleNumber
+  name
+  subName
+  breadcrumbText
+  shortDescription
+  description
+  hasVariants
+  isPackage
+  canonicalCategory {
+    primaryRoute {
+      path
+    }
+  }
+  categories {
+    primaryRoute {
+      path
+    }
+  }
+  primaryRoute {
+    path
+    id
+    breadcrumbs
+  }
+  ...ProductPrice
+  stockStatus {
+    ...StockStatus
+  }
+  warehouseStock {
+    ...WarehouseStock
+  }
+  ...CommentsFragment
+  variants {
+    options {
+      name
+      values
+    }
+    values {
+      warehouseStock {
+        ...WarehouseStock
+      }
+      values
+      articleNumber
+      images {
+        url
+        modifiedDate
+      }
+      ...ProductVariantPrice
+      stockStatus {
+        ...StockStatus
+      }
+    }
+  }
+  images {
+    alt
+    title
+    url
+    modifiedDate
+  }
+  relatedProducts {
+    ...ProductGrid
+  }
+  customFields {
+    key
+    type
+    title
+    ... on CustomBoolField {
+      boolValue: value
+    }
+    ... on CustomStringField {
+      stringValue: value
+    }
+    ... on CustomHtmlField {
+      htmlValue: value
+    }
+    ... on CustomListField {
+      listValues: value
+    }
+    ... on CustomMultiLevelListField {
+      items {
+        id
+        parentId
+        title
+        value
+      }
+    }
+  }
+  badges {
+    ...Badge
+  }
+  preOrder {
+    fromDate
+    toDate
+  }
+  ...InPackages
+  ...ProductConfigurations
+  ...ProductCampaign
+}

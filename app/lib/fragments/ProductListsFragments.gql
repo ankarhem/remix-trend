@@ -1,0 +1,94 @@
+#import ./BadgeFragment.gql
+#import ./ProductPriceFragment.gql
+
+fragment MinimalProductListDetail on CustomerProductList {
+  id
+  name
+  # TODO
+  # typeId {...}
+  # description
+  items {
+    variant {
+      articleNumber
+    }
+    product {
+      articleNumber
+    }
+  }
+}
+
+fragment VariantDetail on ProductVariant {
+  id
+  articleNumber
+  values
+  stockStatus {
+    buyable
+    text
+  }
+  images {
+    modifiedDate
+    alt
+    title
+    url
+  }
+}
+
+fragment VariantsDetail on ProductVariants {
+  options {
+    name
+    values
+  }
+  values {
+    ...VariantDetail
+  }
+}
+
+fragment ProductDetail on Product {
+  id
+  articleNumber
+  name
+  subName
+  hasConfigurations
+  hasVariants
+  isPreOrder
+  isPackage
+  stockStatus {
+    buyable
+    text
+  }
+  primaryRoute {
+    id
+    path
+    slug
+  }
+  ...ProductPrice
+  badges {
+    ...Badge
+  }
+  images {
+    modifiedDate
+    alt
+    title
+    url
+  }
+  variants {
+    ...VariantsDetail
+  }
+}
+
+fragment ProductListFragment on CustomerProductList {
+  id
+  description
+  name
+  shareToken
+  items {
+    quantity
+    description
+    product {
+      ...ProductDetail
+    }
+    variant {
+      ...VariantDetail
+    }
+  }
+}

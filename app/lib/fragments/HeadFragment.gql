@@ -1,0 +1,9 @@
+fragment Head on Document {
+  head {
+    title
+    metaTags {
+      name
+      content
+    }
+  }
+}

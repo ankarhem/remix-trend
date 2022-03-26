@@ -1,0 +1,18 @@
+fragment RouteMeta on Route {
+  id
+  path
+  slug
+  parents {
+    id
+    path
+    slug
+  }
+  canonicalPath
+  alternateRoutes {
+    channelId
+    culture
+    route
+    alias
+  }
+  breadcrumbs
+}

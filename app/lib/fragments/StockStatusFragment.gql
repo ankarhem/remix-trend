@@ -1,0 +1,7 @@
+fragment StockStatus on StockStatus {
+  buyable
+  maxOrderQuantity
+  stockDate
+  stockNotificationEnabled
+  text
+}

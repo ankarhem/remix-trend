@@ -1,0 +1,10 @@
+#import ./PriceFragment.gql
+
+fragment ProductVariantPrice on ProductVariant {
+  price {
+    ...Price
+  }
+  previousPrice {
+    ...Price
+  }
+}

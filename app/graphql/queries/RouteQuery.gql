@@ -1,0 +1,14 @@
+#import ~/lib/fragments/RouteMetaFragment.gql
+#import ~/lib/fragments/HeadFragment.gql
+#
+#import ./ProductPageFragment.gql
+
+query RouteQuery {
+  route(path: "/bikes") {
+    ...RouteMeta
+    object {
+      ...Head
+      ...ProductPage
+    }
+  }
+}

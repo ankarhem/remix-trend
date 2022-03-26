@@ -1,0 +1,10 @@
+fragment ProductCampaign on Product {
+  campaigns {
+    id
+    name
+    primaryRoute {
+      id
+      path
+    }
+  }
+}

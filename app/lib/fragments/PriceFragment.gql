@@ -1,0 +1,5 @@
+fragment Price on Price {
+  incVat
+  exVat
+  vat
+}

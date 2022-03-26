@@ -1,0 +1,10 @@
+fragment InPackages on Product {
+  inPackages {
+    id
+    name
+    primaryRoute {
+      id
+      path
+    }
+  }
+}

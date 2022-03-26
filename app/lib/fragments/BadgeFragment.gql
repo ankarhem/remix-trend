@@ -1,0 +1,7 @@
+fragment Badge on ProductBadge {
+  name
+  url
+  location
+  style
+  text
+}

@@ -1,0 +1,7 @@
+fragment WarehouseStock on Warehouse {
+  location {
+    id
+    name
+  }
+  stockLevel
+}

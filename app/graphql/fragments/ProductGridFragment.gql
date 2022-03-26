@@ -1,0 +1,38 @@
+#import ~/lib/fragments/ProductPriceFragment.gql
+#import ~/lib/fragments/BadgeFragment.gql
+
+fragment ProductGrid on Product {
+  id
+  articleNumber
+  name
+  subName
+  primaryRoute {
+    id
+    path
+    slug
+  }
+  isPackage
+  ...ProductPrice
+  images(limit: 1) {
+    alt
+    title
+    url
+    modifiedDate
+  }
+  badges {
+    ...Badge
+  }
+  canonicalCategory {
+    primaryRoute {
+      path
+    }
+  }
+  customFields {
+    key
+    type
+    title
+    ... on CustomStringField {
+      stringValue: value
+    }
+  }
+}

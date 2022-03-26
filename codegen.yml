@@ -6,13 +6,13 @@ schema:
         shopid: demostore
         token: 359fd7c1-8e72-4270-b899-2bda9ae6ef57
 # A glob that matches all files that contain operation definitions
-documents: 'app/routes/**/*.{ts,tsx,gql}'
+documents: '{lib,app}/**/*.gql'
 generates:
   # This is the path where the generated types will be stored
   app/graphql/types.ts:
     plugins:
-      - 'typescript'
-      - 'typescript-operations'
+      - typescript
+      - typescript-operations
       - typed-document-node
     config:
       skipTypename: true

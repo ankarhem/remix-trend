@@ -1,0 +1,24 @@
+fragment ProductConfigurations on Product {
+  hasConfigurations
+  configurations {
+    name
+    options {
+      id
+      name
+      price {
+        exVat
+        incVat
+        vat
+      }
+      priceCalculation {
+        formula
+        id
+        name
+        variables {
+          id
+          name
+        }
+      }
+    }
+  }
+}
