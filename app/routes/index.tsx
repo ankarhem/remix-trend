@@ -1,20 +1,13 @@
 import { LoaderFunction, useLoaderData } from 'remix';
 import { sendJetshopRequest } from '~/graphql/jetshop';
+import { RouteQueryDocument } from '~/graphql/types';
 
-const ROUTE_QUERY = /* GraphQL */ `
-  query Route {
-    route(path: "/bikes") {
-      id
-      path
-    }
-  }
-`;
-
-export const loader: LoaderFunction = (args) =>
-  sendJetshopRequest({
+export const loader: LoaderFunction = (args) => {
+  return sendJetshopRequest({
     args: args,
-    query: ROUTE_QUERY,
+    query: RouteQueryDocument,
   });
+};
 
 export default function Index() {
   const { data } = useLoaderData();
