@@ -1,14 +1,25 @@
 #import ~/lib/fragments/RouteMetaFragment.gql
 #import ~/lib/fragments/HeadFragment.gql
 #
-#import ./ProductPageFragment.gql
+#import ~/graphql/fragments/ProductPageFragment.gql
+#import ~/graphql/fragments/ContentPageFragment.gql
+#import ~/graphql/fragments/CategoryPageFragment.gql
 
-query RouteQuery {
-  route(path: "/bikes") {
+query RouteQuery(
+  $path: String!
+  $first: Paging = 16
+  $offset: Int = 0
+  $orderBy: ProductOrderOptions
+  $orderByDirection: SortDirection
+  $filters: FilterInput
+) {
+  route(path: $path) {
     ...RouteMeta
     object {
       ...Head
+      ...CategoryPage
       ...ProductPage
+      ...ContentPage
     }
   }
 }

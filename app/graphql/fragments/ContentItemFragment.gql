@@ -1,0 +1,75 @@
+#import "~lib/fragments/ProductPriceFragment.gql"
+#import "~lib/fragments/BadgeFragment.gql"
+
+fragment ContentItemFragment on ContentItem {
+  type
+  properties(getImageAsImageValue: true) {
+    name
+    type
+    valueType
+    value {
+      ... on ImageValue {
+        value
+        focalPointX
+        focalPointY
+      }
+      ... on Product {
+        ...StartPageProductGrid
+      }
+      ... on Category {
+        ...StartPageCategoryGrid
+      }
+      ... on StringValue {
+        value
+      }
+      ... on BoolValue {
+        # Not sure why this alias is needed
+        boolValue: value
+      }
+    }
+  }
+}
+
+fragment StartPageCategoryGrid on Category {
+  name
+  images {
+    url
+  }
+  primaryRoute {
+    path
+  }
+}
+
+fragment StartPageProductGrid on Product {
+  id
+  articleNumber
+  name
+  subName
+  shortDescription
+  description
+  mainHeader
+  primaryRoute {
+    id
+    path
+    slug
+    breadcrumbs
+  }
+  ...ProductPrice
+  images {
+    modifiedDate
+    alt
+    title
+    url
+  }
+  badges {
+    ...Badge
+  }
+  customFields {
+    key
+    type
+    title
+    ... on CustomStringField {
+      stringValue: value
+    }
+  }
+}

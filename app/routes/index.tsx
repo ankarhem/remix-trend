@@ -3,9 +3,13 @@ import { RouteQueryDocument } from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
 
 export const loader: LoaderFunction = (args) => {
+  const url = new URL(args.request.url);
   return sendJetshopRequest({
     args: args,
     query: RouteQueryDocument,
+    variables: {
+      path: url.pathname,
+    },
   });
 };
 
@@ -15,7 +19,7 @@ export default function Index() {
   console.log(data);
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
-      <h1>Welcome to Remix</h1>
+      <h1>Welcome to the Startpage</h1>
       <ul>
         <li>
           <a
