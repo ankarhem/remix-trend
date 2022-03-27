@@ -1,0 +1,86 @@
+#import ./ProductGridFragment.gql
+#import ./ContentItemFragment.gql
+
+# fragment ContentFragment on Content {
+#   id
+#   items {
+#     ...ContentItemFragment
+#     children {
+#       ...ContentItemFragment
+#     }
+#   }
+# }
+
+fragment CategoryPage on Category {
+  id
+  name
+  content
+  breadcrumbText
+  isDynamic
+  images {
+    width
+    url
+  }
+  # data {
+  #   ...ContentFragment
+  # }
+  products(
+    first: $first
+    offset: $offset
+    filters: $filters
+    orderBy: $orderBy
+    orderByDirection: $orderByDirection
+  ) {
+    sortOrders {
+      text
+      defaultDirection
+      value
+    }
+    filters {
+      id
+      name
+      __typename
+      ... on ListFilter {
+        # hasActiveItems @client
+        items {
+          id
+          text
+          value
+          resultCount
+          # isActive @client
+        }
+      }
+      ... on NumericRangeFilter {
+        id
+        min
+        max
+        name
+        # value @client
+        # isActive @client
+      }
+      ... on BooleanFilter {
+        default
+        # value @client
+      }
+      ... on MultiListFilter {
+        # isActive @client
+        lists {
+          id
+          # hasActiveItems @client
+          name
+          items {
+            id
+            value
+            text
+            resultCount
+            # isActive @client
+          }
+        }
+      }
+    }
+    totalResults
+    result {
+      ...ProductGrid
+    }
+  }
+}
