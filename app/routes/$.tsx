@@ -1,50 +1,35 @@
-import { LoaderFunction, useLoaderData } from 'remix';
-import { RouteQueryDocument } from '~/graphql/types';
-import { sendJetshopRequest } from '~/lib/jetshop';
+import { CatchBoundaryComponent } from '@remix-run/react/routeModules';
+import { LoaderFunction, useLoaderData, useParams } from 'remix';
+import CategoryPage from '~/components/CategoryPage';
+import ContentPage from '~/components/ContentPage';
+import ProductPage from '~/components/ProductPage';
+import { RouteDocument, RouteQuery } from '~/graphql/types';
+import DynamicRoute from '~/lib/components/DynamicRoute';
+import { createRouteLoaderFunction } from '~/lib/loaderFunctions';
 
-export const loader: LoaderFunction = (args) => {
-  const url = new URL(args.request.url);
-  return sendJetshopRequest({
-    args: args,
-    query: RouteQueryDocument,
-    variables: {
-      path: url.pathname,
-    },
-  });
+export const loader: LoaderFunction = createRouteLoaderFunction(RouteDocument);
+
+export const CatchBoundary: CatchBoundaryComponent = () => {
+  const params = useParams();
+  return (
+    <div className='flex flex-col items-center justify-center h-full'>
+      <h1>404</h1>
+      <p>Could not find page {params['*']}</p>
+    </div>
+  );
 };
 
-export default function Index() {
-  const { data } = useLoaderData();
+export default function PageContent() {
+  const data = useLoaderData<RouteQuery>();
+  const route = data?.route;
+  if (!route?.object) return null;
 
-  // console.log(data);
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
-      <h1>Welcome to Remix</h1>
-      <ul>
-        <li>
-          <a
-            target='_blank'
-            href='https://remix.run/tutorials/blog'
-            rel='noreferrer'
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target='_blank'
-            href='https://remix.run/tutorials/jokes'
-            rel='noreferrer'
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a target='_blank' href='https://remix.run/docs' rel='noreferrer'>
-            Remix Docs
-          </a>
-        </li>
-      </ul>
-    </div>
+    <DynamicRoute
+      route={route}
+      categoryPage={CategoryPage}
+      productPage={ProductPage}
+      contentPage={ContentPage}
+    />
   );
 }

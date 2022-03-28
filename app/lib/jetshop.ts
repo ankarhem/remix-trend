@@ -1,3 +1,4 @@
+import { TypedDocumentNode } from '@graphql-typed-document-node/core';
 import { print } from 'graphql';
 import { sendGraphQLRequest } from 'remix-graphql/index.server';
 
@@ -6,11 +7,10 @@ type FuncParams<T extends (args: any) => any> = T extends (args: infer P) => any
   : never;
 
 export const sendJetshopRequest = (
-  props: Omit<FuncParams<typeof sendGraphQLRequest>, 'endpoint'>
-) => {
-  if (typeof props.query !== 'string') {
-    props.query = print(props.query);
+  props: Omit<FuncParams<typeof sendGraphQLRequest>, 'endpoint' | 'query'> & {
+    query: TypedDocumentNode<any, any> | string;
   }
+) => {
   return sendGraphQLRequest({
     ...props,
     endpoint: 'https://storeapi.jetshop.io',
@@ -19,5 +19,6 @@ export const sendJetshopRequest = (
       shopid: 'demostore',
       ...props.headers,
     },
+    query: typeof props.query === 'string' ? props.query : print(props.query),
   });
 };

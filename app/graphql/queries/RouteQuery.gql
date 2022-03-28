@@ -5,7 +5,7 @@
 #import ~/graphql/fragments/ContentPageFragment.gql
 #import ~/graphql/fragments/CategoryPageFragment.gql
 
-query RouteQuery(
+query Route(
   $path: String!
   $first: Paging = 16
   $offset: Int = 0
@@ -16,6 +16,7 @@ query RouteQuery(
   route(path: $path) {
     ...RouteMeta
     object {
+      __typename
       ...Head
       ...CategoryPage
       ...ProductPage

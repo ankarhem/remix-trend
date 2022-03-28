@@ -1,12 +1,13 @@
 import { LoaderFunction, useLoaderData } from 'remix';
-import { RouteQueryDocument } from '~/graphql/types';
+import { RouteDocument } from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
 
 export const loader: LoaderFunction = (args) => {
   const url = new URL(args.request.url);
+
   return sendJetshopRequest({
     args: args,
-    query: RouteQueryDocument,
+    query: RouteDocument,
     variables: {
       path: url.pathname,
     },
