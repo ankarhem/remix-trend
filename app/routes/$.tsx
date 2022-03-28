@@ -25,11 +25,14 @@ export default function PageContent() {
   if (!route?.object) return null;
 
   return (
-    <DynamicRoute
-      route={route}
-      categoryPage={CategoryPage}
-      productPage={ProductPage}
-      contentPage={ContentPage}
-    />
+    <>
+      <DynamicRoute
+        route={route}
+        categoryPage={CategoryPage}
+        productPage={ProductPage}
+        contentPage={ContentPage}
+      />
+      <pre className='text-xs'>{JSON.stringify(route.object, null, 2)}</pre>
+    </>
   );
 }

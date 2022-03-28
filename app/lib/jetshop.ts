@@ -11,11 +11,17 @@ export const sendJetshopRequest = (
     query: TypedDocumentNode<any, any> | string;
   }
 ) => {
+  const token = process.env.STOREAPI_TOKEN;
+
+  if (!token) {
+    throw new Error('STOREAPI_TOKEN is not set');
+  }
+
   return sendGraphQLRequest({
     ...props,
     endpoint: 'https://storeapi.jetshop.io',
     headers: {
-      token: '359fd7c1-8e72-4270-b899-2bda9ae6ef57',
+      token: token,
       shopid: 'demostore',
       ...props.headers,
     },
