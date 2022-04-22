@@ -13,9 +13,9 @@ function ProductPage({ product }: Props) {
   return (
     <div className='container flex flex-col mx-auto mt-12 mb-8 gap-12'>
       <div className='flex gap-12'>
-        <div className='basis-full'>
+        <div className='basis-full bg-white flex items-center justify-center'>
           <img
-            className='object-contain'
+            className='object-contain max-h-[600px] min-h-[500px]'
             src={product.images?.[0]?.url}
             alt={product.images?.[0]?.alt ?? product.name}
           />
