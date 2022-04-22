@@ -15,7 +15,7 @@ function ProductPage({ product }: Props) {
       <div className='flex gap-12'>
         <div className='basis-full bg-white flex items-center justify-center'>
           <img
-            className='object-contain max-h-[600px] min-h-[500px]'
+            className='object-contain max-h-[600px] min-h-[500px] p-8'
             src={product.images?.[0]?.url}
             alt={product.images?.[0]?.alt ?? product.name}
           />
@@ -41,7 +41,7 @@ function ProductPage({ product }: Props) {
           </div>
 
           <form>
-            <button className='text-blue-50 bg-blue-400 hover:bg-blue-500 w-96 py-3 rounded'>
+            <button className='text-blue-50 bg-blue-400 hover:bg-blue-500 w-96 py-3 rounded focus:ring focus:ring-blue-400 active:ring-blue-500 ring-offset-2 focus:outline-none'>
               Add to cart
             </button>
           </form>

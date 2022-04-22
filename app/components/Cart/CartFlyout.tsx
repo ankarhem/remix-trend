@@ -1,5 +1,4 @@
 import { Dialog, Transition } from '@headlessui/react';
-import React from 'react';
 
 type Props = {
   isOpen: boolean;
