@@ -10,8 +10,6 @@ type Props = {
 function ProductPage({ product }: Props) {
   if (!product) return null;
 
-  console.log(product.relatedProducts);
-
   return (
     <div className='container flex flex-col mx-auto mt-12 mb-8 gap-12'>
       <div className='flex gap-12'>

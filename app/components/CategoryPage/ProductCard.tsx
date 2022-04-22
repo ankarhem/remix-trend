@@ -13,15 +13,9 @@ function ProductCard({ product }: Props) {
     <div className='bg-white shadow-lg rounded-lg overflow-hidden my-10 hover:shadow-xl'>
       <a href={product.primaryRoute?.path}>
         <div className='px-4 py-2'>
-          <h1 className='text-gray-900 font-bold text-3xl uppercase text-center'>
+          <h1 className='text-gray-900 font-bold text-3xl uppercase text-center whitespace-nowrap text-ellipsis overflow-hidden'>
             {product?.name}
           </h1>
-          {/* <div
-          className='text-gray-500 text-sm mt-1'
-          dangerouslySetInnerHTML={{
-            __html: product.description,
-          }}
-        /> */}
         </div>
         <img
           className='h-56 w-full object-contain my-4'

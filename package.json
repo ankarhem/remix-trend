@@ -14,6 +14,7 @@
     "generate": "pnpm graphql-codegen --config codegen.js"
   },
   "dependencies": {
+    "@headlessui/react": "^1.5.0",
     "@remix-run/react": "^1.3.3",
     "@remix-run/serve": "^1.3.3",
     "dotenv": "^16.0.0",
