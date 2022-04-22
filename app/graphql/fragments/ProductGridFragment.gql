@@ -6,6 +6,7 @@ fragment ProductGrid on Product {
   articleNumber
   name
   subName
+  # description
   primaryRoute {
     id
     path

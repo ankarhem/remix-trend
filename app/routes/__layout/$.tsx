@@ -32,7 +32,7 @@ export default function PageContent() {
         productPage={ProductPage}
         contentPage={ContentPage}
       />
-      <pre className='text-xs'>{JSON.stringify(route.object, null, 2)}</pre>
+      {/* <pre className='text-xs'>{JSON.stringify(route.object, null, 2)}</pre> */}
     </>
   );
 }

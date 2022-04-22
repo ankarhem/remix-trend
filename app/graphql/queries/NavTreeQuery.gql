@@ -1,0 +1,25 @@
+query NavTree($root: Int, $levels: Int, $includeHidden: Boolean) {
+  categories(root: $root, levels: $levels, includeHidden: $includeHidden) {
+    id
+    ...categoriesWithSubcategories
+  }
+}
+
+fragment categoriesWithSubcategories on Category {
+  ...CategoryDetail
+  subcategories {
+    ...CategoryDetail
+  }
+}
+
+fragment CategoryDetail on Category {
+  id
+  name
+  level
+  parentId
+  hasSubcategories
+  primaryRoute {
+    id
+    path
+  }
+}
