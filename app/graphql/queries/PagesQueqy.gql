@@ -1,0 +1,19 @@
+query Pages {
+  pages {
+    name
+    id
+    primaryRoute {
+      id
+      path
+    }
+
+    subPages {
+      id
+      name
+      primaryRoute {
+        id
+        path
+      }
+    }
+  }
+}

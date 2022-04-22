@@ -3,7 +3,7 @@ import { NavTreeQuery } from '~/graphql/types';
 import UspBar from '../UspBar';
 
 type Props = {
-  navTree: NavTreeQuery;
+  navTree: NavTreeQuery['categories'];
 };
 
 function Header({ navTree }: Props) {
@@ -18,7 +18,7 @@ function Header({ navTree }: Props) {
 
         <nav className='px-4'>
           <ul className='flex gap-4'>
-            {navTree?.categories?.map((category) => {
+            {navTree?.map((category) => {
               if (!category?.primaryRoute) return null;
 
               return (

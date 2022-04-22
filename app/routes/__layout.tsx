@@ -1,26 +1,45 @@
 import { Outlet, useLoaderData } from '@remix-run/react';
 import { json, LoaderFunction } from 'remix';
+import Footer from '~/components/Footer';
 import Header from '~/components/Header';
-import { NavTreeDocument, NavTreeQuery } from '~/graphql/types';
+import {
+  NavTreeDocument,
+  NavTreeQuery,
+  PagesDocument,
+  PagesQuery,
+} from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
 
 type LayoutQueries = {
   navTree: NavTreeQuery;
+  pages: PagesQuery;
 };
 
 export const loader: LoaderFunction = async (args) => {
-  const navTreeResult = await sendJetshopRequest({
-    args: args,
-    query: NavTreeDocument,
-    variables: {
-      levels: 1,
-      includeHidden: false,
-    },
-  });
+  const [navTreeResult, pagesResult] = await Promise.all([
+    sendJetshopRequest({
+      args: args,
+      query: NavTreeDocument,
+      variables: {
+        levels: 1,
+        includeHidden: false,
+      },
+    }),
+    sendJetshopRequest({
+      args: args,
+      query: PagesDocument,
+      variables: {
+        levels: 1,
+        includeHidden: false,
+      },
+    }),
+  ]);
   const navTree = await navTreeResult.json();
+  const pages = await pagesResult.json();
 
   return json({
     navTree: navTree.data,
+    pages: pages.data,
   });
 };
 
@@ -29,8 +48,11 @@ export default function Root() {
 
   return (
     <>
-      <Header navTree={data.navTree} />
-      <Outlet />
+      <Header navTree={data.navTree.categories} />
+      <main className='flex flex-1 flex-col'>
+        <Outlet />
+      </main>
+      <Footer pages={data.pages.pages} />
     </>
   );
 }
