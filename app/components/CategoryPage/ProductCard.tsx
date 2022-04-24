@@ -17,7 +17,7 @@ function ProductCard({ product }: Props) {
         className='group'
         prefetch='intent'
       >
-        <h1 className='text-gray-900 font-bold text-2xl uppercase text-center whitespace-nowrap text-ellipsis overflow-hidden px-4 py-2 hover:text-blue-400'>
+        <h1 className='text-gray-900 text-2xl text-center whitespace-nowrap text-ellipsis overflow-hidden px-4 py-2 hover:text-blue-400'>
           {product?.name}
         </h1>
         <img
@@ -31,7 +31,7 @@ function ProductCard({ product }: Props) {
           <Price price={product.price} />
         </span>
         <button className='px-3 py-1 bg-gray-100 hover:bg-gray-200 text-sm text-gray-700 font-semibold rounded focus:outline-none focus:ring focus:ring-gray-100 ring-offset-2 ring-offset-blue-400'>
-          Add to card
+          Add to cart
         </button>
       </div>
     </div>

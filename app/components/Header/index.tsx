@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'remix';
+import { Link, NavLink } from 'remix';
 import { NavTreeQuery } from '~/graphql/types';
 import CartFlyout from '../Cart/CartFlyout';
 import UspBar from '../UspBar';
@@ -29,9 +29,15 @@ function Header({ navTree }: Props) {
 
                 return (
                   <li key={category.id} className='hover:text-blue-400'>
-                    <Link to={category?.primaryRoute.path} prefetch='intent'>
+                    <NavLink
+                      to={category?.primaryRoute.path}
+                      prefetch='intent'
+                      className={({ isActive }) =>
+                        isActive ? 'font-bold' : ''
+                      }
+                    >
                       {category.name}
-                    </Link>
+                    </NavLink>
                   </li>
                 );
               })}

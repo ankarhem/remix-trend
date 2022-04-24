@@ -21,8 +21,6 @@ function Pagination({ totalResults }: Props) {
     pageSize: PAGE_SIZE,
   });
 
-  console.log(totalPages);
-
   return (
     <nav className='grid grid-cols-3 mb-8'>
       <span
