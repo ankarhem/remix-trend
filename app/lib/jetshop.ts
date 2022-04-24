@@ -1,10 +1,7 @@
 import { TypedDocumentNode } from '@graphql-typed-document-node/core';
 import { print } from 'graphql';
 import { sendGraphQLRequest } from 'remix-graphql/index.server';
-
-type FuncParams<T extends (args: any) => any> = T extends (args: infer P) => any
-  ? P
-  : never;
+import { FuncParams } from './utils/types';
 
 export const sendJetshopRequest = (
   props: Omit<FuncParams<typeof sendGraphQLRequest>, 'endpoint' | 'query'> & {

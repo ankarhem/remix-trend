@@ -7,7 +7,12 @@ import { RouteDocument, RouteQuery } from '~/graphql/types';
 import DynamicRoute from '~/lib/components/DynamicRoute';
 import { createRouteLoaderFunction } from '~/lib/loaderFunctions';
 
-export const loader: LoaderFunction = createRouteLoaderFunction(RouteDocument);
+export const loader: LoaderFunction = createRouteLoaderFunction({
+  query: RouteDocument,
+  variables: {
+    pageSize: 24,
+  },
+});
 
 export const CatchBoundary: CatchBoundaryComponent = () => {
   const params = useParams();

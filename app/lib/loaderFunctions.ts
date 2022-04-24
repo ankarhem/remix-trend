@@ -1,18 +1,30 @@
-import { TypedDocumentNode } from '@graphql-typed-document-node/core';
 import { LoaderFunction, redirect } from 'remix';
 import { sendJetshopRequest } from './jetshop';
+import { FuncParams } from './utils/types';
 
 export const createRouteLoaderFunction =
-  (RouteDocument: TypedDocumentNode<any, any> | string): LoaderFunction =>
+  (
+    props: Pick<FuncParams<typeof sendJetshopRequest>, 'query'> & {
+      variables: {
+        pageSize: number;
+      };
+    }
+  ): LoaderFunction =>
   async (args) => {
     const url = new URL(args.request.url);
     const pathname = url.pathname;
+
+    const page = parseInt(url.searchParams.get('page') || '1');
+    const first = page * props.variables.pageSize;
+    const offset = (page - 1) * props.variables.pageSize;
+
     const response = await sendJetshopRequest({
       args: args,
-      query: RouteDocument,
+      query: props.query,
       variables: {
         path: url.pathname,
-        paths: url.pathname,
+        first: first,
+        offset: offset,
       },
     });
     const result = await response.json();

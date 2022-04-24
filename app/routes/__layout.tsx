@@ -15,6 +15,8 @@ type LayoutQueries = {
   pages: PagesQuery;
 };
 
+export const PAGE_SIZE = 24;
+
 export const loader: LoaderFunction = async (args) => {
   const [navTreeResult, pagesResult] = await Promise.all([
     sendJetshopRequest({
@@ -37,10 +39,18 @@ export const loader: LoaderFunction = async (args) => {
   const navTree = await navTreeResult.json();
   const pages = await pagesResult.json();
 
-  return json({
-    navTree: navTree.data,
-    pages: pages.data,
-  });
+  return json(
+    {
+      navTree: navTree.data,
+      pages: pages.data,
+    },
+    {
+      headers: {
+        // 1 minute cache
+        // 'Cache-Control': 'public, max-age=60',
+      },
+    }
+  );
 };
 
 export default function Root() {
