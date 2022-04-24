@@ -1,6 +1,8 @@
+import toast from 'react-hot-toast';
 import { useFetcher } from 'remix';
 import { RouteProduct } from '~/utils/types';
 import ProductGrid from './CategoryPage/ProductGrid';
+import Cross from './Icons/Cross';
 import Price from './Price';
 
 type Props = {
@@ -17,6 +19,29 @@ function ProductPage({ product }: Props) {
       { articleNumber: product.articleNumber },
       { method: 'post', action: '/cart-summary' }
     );
+    toast.custom((t) => (
+      <div
+        className={`flex gap-6 transition bg-white px-6 py-4 shadow-md rounded ${
+          t.visible ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        <img
+          className='h-24 w-24 object-contain'
+          src={product.images?.[0]?.url}
+          alt={product.images?.[0]?.alt ?? product.name}
+        />
+        <div>
+          <h2 className='font-bold'>Added to cart</h2>
+          <span className='text-gray-600 text-sm'>{product.name}</span>
+        </div>
+        <button
+          onClick={() => toast.dismiss(t.id)}
+          className='flex align-start'
+        >
+          <Cross className='w-6 h-6' />
+        </button>
+      </div>
+    ));
   };
 
   return (

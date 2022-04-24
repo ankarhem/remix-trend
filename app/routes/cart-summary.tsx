@@ -1,15 +1,16 @@
 import { ActionFunction, json, LoaderFunction, useLoaderData } from 'remix';
-import { v4 as uuid } from 'uuid';
 import { cartIdCookie } from '~/cookies';
-import { AddToCartDocument, CartDocument, CartQuery } from '~/graphql/types';
+import {
+  AddToCartDocument,
+  AddToCartMutation,
+  CartDocument,
+  CartQuery,
+} from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
 
 export const loader: LoaderFunction = async (args) => {
   const cookieHeader = args.request.headers.get('Cookie');
-  const cartId =
-    'b8a7ca1a-48a0-4728-a831-34643d2fb634' ||
-    (await cartIdCookie.parse(cookieHeader)) ||
-    uuid();
+  const cartId = await cartIdCookie.parse(cookieHeader);
 
   const cartResult = await sendJetshopRequest({
     args: args,
@@ -20,43 +21,54 @@ export const loader: LoaderFunction = async (args) => {
   });
 
   const cart = await cartResult.json();
+  const data: CartQuery = cart.data;
 
-  return json(
-    {
-      cart: {
-        ...cart.data.cart,
-        id: cartId,
-      },
+  if (!data.cart?.id) {
+    return json(data.cart);
+  }
+
+  return json(data.cart, {
+    headers: {
+      'Set-Cookie': await cartIdCookie.serialize(data.cart.id),
+      Vary: 'Cookie',
     },
-    {
-      headers: {
-        'Set-Cookie': await cartIdCookie.serialize(cartId),
-        Vary: 'Cookie',
-      },
-    }
-  );
+  });
 };
 
 export const action: ActionFunction = async (args) => {
   const cookieHeader = args.request.headers.get('Cookie');
-  const cartId =
-    'b8a7ca1a-48a0-4728-a831-34643d2fb634' ||
-    (await cartIdCookie.parse(cookieHeader)) ||
-    uuid();
+  const cartId = await cartIdCookie.parse(cookieHeader);
   const body = await args.request.formData();
 
-  const cart = sendJetshopRequest({
+  const cartResult = await sendJetshopRequest({
     args: args,
     query: AddToCartDocument,
     variables: {
       input: {
-        cartId: cartId,
+        cartId: cartId ?? undefined,
         articleNumber: body.get('articleNumber'),
       },
     },
   });
 
-  return cart;
+  const cart = await cartResult.json();
+  const data: AddToCartMutation = cart.data;
+
+  const newCartId = data.addToCart?.cart?.id;
+  console.log(newCartId);
+
+  if (!newCartId) {
+    throw new Response('Bad Request', {
+      status: 400,
+    });
+  }
+
+  return json(data.addToCart?.cart, {
+    headers: {
+      'Set-Cookie': await cartIdCookie.serialize(newCartId),
+      Vary: 'Cookie',
+    },
+  });
 };
 
 function Cart() {

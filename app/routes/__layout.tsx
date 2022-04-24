@@ -1,12 +1,13 @@
 import { Outlet } from '@remix-run/react';
+import { Toaster } from 'react-hot-toast';
 import { json, LoaderFunction } from 'remix';
-import { v4 as uuid } from 'uuid';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import { cartIdCookie } from '~/cookies';
 import {
   CartDocument,
   CartQuery,
+  // CartQuery,
   NavTreeDocument,
   NavTreeQuery,
   PagesDocument,
@@ -24,7 +25,7 @@ export const PAGE_SIZE = 24;
 
 export const loader: LoaderFunction = async (args) => {
   const cookieHeader = args.request.headers.get('Cookie');
-  const cartId = (await cartIdCookie.parse(cookieHeader)) || uuid();
+  const cartIdInCookie = await cartIdCookie.parse(cookieHeader);
 
   const [navTreeResult, pagesResult, cartResult] = await Promise.all([
     sendJetshopRequest({
@@ -47,7 +48,7 @@ export const loader: LoaderFunction = async (args) => {
       args: args,
       query: CartDocument,
       variables: {
-        cartId: cartId,
+        cartId: cartIdInCookie || '498954d6-a89b-4360-aa1b-a8e2a543c8fc',
       },
     }),
   ]);
@@ -81,6 +82,11 @@ export default function Root() {
         <Outlet />
       </main>
       <Footer />
+      <Toaster
+        position='top-right'
+        containerStyle={{ top: '48px' }}
+        toastOptions={{ duration: 1500 }}
+      />
     </>
   );
 }
