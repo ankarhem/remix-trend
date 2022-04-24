@@ -20,7 +20,7 @@ function Footer({ pages }: Props) {
               return (
                 <li
                   key={page.id}
-                  className='mb-4 text-gray-500 hover:text-blue-400 transition-colors duration-200'
+                  className='mb-2 text-gray-500 hover:text-blue-400 transition-colors duration-200'
                 >
                   <Link to={page.primaryRoute.path} prefetch='intent'>
                     {page.name}
@@ -49,7 +49,7 @@ function Footer({ pages }: Props) {
               <input
                 type='text'
                 id='"form-subscribe-Subscribe'
-                className=' rounded-lg border-transparent flex-1 appearance-none border border-gray-300  w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2 focus:border-transparent'
+                className='rounded-lg border-transparent flex-1 appearance-none border border-gray-300  w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2'
                 placeholder='Email'
               />
             </div>

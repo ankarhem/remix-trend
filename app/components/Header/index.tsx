@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, NavLink } from 'remix';
 import { NavTreeQuery } from '~/graphql/types';
 import CartButton from '../Cart/CartButton';
-import CartFlyout from '../Cart/CartFlyout';
 import UspBar from '../UspBar';
 
 type Props = {
@@ -10,7 +9,6 @@ type Props = {
 };
 
 function Header({ navTree }: Props) {
-  const [cartOpen, setCartOpen] = useState(false);
   return (
     <>
       <header className='sticky top-0'>
@@ -45,11 +43,10 @@ function Header({ navTree }: Props) {
             </ul>
           </nav>
           <div className='ml-auto mr-8 flex items-center'>
-            <CartButton cartOpen={cartOpen} setCartOpen={setCartOpen} />
+            <CartButton />
           </div>
         </div>
       </header>
-      <CartFlyout isOpen={cartOpen} onClose={() => setCartOpen(false)} />
     </>
   );
 }

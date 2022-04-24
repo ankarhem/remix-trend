@@ -1,28 +1,20 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { useEffect } from 'react';
-import { useFetcher } from 'remix';
+import { Link } from 'remix';
 import { CartQuery } from '~/graphql/types';
 import Cross from '../Icons/Cross';
 import Price from '../Price';
 
 type Props = {
-  isOpen: boolean;
+  cart: CartQuery['cart'];
+  open: boolean;
   onClose: () => void;
 };
 
-function CartFlyout({ isOpen, onClose }: Props) {
-  const fetcher = useFetcher<CartQuery>();
-
-  useEffect(() => {
-    if (fetcher.type === 'init') {
-      fetcher.load('/cart-summary');
-    }
-  }, [fetcher]);
-
+function CartFlyout({ cart, open, onClose }: Props) {
   return (
-    <Transition show={isOpen}>
+    <Transition show={open}>
       <Dialog
-        open={isOpen}
+        open={open}
         onClose={onClose}
         className='fixed z-10 inset-0 overflow-y-auto'
       >
@@ -59,9 +51,9 @@ function CartFlyout({ isOpen, onClose }: Props) {
               <hr className='mx-6 border-gray-100/80' />
 
               <>
-                {fetcher.data ? (
+                {cart ? (
                   <ul className='grid grid-cols-1 mx-6'>
-                    {fetcher.data.cart?.items?.map((item) => {
+                    {cart?.items?.map((item) => {
                       if (!item || !item.product) return null;
 
                       const product = item.product;
@@ -77,7 +69,14 @@ function CartFlyout({ isOpen, onClose }: Props) {
                           />
                           <div className='grid'>
                             <div>
-                              <h2>{product.name}</h2>
+                              <Link
+                                className='hover:text-blue-400'
+                                to={product.primaryRoute?.path || '#'}
+                                prefetch='intent'
+                                onClick={onClose}
+                              >
+                                <h2>{product.name}</h2>
+                              </Link>
                               <span className='text-gray-600 text-sm'>
                                 {product.articleNumber}
                               </span>
