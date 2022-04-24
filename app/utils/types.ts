@@ -14,3 +14,8 @@ export type RoutePage = Extract<
   NonNullable<RouteQuery['route']>['object'],
   { __typename: 'Page' }
 >;
+
+export type RouteStartPage = Extract<
+  NonNullable<RouteQuery['route']>['object'],
+  { __typename: 'StartPage' }
+>;

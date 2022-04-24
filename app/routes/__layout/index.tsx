@@ -1,50 +1,31 @@
-import { LoaderFunction, useLoaderData } from 'remix';
-import { RouteDocument } from '~/graphql/types';
+import { json, LoaderFunction, useLoaderData } from 'remix';
+import { RouteDocument, RouteQuery } from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
 
-export const loader: LoaderFunction = (args) => {
+export const loader: LoaderFunction = async (args) => {
   const url = new URL(args.request.url);
 
-  return sendJetshopRequest({
+  const routeResult = await sendJetshopRequest({
     args: args,
     query: RouteDocument,
     variables: {
       path: url.pathname,
     },
   });
+
+  const route = await routeResult.json();
+
+  return json({
+    route: route.data.route,
+  });
 };
 
 export default function Index() {
-  const { data } = useLoaderData();
+  const route = useLoaderData<RouteQuery['route']>();
+  // just to help types, won't actually trigger
+  if (!(route?.object?.__typename === 'StartPage')) return null;
 
-  return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
-      <h1>Welcome to the Startpage</h1>
-      <ul>
-        <li>
-          <a
-            target='_blank'
-            href='https://remix.run/tutorials/blog'
-            rel='noreferrer'
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target='_blank'
-            href='https://remix.run/tutorials/jokes'
-            rel='noreferrer'
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a target='_blank' href='https://remix.run/docs' rel='noreferrer'>
-            Remix Docs
-          </a>
-        </li>
-      </ul>
-    </div>
-  );
+  const startPage = route?.object;
+
+  return null;
 }

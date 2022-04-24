@@ -21,7 +21,6 @@ function ProductCard({ product }: Props) {
           {product?.name}
         </h1>
         <img
-          loading='lazy'
           className='h-56 w-full object-contain my-4 group-hover:scale-110 transition'
           src={product.images?.[0]?.url ? product.images[0]?.url : undefined}
           alt={product.images?.[0]?.alt ? product.images[0]?.alt : product.name}

@@ -1,0 +1,43 @@
+fragment StartPage on StartPage {
+  head {
+    title
+    metaTags {
+      name
+      content
+    }
+  }
+  primaryRoute {
+    canonicalPath
+    alternateRoutes {
+      channelId
+      culture
+      route
+      alias
+    }
+  }
+  isActive
+  breadcrumbText
+  name
+  content
+  images {
+    url
+    width
+    title
+    height
+  }
+  data {
+    id
+    items {
+      children {
+        ...ContentItemFragment
+        children {
+          ...ContentItemFragment
+          children {
+            ...ContentItemFragment
+          }
+        }
+      }
+      ...ContentItemFragment
+    }
+  }
+}

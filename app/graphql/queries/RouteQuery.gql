@@ -4,6 +4,7 @@
 #import ~/graphql/fragments/ProductPageFragment.gql
 #import ~/graphql/fragments/ContentPageFragment.gql
 #import ~/graphql/fragments/CategoryPageFragment.gql
+#import ~/graphql/fragments/StartPageFragment.gql
 
 query Route(
   $path: String!
@@ -21,6 +22,7 @@ query Route(
       ...CategoryPage
       ...ProductPage
       ...ContentPage
+      ...StartPage
     }
   }
 }
