@@ -1,0 +1,7 @@
+#import ~/lib/fragments/CartCoreFragment.gql
+
+query Cart($cartId: String) {
+  cart(id: $cartId) {
+    ...CartCoreFragment
+  }
+}

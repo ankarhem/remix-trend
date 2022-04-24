@@ -5,9 +5,10 @@ interface PriceProps {
   price?: NonNullable<
     NonNullable<RouteCategory['products']>['result'][number]
   >['price'];
+  quantity?: number;
 }
 
-const Price = ({ price }: PriceProps) => {
+const Price = ({ price, quantity = 1 }: PriceProps) => {
   if (!price) return null;
   const culture = 'sv-SE';
   const currency = 'SEK';
@@ -18,7 +19,7 @@ const Price = ({ price }: PriceProps) => {
         style: 'currency',
         currency: currency,
         // maximumFractionDigits: 1,
-      }).format(price?.incVat)}
+      }).format(price?.incVat * quantity)}
     </>
   );
 };

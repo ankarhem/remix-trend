@@ -1,4 +1,3 @@
-import React from 'react';
 import { RouteProduct } from '~/utils/types';
 import ProductGrid from './CategoryPage/ProductGrid';
 import Price from './Price';

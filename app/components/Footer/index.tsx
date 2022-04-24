@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'remix';
 import { PagesQuery } from '~/graphql/types';
 
 type Props = {
@@ -7,11 +8,7 @@ type Props = {
 
 function Footer({ pages }: Props) {
   return (
-    // shadow-[0_0_35px_0_rgba(0,0,0,0.05)]
     <footer className='bg-white mt-6 pt-4 pb-8 xl:pt-8'>
-      {/* <ul>
-
-              </ul> */}
       <div className='container grid mx-auto grid-cols-3 pb-20'>
         <section>
           <h2 className='text-gray-700 text-md uppercase mb-4 font-bold'>
@@ -25,7 +22,9 @@ function Footer({ pages }: Props) {
                   key={page.id}
                   className='mb-4 text-gray-500 hover:text-blue-400 transition-colors duration-200'
                 >
-                  <a href={page.primaryRoute.path}>{page.name}</a>
+                  <Link to={page.primaryRoute.path} prefetch='intent'>
+                    {page.name}
+                  </Link>
                 </li>
               );
             })}

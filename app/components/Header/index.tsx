@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'remix';
 import { NavTreeQuery } from '~/graphql/types';
+import CartButton from '../Cart/CartButton';
 import CartFlyout from '../Cart/CartFlyout';
 import UspBar from '../UspBar';
 
@@ -44,17 +45,7 @@ function Header({ navTree }: Props) {
             </ul>
           </nav>
           <div className='ml-auto mr-8 flex items-center'>
-            <button onClick={() => setCartOpen(!cartOpen)}>
-              <svg fill='none' viewBox='0 0 24 24' className='w-6 h-6'>
-                <path
-                  d='M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18m-5 4a4 4 0 11-8 0'
-                  stroke='currentColor'
-                  strokeLinecap='round'
-                  strokeLinejoin='round'
-                  strokeWidth='1.5'
-                ></path>
-              </svg>
-            </button>
+            <CartButton cartOpen={cartOpen} setCartOpen={setCartOpen} />
           </div>
         </div>
       </header>
