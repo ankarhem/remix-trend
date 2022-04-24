@@ -14,6 +14,7 @@ fragment ContentFragment on Content {
 fragment CategoryPage on Category {
   id
   name
+  mainHeader
   content
   breadcrumbText
   isDynamic

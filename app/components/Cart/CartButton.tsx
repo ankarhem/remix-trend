@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useFetcher } from 'remix';
+import { useFetcher, useLoaderData } from 'remix';
 import { CartQuery } from '~/graphql/types';
+import { LayoutQueries } from '~/routes/__layout';
 import CartFlyout from './CartFlyout';
 
 function CartButton() {
   const [open, setOpen] = useState(false);
+  const { cart } = useLoaderData<LayoutQueries>();
   const fetcher = useFetcher<CartQuery>();
-  const cart = fetcher.data?.cart;
 
   useEffect(() => {
+    console.log(fetcher.type, fetcher.data);
+
     if (fetcher.type === 'init') {
       fetcher.load('/cart-summary');
     }

@@ -1,4 +1,5 @@
-import { LoaderFunction, redirect } from 'remix';
+import { json, LoaderFunction, redirect } from 'remix';
+import { RouteQuery } from '~/graphql/types';
 import { sendJetshopRequest } from './jetshop';
 import { FuncParams } from './utils/types';
 
@@ -29,17 +30,19 @@ export const createRouteLoaderFunction =
     });
     const result = await response.json();
 
+    const data: RouteQuery = result.data;
+
     // If the path is not found, redirect to the 404 page.
-    if (!result.data.route) {
+    if (!data.route) {
       throw new Response('Not Found', {
         status: 404,
       });
     }
 
     // If the path is a redirect, redirect to the target.
-    if ((result?.data?.route?.path ?? pathname) !== pathname) {
-      redirect(result.data.route.path);
+    if ((data?.route?.path ?? pathname) !== pathname) {
+      redirect(data.route.path);
     }
 
-    return result.data;
+    return json(data);
   };

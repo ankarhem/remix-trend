@@ -38,12 +38,12 @@ function CartFlyout({ cart, open, onClose }: Props) {
             leaveTo='opacity-0 translate-x-full'
             className='fixed right-0 top-0 bottom-0 w-96'
           >
-            <div className='relative bg-white h-full py-4 px-6 flex flex-col'>
+            <div className='relative bg-white h-full py-4 flex flex-col px-6'>
               <div className='grid grid-cols-3 items-center mb-6'>
                 <Dialog.Title className='text-xl text-center text-gray-900 col-start-2'>
                   Cart
                 </Dialog.Title>
-                <button onClick={onClose} className='justify-self-end mr-6'>
+                <button onClick={onClose} className='justify-self-end'>
                   <Cross className='w-6 h-6' />
                 </button>
               </div>
@@ -53,7 +53,7 @@ function CartFlyout({ cart, open, onClose }: Props) {
               <>
                 {cart ? (
                   <>
-                    <ul className='flex flex-col mb-6 flex-1 overflow-auto'>
+                    <ul className='flex flex-col mb-6 flex-1 overflow-auto -mx-6 px-6'>
                       {cart?.items?.map((item) => {
                         if (!item || !item.product) return null;
 

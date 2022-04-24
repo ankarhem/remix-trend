@@ -1,3 +1,4 @@
+import { useFetcher } from 'remix';
 import { RouteProduct } from '~/utils/types';
 import ProductGrid from './CategoryPage/ProductGrid';
 import Price from './Price';
@@ -7,7 +8,16 @@ type Props = {
 };
 
 function ProductPage({ product }: Props) {
+  const fetcher = useFetcher();
+
   if (!product) return null;
+
+  const handleAddToCart = async () => {
+    const result = await fetcher.submit(
+      { articleNumber: product.articleNumber },
+      { method: 'post', action: '/cart-summary' }
+    );
+  };
 
   return (
     <div className='container flex flex-col mx-auto mt-12 mb-8 gap-12'>
@@ -39,11 +49,12 @@ function ProductPage({ product }: Props) {
             <Price price={product.price} />
           </div>
 
-          <form>
-            <button className='text-blue-50 bg-blue-400 hover:bg-blue-500 w-96 py-3 rounded focus:ring focus:ring-blue-400 active:ring-blue-500 ring-offset-2 focus:outline-none'>
-              Add to cart
-            </button>
-          </form>
+          <button
+            onClick={handleAddToCart}
+            className='text-blue-50 bg-blue-400 hover:bg-blue-500 w-96 py-3 rounded focus:ring focus:ring-blue-400 active:ring-blue-500 ring-offset-2 focus:outline-none'
+          >
+            Add to cart
+          </button>
         </div>
       </div>
 

@@ -1,14 +1,10 @@
-import React from 'react';
-import { Link, NavLink } from 'remix';
-import { NavTreeQuery } from '~/graphql/types';
+import { Link, NavLink, useLoaderData } from 'remix';
+import { LayoutQueries } from '~/routes/__layout';
 import CartButton from '../Cart/CartButton';
 import UspBar from '../UspBar';
 
-type Props = {
-  navTree: NavTreeQuery['categories'];
-};
-
-function Header({ navTree }: Props) {
+function Header() {
+  const { navTree } = useLoaderData<LayoutQueries>();
   return (
     <>
       <header className='sticky top-0'>

@@ -4,6 +4,7 @@ fragment ContentPage on Page {
     path
   }
   name
+  mainHeader
   # Need to alias this field because the api
   # returns inconsistent field type int / id type
   pageId: id

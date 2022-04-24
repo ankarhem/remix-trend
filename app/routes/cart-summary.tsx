@@ -1,8 +1,7 @@
-import React from 'react';
-import { json, LoaderFunction, useLoaderData } from 'remix';
+import { ActionFunction, json, LoaderFunction, useLoaderData } from 'remix';
 import { v4 as uuid } from 'uuid';
 import { cartIdCookie } from '~/cookies';
-import { CartDocument, CartQuery } from '~/graphql/types';
+import { AddToCartDocument, CartDocument, CartQuery } from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
 
 export const loader: LoaderFunction = async (args) => {
@@ -38,12 +37,32 @@ export const loader: LoaderFunction = async (args) => {
   );
 };
 
+export const action: ActionFunction = async (args) => {
+  const cookieHeader = args.request.headers.get('Cookie');
+  const cartId =
+    'b8a7ca1a-48a0-4728-a831-34643d2fb634' ||
+    (await cartIdCookie.parse(cookieHeader)) ||
+    uuid();
+  const body = await args.request.formData();
+
+  const cart = sendJetshopRequest({
+    args: args,
+    query: AddToCartDocument,
+    variables: {
+      input: {
+        cartId: cartId,
+        articleNumber: body.get('articleNumber'),
+      },
+    },
+  });
+
+  return cart;
+};
+
 function Cart() {
   const { cart } = useLoaderData<CartQuery>();
 
-  console.log(cart);
-
-  return <div>Cart</div>;
+  return <pre>{JSON.stringify(cart, null, 2)}</pre>;
 }
 
 export default Cart;

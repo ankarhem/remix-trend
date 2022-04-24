@@ -1,12 +1,8 @@
-import React from 'react';
-import { Link } from 'remix';
-import { PagesQuery } from '~/graphql/types';
+import { Link, useLoaderData } from 'remix';
+import { LayoutQueries } from '~/routes/__layout';
 
-type Props = {
-  pages: PagesQuery['pages'];
-};
-
-function Footer({ pages }: Props) {
+function Footer() {
+  const { pages } = useLoaderData<LayoutQueries>();
   return (
     <footer className='bg-white mt-6 pt-4 pb-8 xl:pt-8'>
       <div className='container grid mx-auto grid-cols-3 pb-20'>

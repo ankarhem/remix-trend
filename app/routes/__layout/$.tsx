@@ -1,5 +1,5 @@
 import { CatchBoundaryComponent } from '@remix-run/react/routeModules';
-import { LoaderFunction, useLoaderData, useParams } from 'remix';
+import { LoaderFunction, MetaFunction, useLoaderData, useParams } from 'remix';
 import CategoryPage from '~/components/CategoryPage';
 import ContentPage from '~/components/ContentPage';
 import ProductPage from '~/components/ProductPage';
@@ -24,6 +24,22 @@ export const CatchBoundary: CatchBoundaryComponent = () => {
   );
 };
 
+export const meta: MetaFunction = (args) => {
+  const data: RouteQuery = args.data;
+
+  const tags = data.route?.object?.head?.metaTags?.reduce((tags, tag) => {
+    if (tag && tag.name && tag.content) {
+      tags[tag.name] = tag.content;
+    }
+    return tags;
+  }, {} as Record<string, string>);
+
+  return {
+    title: data.route?.object?.head?.title,
+    ...tags,
+  };
+};
+
 export default function PageContent() {
   const data = useLoaderData<RouteQuery>();
   const route = data?.route;
@@ -37,7 +53,6 @@ export default function PageContent() {
         productPage={ProductPage}
         contentPage={ContentPage}
       />
-      {/* <pre className='text-xs'>{JSON.stringify(route.object, null, 2)}</pre> */}
     </>
   );
 }
