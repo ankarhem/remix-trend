@@ -34,6 +34,7 @@ function Pagination({ totalResults }: Props) {
           to={`?page=${previousPage}`}
           className={`${linkStyle} ${!previousPage ? linkDisabledStyles : ''}`}
           prefetch='intent'
+          tabIndex={!previousPage ? -1 : 0}
         >
           <ArrowNarrowLeftIcon className='w-6 h-6 mr-1' />
           Previous
@@ -47,6 +48,7 @@ function Pagination({ totalResults }: Props) {
           to={`?page=${nextPage}`}
           className={`${linkStyle} ${!nextPage ? linkDisabledStyles : ''}`}
           prefetch='intent'
+          tabIndex={!nextPage ? -1 : 0}
         >
           Next
           <ArrowNarrowRightIcon className='w-6 h-6 ml-1' />
