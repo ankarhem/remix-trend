@@ -19,7 +19,7 @@ export const sendJetshopRequest = (
     endpoint: 'https://storeapi.jetshop.io',
     headers: {
       token: token,
-      shopid: 'demostore',
+      shopid: process.env.SHOP_ID || 'demostore',
       ...props.headers,
     },
     query: typeof props.query === 'string' ? props.query : print(props.query),

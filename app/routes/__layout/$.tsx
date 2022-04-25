@@ -25,9 +25,9 @@ export const CatchBoundary: CatchBoundaryComponent = () => {
 };
 
 export const meta: MetaFunction = (args) => {
-  const data: RouteQuery = args.data;
+  const data: RouteQuery | undefined = args.data;
 
-  const tags = data.route?.object?.head?.metaTags?.reduce((tags, tag) => {
+  const tags = data?.route?.object?.head?.metaTags?.reduce((tags, tag) => {
     if (tag && tag.name && tag.content) {
       tags[tag.name] = tag.content;
     }
@@ -35,7 +35,7 @@ export const meta: MetaFunction = (args) => {
   }, {} as Record<string, string>);
 
   return {
-    title: data.route?.object?.head?.title,
+    title: data?.route?.object?.head?.title,
     ...tags,
   };
 };

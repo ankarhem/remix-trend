@@ -1,25 +1,32 @@
-import { json, LoaderFunction, useLoaderData } from 'remix';
+import { LoaderFunction, MetaFunction, useLoaderData } from 'remix';
 import { RouteDocument, RouteQuery } from '~/graphql/types';
-import { sendJetshopRequest } from '~/lib/jetshop';
+import { createRouteLoaderFunction } from '~/lib/loaderFunctions';
 
-export const loader: LoaderFunction = async (args) => {
-  const url = new URL(args.request.url);
+export const loader: LoaderFunction = createRouteLoaderFunction({
+  query: RouteDocument,
+  variables: {
+    pageSize: 24,
+  },
+});
 
-  const routeResult = await sendJetshopRequest({
-    args: args,
-    query: RouteDocument,
-    variables: {
-      path: url.pathname,
-    },
-  });
+export const meta: MetaFunction = (args) => {
+  const data: RouteQuery | undefined = args.data;
 
-  const route = await routeResult.json();
+  const tags = data?.route?.object?.head?.metaTags?.reduce((tags, tag) => {
+    if (tag && tag.name && tag.content) {
+      tags[tag.name] = tag.content;
+    }
+    return tags;
+  }, {} as Record<string, string>);
 
-  return json(route.data.route);
+  return {
+    title: 'Demostore on Remix',
+    ...tags,
+  };
 };
 
 export default function Index() {
-  const route = useLoaderData<RouteQuery['route']>();
+  const { route } = useLoaderData<RouteQuery>();
   // just to help types, won't actually trigger
   if (route?.object?.__typename !== 'StartPage') return null;
 
