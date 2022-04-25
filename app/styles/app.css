@@ -711,6 +711,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: fit-content;
 }
 
+.w-min {
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+}
+
 .max-w-sm {
   max-width: 24rem;
 }
@@ -1071,6 +1077,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 6rem;
 }
 
+.py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.px-12 {
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
 .pb-20 {
   padding-bottom: 5rem;
 }
@@ -1115,6 +1131,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .text-6xl {
   font-size: 3.75rem;
   line-height: 1;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 
 .font-bold {
@@ -1340,6 +1361,18 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 @media (min-width: 640px) {
+  .sm\:col-start-1 {
+    grid-column-start: 1;
+  }
+
+  .sm\:row-start-1 {
+    grid-row-start: 1;
+  }
+
+  .sm\:mb-12 {
+    margin-bottom: 3rem;
+  }
+
   .sm\:block {
     display: block;
   }
@@ -1357,6 +1390,10 @@ Ensure the default browser behavior of the `hidden` attribute.
             animation: none;
   }
 
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .sm\:justify-center {
     justify-content: center;
   }
@@ -1370,12 +1407,27 @@ Ensure the default browser behavior of the `hidden` attribute.
     padding-right: 2rem;
   }
 
+  .sm\:py-16 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .sm\:px-24 {
+    padding-left: 6rem;
+    padding-right: 6rem;
+  }
+
   .sm\:pt-12 {
     padding-top: 3rem;
   }
 
   .sm\:pl-2 {
     padding-left: 0.5rem;
+  }
+
+  .sm\:text-6xl {
+    font-size: 3.75rem;
+    line-height: 1;
   }
 }
 

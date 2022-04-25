@@ -35,9 +35,14 @@ export default function Index() {
   return (
     <div className=''>
       <div className='grid md:grid-cols-2 items-stretch'>
-        <div className='grid grid-cols-2 py-16 px-24'>
-          <div>
-            <h1 className='text-6xl font-bold mb-12'>
+        <img
+          className='object-cover inset-0'
+          src='https://w.wallhaven.cc/full/j8/wallhaven-j83jgw.jpg'
+          alt='hero'
+        />
+        <div className='grid sm:grid-cols-2 py-12 px-12 sm:py-16 sm:px-24 sm:col-start-1 sm:row-start-1'>
+          <div className='flex flex-col'>
+            <h1 className='text-4xl sm:text-6xl font-bold mb-8 sm:mb-12'>
               .amazing.
               <br />
               high quality
@@ -46,17 +51,12 @@ export default function Index() {
             </h1>
             <a
               href='/news'
-              className='rounded py-4 px-8 border-blue-400 border text-blue-400 hover:bg-blue-400 hover:text-blue-50'
+              className='rounded py-4 px-8 border-blue-400 border text-blue-400 hover:bg-blue-400 hover:text-blue-50 w-min whitespace-nowrap'
             >
               Shop new arrivals
             </a>
           </div>
         </div>
-        <img
-          className='object-cover inset-0'
-          src='https://w.wallhaven.cc/full/j8/wallhaven-j83jgw.jpg'
-          alt='hero'
-        />
         <img
           className='object-cover'
           src='https://w.wallhaven.cc/full/4y/wallhaven-4yx56l.jpg'
