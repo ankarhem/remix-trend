@@ -22,7 +22,7 @@ function Pagination({ totalResults }: Props) {
   });
 
   return (
-    <nav className='grid grid-cols-3 mb-8'>
+    <nav className='grid grid-cols-3 mb-8 px-4 sm:px-8'>
       <span
         className={`flex justify-start ${
           !previousPage ? 'cursor-not-allowed' : ''
@@ -35,7 +35,7 @@ function Pagination({ totalResults }: Props) {
           tabIndex={!previousPage ? -1 : 0}
         >
           <ArrowNarrowLeftIcon className='w-6 h-6 mr-1' />
-          Previous
+          <span className='hidden sm:inline-block'>Previous</span>
         </Link>
       </span>
       <div className='flex items-center justify-center'>{`Page ${currentPage} of ${totalPages}`}</div>
@@ -48,7 +48,7 @@ function Pagination({ totalResults }: Props) {
           prefetch='intent'
           tabIndex={!nextPage ? -1 : 0}
         >
-          Next
+          <span className='hidden sm:inline-block'>Next</span>
           <ArrowNarrowRightIcon className='w-6 h-6 ml-1' />
         </Link>
       </span>

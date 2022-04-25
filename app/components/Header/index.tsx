@@ -1,3 +1,4 @@
+import { MenuIcon } from '@heroicons/react/solid';
 import { Link, NavLink, useLoaderData } from 'remix';
 import { LayoutQueries } from '~/routes/__layout';
 import CartButton from '../Cart/CartButton';
@@ -9,7 +10,10 @@ function Header() {
     <>
       <header className='sticky top-0 z-10'>
         <UspBar />
-        <div className='h-12 bg-blue-50 flex items-center px-2 shadow-md'>
+        <div className='h-12 bg-blue-50 flex items-center shadow-md px-8 sm:pl-2'>
+          <button className='sm:hidden'>
+            <MenuIcon className='w-6 h-6' />
+          </button>
           <Link to='/' prefetch='intent'>
             <img
               alt='logo'
@@ -17,7 +21,7 @@ function Header() {
             />
           </Link>
 
-          <nav className='px-4'>
+          <nav className='px-4 hidden sm:block'>
             <ul className='flex gap-4'>
               {navTree?.map((category) => {
                 if (!category?.primaryRoute) return null;
@@ -38,7 +42,7 @@ function Header() {
               })}
             </ul>
           </nav>
-          <div className='ml-auto mr-8 flex items-center'>
+          <div className='ml-auto flex items-center'>
             <CartButton />
           </div>
         </div>

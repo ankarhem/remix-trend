@@ -91,7 +91,7 @@ function ProductPage({ product }: Props) {
 
           <ProductGrid
             products={product.relatedProducts}
-            className='justify-start !grid-cols-[repeat(auto-fit,_minmax(300px,350px))]'
+            className='justify-start !grid-cols-[repeat(auto-fit,_minmax(300px,350px))] !p-0'
           />
         </div>
       ) : null}

@@ -4,8 +4,8 @@ import { LayoutQueries } from '~/routes/__layout';
 function Footer() {
   const { pages } = useLoaderData<LayoutQueries>();
   return (
-    <footer className='bg-white mt-6 pt-4 pb-8 xl:pt-8'>
-      <div className='container grid mx-auto grid-cols-3 pb-20'>
+    <footer className='bg-white mt-6 py-8'>
+      <div className='container grid mx-auto grid-cols-2 md:grid-cols-3 pb-20 justify-items-center md:justify-items-start gap-y-6'>
         <section>
           <h2 className='text-gray-700 text-md uppercase mb-4 font-bold'>
             Remix Store
@@ -36,12 +36,12 @@ function Footer() {
             <p>Sweden</p>
           </address>
         </section>
-        <section className='justify-self-end'>
-          <h2 className='text-gray-700 font-bold text-md uppercase mb-4 text-right'>
+        <section className='md:justify-self-end col-span-full md:col-span-1 w-full flex flex-col items-center md:items-end'>
+          <h2 className='text-gray-700 font-bold text-md uppercase mb-4 md:text-right'>
             Join the newsletter
           </h2>
           <form className='flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center'>
-            <div className=' relative '>
+            <div className='relative'>
               <input
                 type='text'
                 id='"form-subscribe-Subscribe'

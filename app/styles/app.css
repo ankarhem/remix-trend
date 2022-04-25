@@ -550,8 +550,24 @@ Ensure the default browser behavior of the `hidden` attribute.
   z-index: 10;
 }
 
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+
+.col-span-3 {
+  grid-column: span 3 / span 3;
+}
+
+.col-span-full {
+  grid-column: 1 / -1;
+}
+
 .col-start-2 {
   grid-column-start: 2;
+}
+
+.col-start-1 {
+  grid-column-start: 1;
 }
 
 .mx-auto {
@@ -567,6 +583,11 @@ Ensure the default browser behavior of the `hidden` attribute.
 .my-6 {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+}
+
+.mx-8 {
+  margin-left: 2rem;
+  margin-right: 2rem;
 }
 
 .mt-12 {
@@ -798,8 +819,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .flex-col {
   flex-direction: column;
+}
+
+.place-items-center {
+  place-items: center;
 }
 
 .items-center {
@@ -826,6 +855,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   justify-content: space-evenly;
 }
 
+.justify-items-start {
+  justify-items: start;
+}
+
+.justify-items-center {
+  justify-items: center;
+}
+
 .gap-6 {
   gap: 1.5rem;
 }
@@ -846,6 +883,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   gap: 1rem;
 }
 
+.gap-y-4 {
+  row-gap: 1rem;
+}
+
+.gap-y-6 {
+  row-gap: 1.5rem;
+}
+
 .space-y-3 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
@@ -860,8 +905,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   align-self: flex-end;
 }
 
+.justify-self-start {
+  justify-self: start;
+}
+
 .justify-self-end {
   justify-self: end;
+}
+
+.justify-self-center {
+  justify-self: center;
 }
 
 .overflow-auto {
@@ -990,6 +1043,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .p-8 {
   padding: 2rem;
+}
+
+.\!p-0 {
+  padding: 0px !important;
 }
 
 .px-6 {
@@ -1293,6 +1350,26 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 @media (min-width: 640px) {
+  .sm\:col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+
+  .sm\:col-span-1 {
+    grid-column: span 1 / span 1;
+  }
+
+  .sm\:col-start-1 {
+    grid-column-start: 1;
+  }
+
+  .sm\:block {
+    display: block;
+  }
+
+  .sm\:inline-block {
+    display: inline-block;
+  }
+
   .sm\:hidden {
     display: none;
   }
@@ -1302,12 +1379,28 @@ Ensure the default browser behavior of the `hidden` attribute.
             animation: none;
   }
 
+  .sm\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sm\:items-end {
+    align-items: flex-end;
+  }
+
   .sm\:justify-center {
     justify-content: center;
   }
 
+  .sm\:justify-items-start {
+    justify-items: start;
+  }
+
   .sm\:gap-8 {
     gap: 2rem;
+  }
+
+  .sm\:justify-self-end {
+    justify-self: end;
   }
 
   .sm\:px-8 {
@@ -1318,15 +1411,39 @@ Ensure the default browser behavior of the `hidden` attribute.
   .sm\:pt-12 {
     padding-top: 3rem;
   }
+
+  .sm\:pl-2 {
+    padding-left: 0.5rem;
+  }
+
+  .sm\:text-right {
+    text-align: right;
+  }
 }
 
 @media (min-width: 768px) {
+  .md\:col-span-1 {
+    grid-column: span 1 / span 1;
+  }
+
   .md\:w-full {
     width: 100%;
   }
 
+  .md\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .md\:flex-row {
     flex-direction: row;
+  }
+
+  .md\:items-end {
+    align-items: flex-end;
+  }
+
+  .md\:justify-items-start {
+    justify-items: start;
   }
 
   .md\:space-x-3 > :not([hidden]) ~ :not([hidden]) {
@@ -1339,6 +1456,14 @@ Ensure the default browser behavior of the `hidden` attribute.
     --tw-space-y-reverse: 0;
     margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
     margin-bottom: calc(0px * var(--tw-space-y-reverse));
+  }
+
+  .md\:justify-self-end {
+    justify-self: end;
+  }
+
+  .md\:text-right {
+    text-align: right;
   }
 }
 
