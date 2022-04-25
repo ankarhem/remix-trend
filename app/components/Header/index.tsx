@@ -1,13 +1,13 @@
 import { Link, NavLink, useLoaderData } from 'remix';
 import { LayoutQueries } from '~/routes/__layout';
 import CartButton from '../Cart/CartButton';
-import UspBar from '../UspBar';
+import UspBar from './UspBar';
 
 function Header() {
   const { navTree } = useLoaderData<LayoutQueries>();
   return (
     <>
-      <header className='sticky top-0'>
+      <header className='sticky top-0 z-10'>
         <UspBar />
         <div className='h-12 bg-blue-50 flex items-center px-2 shadow-md'>
           <Link to='/' prefetch='intent'>

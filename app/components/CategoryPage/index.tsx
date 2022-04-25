@@ -9,7 +9,7 @@ type Props = {
 
 function CategoryPage({ category }: Props) {
   return (
-    <div className='container mx-auto'>
+    <div className='container mx-auto my-6'>
       <ProductGrid products={category.products?.result ?? []} />
       <Pagination totalResults={category?.products?.totalResults ?? 0} />
     </div>
