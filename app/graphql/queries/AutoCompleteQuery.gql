@@ -1,0 +1,27 @@
+query Autocomplete($term: String!) {
+  searchAutoComplete(term: $term) {
+    categories {
+      result {
+        id
+        name
+        primaryRoute {
+          id
+          slug
+          path
+          breadcrumbs
+        }
+      }
+    }
+    products {
+      result {
+        name
+        id
+        primaryRoute {
+          id
+          slug
+          path
+        }
+      }
+    }
+  }
+}

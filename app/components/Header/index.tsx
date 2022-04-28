@@ -2,6 +2,7 @@ import { MenuIcon } from '@heroicons/react/solid';
 import { Link, NavLink, useLoaderData } from 'remix';
 import { LayoutQueries } from '~/routes/__layout';
 import CartButton from '../Cart/CartButton';
+import AutocompleteSearch from './AutocompleteSearch';
 import UspBar from './UspBar';
 
 function Header() {
@@ -43,6 +44,7 @@ function Header() {
             </ul>
           </nav>
           <div className='ml-auto flex items-center'>
+            <AutocompleteSearch />
             <CartButton />
           </div>
         </div>
