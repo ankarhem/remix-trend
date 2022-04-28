@@ -6,6 +6,7 @@ import {
   useSearchParams,
 } from 'remix';
 import SearchPage from '~/components/SearchPage';
+import SearchField from '~/components/SearchPage/SearchField';
 import { SearchDocument, SearchQuery } from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
 import { PAGE_SIZE } from '../__layout';
@@ -45,17 +46,21 @@ export const loader: LoaderFunction = async (args) => {
 
 export const CatchBoundary: CatchBoundaryComponent = () => {
   const searchParams = useSearchParams();
+  const term = searchParams[0].get('term');
+
   return (
-    <div className='flex flex-col items-center justify-center h-full'>
-      <p>No results found for "{searchParams[0].get('term')}"</p>
+    <div className='container mx-auto py-8'>
+      <SearchField term={term} />
+      <p className='text-center py-8'>No results found for "{}"</p>
     </div>
   );
 };
 
 export const meta: MetaFunction = (args) => {
   const searchParams = new URLSearchParams(args.location.search);
+  const term = searchParams.get('term');
   return {
-    title: `${searchParams.get('term')} - Search`,
+    title: term ? `${searchParams.get('term')} - Search` : 'Search',
   };
 };
 
