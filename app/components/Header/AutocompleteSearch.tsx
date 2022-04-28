@@ -1,17 +1,24 @@
 import { Combobox, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
-import { Link, useFetcher, useTransition } from 'remix';
+import { Link, useFetcher, useNavigate } from 'remix';
 import { AutocompleteQuery } from '~/graphql/types';
 
+type Item =
+  | NonNullable<
+      NonNullable<
+        NonNullable<AutocompleteQuery['searchAutoComplete']>['categories']
+      >['result']
+    >[number]
+  | NonNullable<
+      NonNullable<
+        NonNullable<AutocompleteQuery['searchAutoComplete']>['products']
+      >['result']
+    >[number];
+
 function AutocompleteSearch() {
+  const navigate = useNavigate();
   const [focused, setFocused] = useState(false);
   const autocomplete = useFetcher<AutocompleteQuery>();
-  const transition = useTransition();
-
-  console.log(
-    transition.submission?.formData.get('term'),
-    autocomplete.submission?.formData.get('term')
-  );
 
   return (
     <autocomplete.Form
@@ -21,8 +28,9 @@ function AutocompleteSearch() {
     >
       <Combobox
         value={null}
-        onChange={() => {
-          setFocused(false);
+        onChange={(item: Item) => {
+          console.log(item);
+          return null;
         }}
       >
         <div className='relative group'>
@@ -37,6 +45,7 @@ function AutocompleteSearch() {
               autocomplete.submit(event.target.form);
             }}
             onClick={() => setFocused(true)}
+            autoComplete='off'
           />
           <Transition
             as={Fragment}

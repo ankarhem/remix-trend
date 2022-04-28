@@ -33,7 +33,6 @@ export const loader: LoaderFunction = async (args) => {
     },
   });
   const { data }: { data: SearchQuery } = await response.json();
-  console.log(data);
 
   if (!data.search?.products?.result.length) {
     throw new Response(`No results found for ${term}`, {
