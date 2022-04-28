@@ -7,6 +7,7 @@ type Props = {
   className?: string;
 };
 
+// TODO: Move padding out of ProductGrid component
 function ProductGrid({ products, className }: Props) {
   return (
     <div

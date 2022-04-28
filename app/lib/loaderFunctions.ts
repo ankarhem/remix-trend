@@ -16,15 +16,14 @@ export const createRouteLoaderFunction =
     const pathname = url.pathname;
 
     const page = parseInt(url.searchParams.get('page') || '1');
-    const first = page * props.variables.pageSize;
-    const offset = (page - 1) * props.variables.pageSize;
+    const offset = Math.max((page - 1) * props.variables.pageSize, 0);
 
     const response = await sendJetshopRequest({
       args: args,
       query: props.query,
       variables: {
         path: url.pathname,
-        first: first,
+        first: props.variables.pageSize,
         offset: offset,
       },
     });

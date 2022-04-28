@@ -25,7 +25,7 @@ export const meta: MetaFunction = (args) => {
   };
 };
 
-export default function Index() {
+export default function PageContent() {
   const { route } = useLoaderData<RouteQuery>();
   // just to help types, won't actually trigger
   if (route?.object?.__typename !== 'StartPage') return null;

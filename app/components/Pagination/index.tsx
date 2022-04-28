@@ -29,10 +29,12 @@ function Pagination({ totalResults }: Props) {
         }`}
       >
         <Link
-          to={`?page=${previousPage}`}
-          className={`${linkStyle} ${!previousPage ? linkDisabledStyles : ''}`}
+          to={previousPage.path}
+          className={`${linkStyle} ${
+            previousPage.disabled ? linkDisabledStyles : ''
+          }`}
           prefetch='intent'
-          tabIndex={!previousPage ? -1 : 0}
+          tabIndex={previousPage.disabled ? -1 : 0}
         >
           <ArrowNarrowLeftIcon className='w-6 h-6 mr-1' />
           <span className='hidden sm:inline-block'>Previous</span>
@@ -40,11 +42,15 @@ function Pagination({ totalResults }: Props) {
       </span>
       <div className='flex items-center justify-center'>{`Page ${currentPage} of ${totalPages}`}</div>
       <span
-        className={`flex justify-end ${!nextPage ? 'cursor-not-allowed' : ''}`}
+        className={`flex justify-end ${
+          nextPage.disabled ? 'cursor-not-allowed' : ''
+        }`}
       >
         <Link
-          to={`?page=${nextPage}`}
-          className={`${linkStyle} ${!nextPage ? linkDisabledStyles : ''}`}
+          to={nextPage.path}
+          className={`${linkStyle} ${
+            nextPage.disabled ? linkDisabledStyles : ''
+          }`}
           prefetch='intent'
           tabIndex={!nextPage ? -1 : 0}
         >

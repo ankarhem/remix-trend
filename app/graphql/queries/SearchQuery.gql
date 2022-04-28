@@ -1,0 +1,58 @@
+#import ~/graphql/fragments/ProductGridFragment.gql
+
+query Search(
+  $term: String!
+  $first: Paging
+  $offset: Int
+  $filters: FilterInput
+) {
+  search(term: $term) {
+    products(paging: { first: $first, offset: $offset }, filters: $filters) {
+      filters {
+        id
+        name
+        ... on ListFilter {
+          # hasActiveItems @client
+          items {
+            id
+            # isActive @client
+            text
+            value
+            resultCount
+          }
+        }
+        ... on NumericRangeFilter {
+          id
+          min
+          max
+          name
+          # isActive @client
+          # value @client
+        }
+        ... on BooleanFilter {
+          default
+          # value @client
+        }
+        ... on MultiListFilter {
+          # isActive @client
+          lists {
+            id
+            # hasActiveItems @client
+            name
+            items {
+              id
+              value
+              text
+              resultCount
+              # isActive @client
+            }
+          }
+        }
+      }
+      totalResults
+      result {
+        ...ProductGrid
+      }
+    }
+  }
+}

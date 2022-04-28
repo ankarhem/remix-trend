@@ -21,6 +21,7 @@ export type LayoutQueries = {
   cart: CartQuery['cart'];
 };
 
+// TODO: Move this to a config file
 export const PAGE_SIZE = 24;
 
 export const loader: LoaderFunction = async (args) => {
@@ -74,7 +75,7 @@ export const loader: LoaderFunction = async (args) => {
   );
 };
 
-export default function Root() {
+export default function PageContent() {
   return (
     <>
       <Header />
