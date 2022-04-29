@@ -9,7 +9,7 @@ function Header() {
   const { navTree } = useLoaderData<LayoutQueries>();
   return (
     <>
-      <header className='sticky top-0 z-10'>
+      <header className='sticky top-0 z-20'>
         <UspBar />
         <div className='h-12 bg-blue-50 flex items-center shadow-md px-8 sm:pl-2'>
           <button className='sm:hidden'>
