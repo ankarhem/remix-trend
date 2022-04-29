@@ -1,10 +1,5 @@
 import { CatchBoundaryComponent } from '@remix-run/react/routeModules';
-import {
-  LoaderFunction,
-  MetaFunction,
-  useLoaderData,
-  useSearchParams,
-} from 'remix';
+import { LoaderFunction, MetaFunction, useLoaderData } from 'remix';
 import SearchPage from '~/components/SearchPage';
 import SearchField from '~/components/SearchPage/SearchField';
 import { SearchDocument, SearchQuery } from '~/graphql/types';
@@ -44,12 +39,9 @@ export const loader: LoaderFunction = async (args) => {
 };
 
 export const CatchBoundary: CatchBoundaryComponent = () => {
-  const searchParams = useSearchParams();
-  const term = searchParams[0].get('term');
-
   return (
     <div className='container mx-auto py-8'>
-      <SearchField term={term} />
+      <SearchField />
       <p className='text-center py-8'>No results found for "{}"</p>
     </div>
   );

@@ -1,8 +1,8 @@
-import { MenuIcon } from '@heroicons/react/solid';
+import { MenuIcon } from '@heroicons/react/outline';
 import { Link, NavLink, useLoaderData } from 'remix';
 import { LayoutQueries } from '~/routes/__layout';
 import CartButton from '../Cart/CartButton';
-import AutocompleteSearch from './AutocompleteSearch';
+import SearchButton from '../SearchPage/SearchButton';
 import UspBar from './UspBar';
 
 function Header() {
@@ -43,8 +43,8 @@ function Header() {
               })}
             </ul>
           </nav>
-          <div className='ml-auto flex items-center'>
-            <AutocompleteSearch />
+          <div className='ml-auto flex items-center gap-4'>
+            <SearchButton />
             <CartButton />
           </div>
         </div>

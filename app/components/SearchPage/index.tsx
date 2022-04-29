@@ -18,7 +18,7 @@ function SearchPage({ search }: Props) {
 
   return (
     <div className='container mx-auto py-8'>
-      <SearchField term={term} />
+      <SearchField />
       <span className='text-sm px-4 sm:px-8'>
         {products?.totalResults} results for "{term}"
       </span>

@@ -1,4 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
+import { Fragment } from 'react';
 import { Link } from 'remix';
 import { CartQuery } from '~/graphql/types';
 import Cross from '../Icons/Cross';
@@ -12,7 +13,7 @@ type Props = {
 
 function CartFlyout({ cart, open, onClose }: Props) {
   return (
-    <Transition show={open}>
+    <Transition show={open} as={Fragment}>
       <Dialog
         open={open}
         onClose={onClose}

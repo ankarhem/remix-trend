@@ -37,7 +37,7 @@ export default function PageContent() {
       <div className='grid md:grid-cols-2 items-stretch'>
         <img
           className='object-cover inset-0'
-          src='https://w.wallhaven.cc/full/j8/wallhaven-j83jgw.jpg'
+          src='https://w.wallhaven.cc/full/w8/wallhaven-w86j86.jpg'
           alt='hero'
         />
         <div className='grid sm:grid-cols-2 py-12 px-12 sm:py-16 sm:px-24 sm:col-start-1 sm:row-start-1'>
@@ -59,7 +59,7 @@ export default function PageContent() {
         </div>
         <img
           className='object-cover'
-          src='https://w.wallhaven.cc/full/4y/wallhaven-4yx56l.jpg'
+          src='https://w.wallhaven.cc/full/w8/wallhaven-w86j86.jpg'
           alt='hero'
         />
       </div>
