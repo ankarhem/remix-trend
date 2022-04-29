@@ -41,6 +41,7 @@ const AutocompleteOptions = ({
             value={item}
           >
             <Link
+              prefetch='intent'
               to={item.primaryRoute.path}
               className='block truncate py-2 pl-10 pr-4 focus-within:bg-blue-50 focus-within:text-blue-500 focus-within:outline-none'
             >

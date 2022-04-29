@@ -2,7 +2,7 @@ import { MenuIcon } from '@heroicons/react/outline';
 import { Link, NavLink, useLoaderData } from 'remix';
 import { LayoutQueries } from '~/routes/__layout';
 import CartButton from '../Cart/CartButton';
-import SearchButton from '../SearchPage/SearchButton';
+import SearchField from '../SearchPage/SearchField';
 import UspBar from './UspBar';
 
 function Header() {
@@ -44,7 +44,7 @@ function Header() {
             </ul>
           </nav>
           <div className='ml-auto flex items-center gap-4'>
-            <SearchButton />
+            <SearchField className='py-1' autoFocus={false} />
             <CartButton />
           </div>
         </div>
