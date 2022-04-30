@@ -18,7 +18,7 @@ type ActiveFilter = {
 };
 
 type Filter = Pick<ActiveFilter, 'id' | 'value'>;
-interface UseFiltersReturnType {
+export interface UseFiltersReturnType {
   activeFilters: ActiveFilter[];
   toggleFilterPath: (type: FilterType, filter: Filter) => string;
   clearFiltersPath: () => string;
