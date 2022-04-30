@@ -38,7 +38,7 @@ function Filters({ filters }: Props) {
           return (
             <Listbox
               key={filter.id}
-              value={getActiveFilterValues(filter.id)}
+              value={getActiveFilterValues(filter.__typename, filter.id)}
               onChange={() => null}
               multiple
             >
@@ -75,7 +75,7 @@ function Filters({ filters }: Props) {
                           {({ selected }) => (
                             <Link
                               className='flex py-2 pl-10 pr-4 justify-between items-center'
-                              to={toggleFilterPath({
+                              to={toggleFilterPath(filter.__typename, {
                                 id: filter.id,
                                 value: item.value,
                               })}
@@ -114,7 +114,7 @@ function Filters({ filters }: Props) {
             <Link
               key={`${activeFilter.id}-${activeFilter.value}`}
               className='px-4 py-2 text-sm font-medium text-blue-50 ring-1 bg-blue-400 rounded flex items-center'
-              to={toggleFilterPath(activeFilter)}
+              to={toggleFilterPath(activeFilter.type, activeFilter)}
             >
               <span className='text-xs mr-2'>{activeFilter.name}: </span>
               <span className='font-bold'>{activeFilter.text}</span>
