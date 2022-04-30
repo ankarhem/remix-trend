@@ -35,7 +35,7 @@ export const meta: MetaFunction = (args) => {
   }, {} as Record<string, string>);
 
   return {
-    title: data?.route?.object?.head?.title,
+    title: data?.route?.object?.head?.title || 'Demostore on Remix',
     ...tags,
   };
 };

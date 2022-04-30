@@ -571,6 +571,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-column-start: 2;
 }
 
+.m-2 {
+  margin: 0.5rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -1195,6 +1199,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 3rem;
 }
 
+.px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
 .pb-20 {
   padding-bottom: 5rem;
 }
@@ -1579,6 +1588,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-ring-offset-width: 2px;
 }
 
+.focus\:ring-offset-gray-700:focus {
+  --tw-ring-offset-color: #3C4055;
+}
+
 .focus-visible\:border-indigo-500:focus-visible {
   --tw-border-opacity: 1;
   border-color: rgb(127 88 190 / var(--tw-border-opacity));
@@ -1595,6 +1608,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-ring-color: rgb(255 255 255 / var(--tw-ring-opacity));
 }
 
+.focus-visible\:ring-gray-700:focus-visible {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(60 64 85 / var(--tw-ring-opacity));
+}
+
 .focus-visible\:ring-opacity-75:focus-visible {
   --tw-ring-opacity: 0.75;
 }
@@ -1609,6 +1627,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .focus-visible\:ring-offset-orange-300:focus-visible {
   --tw-ring-offset-color: #DC9742;
+}
+
+.focus-visible\:ring-offset-gray-700:focus-visible {
+  --tw-ring-offset-color: #3C4055;
 }
 
 .active\:ring-blue-500:active {

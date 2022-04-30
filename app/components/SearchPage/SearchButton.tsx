@@ -25,7 +25,7 @@ const SearchButton = () => {
       <button
         ref={ref}
         onClick={() => setOpen(!open)}
-        className='rounded-lg border-transparent flex items-center gap-4 flex-1 appearance-none border border-gray-300  w-full py-1 pl-2 pr-4 bg-white text-gray-400 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2'
+        className='rounded-lg border-transparent flex items-center gap-4 flex-1 appearance-none border border-gray-300  w-full py-1 pl-2 pr-4 bg-white text-gray-400 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-gray-700'
         aria-label='Toggle search field'
       >
         <svg fill='none' viewBox='0 0 24 24' className='h-6 w-6'>
