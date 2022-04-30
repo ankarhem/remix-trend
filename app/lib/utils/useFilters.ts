@@ -10,7 +10,7 @@ type FilterType = Extract<
 >['__typename'];
 
 type ActiveFilter = {
-  type: FilterType;
+  type: Exclude<FilterType, 'NumericRangeFilter'>;
   id: string;
   name: string;
   value: string;
