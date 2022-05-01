@@ -58,6 +58,11 @@ function ListFilters({
                         className={({ active }) =>
                           `block relative text-gray-900 cursor-default select-none hover:text-blue-500 hover-bg-blue-50 ${
                             active ? 'bg-blue-50 text-blue-500' : ''
+                          }${
+                            typeof item.resultCount === 'number' &&
+                            item.resultCount === 0
+                              ? 'opacity-50'
+                              : ''
                           }`
                         }
                         value={item.value}
