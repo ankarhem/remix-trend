@@ -3,6 +3,8 @@ import { Form, Link } from 'remix';
 import Cross from '~/components/Icons/Cross';
 import type { Filters as FiltersType } from '~/lib/utils/useFilters';
 import { useFilters } from '~/lib/utils/useFilters';
+import type { BooleanFilterType } from './BooleanFilters';
+import BooleanFilters from './BooleanFilters';
 import type { ListFiltersType } from './ListFilters';
 import ListFilters from './ListFilters';
 import type { RangeFiltersType } from './RangeFilters';
@@ -21,6 +23,9 @@ function Filters({ filters }: Props) {
       (filter) => filter?.__typename === 'NumericRangeFilter'
     );
   }, [filters]) as RangeFiltersType;
+  const booleanFilters = useMemo(() => {
+    return filters?.filter((filter) => filter?.__typename === 'BooleanFilter');
+  }, [filters]) as BooleanFilterType;
 
   const {
     activeFilters,
@@ -34,17 +39,26 @@ function Filters({ filters }: Props) {
 
   return (
     <>
-      <Form className='px-4 sm:px-8 flex gap-4'>
-        <ListFilters
-          listFilters={listFilters}
-          getActiveFilterValues={getActiveFilterValues}
-          toggleFilterPath={toggleFilterPath}
-        />
-        <RangeFilters
-          rangeFilters={rangeFilters}
-          getActiveFilterValue={getActiveFilterValue}
-          toggleFilterPath={toggleFilterPath}
-        />
+      <Form className='px-4 sm:px-8 flex gap-8'>
+        <div className='flex gap-6 flex-wrap'>
+          <ListFilters
+            listFilters={listFilters}
+            getActiveFilterValues={getActiveFilterValues}
+            toggleFilterPath={toggleFilterPath}
+          />
+          <RangeFilters
+            rangeFilters={rangeFilters}
+            getActiveFilterValue={getActiveFilterValue}
+            toggleFilterPath={toggleFilterPath}
+          />
+        </div>
+        <div className='flex flex-col w-96 items-end'>
+          <BooleanFilters
+            booleanFilters={booleanFilters}
+            getActiveFilterValue={getActiveFilterValue}
+            toggleFilterPath={toggleFilterPath}
+          />
+        </div>
       </Form>
       <div className='px-4 sm:px-8 mt-6 flex gap-4 flex-wrap'>
         {activeFilters.map((activeFilter) => {

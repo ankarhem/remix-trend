@@ -63,6 +63,14 @@ export function useFilters(filters: Filters): UseFiltersReturnType {
             text: `${filter.min} - ${filter.max}`,
           });
           break;
+        case 'BooleanFilter':
+          activeFilters.push({
+            type: filter.__typename,
+            id: filter.id,
+            name: filter.name,
+            value: value,
+            text: value === 'true' ? 'Yes' : 'No',
+          });
         default:
           continue;
       }
@@ -96,6 +104,13 @@ export function useFilters(filters: Filters): UseFiltersReturnType {
             params.set(paramKey, value);
           }
           break;
+        case 'BooleanFilter':
+          const booleanValue = params.get(paramKey);
+          if (booleanValue) {
+            params.delete(paramKey);
+          } else {
+            params.set(paramKey, value);
+          }
         default:
           break;
       }

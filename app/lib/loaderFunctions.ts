@@ -43,6 +43,7 @@ export const createRouteLoaderFunction =
     // Filters
     const listFiltersState = {} as Record<string, any[]>;
     const rangeFilters: FilterInput['rangeFilters'] = [];
+    const booleanFilters: FilterInput['booleanFilters'] = [];
     const params = new URLSearchParams(url.search);
     for (const [key, value] of params) {
       const [type, id] = key.split('_');
@@ -63,6 +64,11 @@ export const createRouteLoaderFunction =
             min: min,
             max: max,
           });
+        case 'BooleanFilter':
+          booleanFilters.push({
+            id: id,
+            value: value === 'true',
+          });
         default:
           continue;
       }
@@ -74,7 +80,7 @@ export const createRouteLoaderFunction =
     const filterInput: FilterInput = {
       listFilters: listFiltersInput,
       rangeFilters: rangeFilters,
-      booleanFilters: [],
+      booleanFilters: booleanFilters,
       multiListFilters: [],
     };
 

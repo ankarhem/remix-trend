@@ -64,7 +64,7 @@ function RangeFilter({
                   ariaValuetext={(state) => `Thumb value ${state.valueNow}`}
                   renderThumb={(props, state) => (
                     <div {...props}>
-                      <span className='inline-block w-4 h-4 bg-blue-400 rounded-full' />
+                      <span className='inline-block w-4 h-4 bg-blue-400 hover:bg-blue-500 rounded-full' />
                       <span
                         className={`absolute -top-6 left-1/2 -translate-x-1/2`}
                       >
