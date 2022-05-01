@@ -17,7 +17,7 @@ function CartFlyout({ cart, open, onClose }: Props) {
       <Dialog
         open={open}
         onClose={onClose}
-        className='fixed z-10 inset-0 overflow-y-auto'
+        className='fixed z-20 inset-0 overflow-y-auto'
       >
         <div className='min-h-screen'>
           <Transition.Child
