@@ -19,7 +19,7 @@ type RangeFilterProps = {
   toggleFilterPath: UseFiltersReturnType['toggleFilterPath'];
 };
 
-const VALUES_SEPERATOR = '_';
+export const VALUES_SEPERATOR = '_';
 
 function RangeFilter({
   filter,

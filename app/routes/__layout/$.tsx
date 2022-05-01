@@ -1,9 +1,11 @@
-import { CatchBoundaryComponent } from '@remix-run/react/routeModules';
-import { LoaderFunction, MetaFunction, useLoaderData, useParams } from 'remix';
+import type { CatchBoundaryComponent } from '@remix-run/react/routeModules';
+import type { LoaderFunction, MetaFunction } from 'remix';
+import { useLoaderData, useParams } from 'remix';
 import CategoryPage from '~/components/CategoryPage';
 import ContentPage from '~/components/ContentPage';
 import ProductPage from '~/components/ProductPage';
-import { RouteDocument, RouteQuery } from '~/graphql/types';
+import type { RouteQuery } from '~/graphql/types';
+import { RouteDocument } from '~/graphql/types';
 import DynamicRoute from '~/lib/components/DynamicRoute';
 import { createRouteLoaderFunction } from '~/lib/loaderFunctions';
 

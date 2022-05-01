@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react';
 import { useLocation, useTransition } from 'remix';
-import { RouteCategory } from '~/utils/types';
+import type { RouteCategory } from '~/utils/types';
 
 export type Filters = NonNullable<RouteCategory['products']>['filters'];
 
@@ -10,7 +10,7 @@ type FilterType = Extract<
 >['__typename'];
 
 type ActiveFilter = {
-  type: Exclude<FilterType, 'NumericRangeFilter'>;
+  type: FilterType;
   id: string;
   name: string;
   value: string;
@@ -52,6 +52,15 @@ export function useFilters(filters: Filters): UseFiltersReturnType {
             name: filter.name,
             value: value,
             text: filterItem.text,
+          });
+          break;
+        case 'NumericRangeFilter':
+          activeFilters.push({
+            type: filter.__typename,
+            id: filter.id,
+            name: filter.name,
+            value: value,
+            text: `${filter.min} - ${filter.max}`,
           });
           break;
         default:

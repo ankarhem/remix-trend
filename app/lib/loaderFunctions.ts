@@ -1,7 +1,9 @@
-import { json, LoaderFunction, redirect } from 'remix';
-import { RouteQuery } from '~/graphql/types';
+import type { LoaderFunction } from 'remix';
+import { json, redirect } from 'remix';
+import { VALUES_SEPERATOR } from '~/components/CategoryPage/Filters/RangeFilters';
+import type { RouteQuery } from '~/graphql/types';
 import { sendJetshopRequest } from './jetshop';
-import { FuncParams } from './utils/types';
+import type { FuncParams } from './utils/types';
 
 interface FilterInput {
   listFilters: {
@@ -39,12 +41,8 @@ export const createRouteLoaderFunction =
     const offset = Math.max((page - 1) * props.variables.pageSize, 0);
 
     // Filters
-    const filtersState = {
-      listFilters: {} as Record<string, any[]>,
-      // rangeFilters: {} as Record<string, ,
-      // booleanFilters: ,
-      // multiListFilters: {},
-    };
+    const listFiltersState = {} as Record<string, any[]>;
+    const rangeFilters: FilterInput['rangeFilters'] = [];
     const params = new URLSearchParams(url.search);
     for (const [key, value] of params) {
       const [type, id] = key.split('_');
@@ -52,23 +50,30 @@ export const createRouteLoaderFunction =
 
       switch (type) {
         case 'ListFilter':
-          if (!filtersState.listFilters.hasOwnProperty(id)) {
-            filtersState.listFilters[id] = [];
+          if (!listFiltersState.hasOwnProperty(id)) {
+            listFiltersState[id] = [];
           }
-          filtersState.listFilters[id].push(value);
+          listFiltersState[id].push(value);
+        case 'NumericRangeFilter':
+          const [min, max] = value
+            .split(`${VALUES_SEPERATOR}`)
+            .map((v) => parseInt(v));
+          rangeFilters.push({
+            id: id,
+            min: min,
+            max: max,
+          });
         default:
           continue;
       }
     }
-
-    const listFilters = Object.entries(filtersState.listFilters).map(
+    const listFiltersInput = Object.entries(listFiltersState).map(
       ([id, values]) => ({ id, values })
     );
-    console.log(filtersState, listFilters);
 
     const filterInput: FilterInput = {
-      listFilters: listFilters,
-      rangeFilters: [],
+      listFilters: listFiltersInput,
+      rangeFilters: rangeFilters,
       booleanFilters: [],
       multiListFilters: [],
     };
@@ -84,8 +89,6 @@ export const createRouteLoaderFunction =
       },
     });
     const result = await response.json();
-
-    // console.log(result.data.route.object);
 
     const data: RouteQuery = result.data;
 
