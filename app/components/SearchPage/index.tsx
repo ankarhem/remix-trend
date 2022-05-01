@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSearchParams } from 'remix';
-import { SearchQuery } from '~/graphql/types';
+import type { SearchQuery } from '~/graphql/types';
 import ProductGrid from '../CategoryPage/ProductGrid';
 import Pagination from '../Pagination';
 import SearchField from './SearchField';

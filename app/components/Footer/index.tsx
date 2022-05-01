@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from 'remix';
+import { Form, Link, useLoaderData } from 'remix';
 import { LayoutQueries } from '~/routes/__layout';
 
 function Footer() {
@@ -40,22 +40,22 @@ function Footer() {
           <h2 className='text-gray-700 font-bold text-md uppercase mb-4 md:text-right'>
             Join the newsletter
           </h2>
-          <form className='flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center'>
+          <Form className='flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center'>
             <div className='relative'>
               <input
-                type='text'
-                id='"form-subscribe-Subscribe'
-                className='rounded-lg border-transparent flex-1 appearance-none border border-gray-300  w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-gray-700'
+                type='email'
+                className='rounded flex-1 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base hover:ring-gray-500/50 focus:ring-gray-500 hover:ring focus:ring-1 focus:hover:ring focus:border-gray-500'
                 placeholder='Email'
+                required
               />
             </div>
             <button
-              className='flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-gray-600 rounded-lg shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-700'
+              className='flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-gray-500 rounded shadow-md hover:bg-gray-600 focus:outline-none focus:ring-1 focus:hover:ring focus:ring-gray-600'
               type='submit'
             >
               Subscribe
             </button>
-          </form>
+          </Form>
         </section>
       </div>
       <div className='pt-8 flex border-t border-gray-200 max-w-xs mx-auto items-center justify-center gap-6'>

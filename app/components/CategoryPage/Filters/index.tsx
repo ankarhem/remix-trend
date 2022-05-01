@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Form, Link } from 'remix';
+import { Link } from 'remix';
 import Cross from '~/components/Icons/Cross';
 import type { Filters as FiltersType } from '~/lib/utils/useFilters';
 import { useFilters } from '~/lib/utils/useFilters';
@@ -39,8 +39,8 @@ function Filters({ filters }: Props) {
 
   return (
     <>
-      <Form className='px-4 sm:px-8 flex gap-8'>
-        <div className='flex gap-6 flex-wrap'>
+      <div className='px-4 sm:px-8 flex gap-8'>
+        <div className='flex gap-6 flex-wrap flex-1'>
           <ListFilters
             listFilters={listFilters}
             getActiveFilterValues={getActiveFilterValues}
@@ -52,14 +52,14 @@ function Filters({ filters }: Props) {
             toggleFilterPath={toggleFilterPath}
           />
         </div>
-        <div className='flex flex-col w-96 items-end'>
+        <div className='flex flex-col gap-2.5 w-96 items-end'>
           <BooleanFilters
             booleanFilters={booleanFilters}
             getActiveFilterValue={getActiveFilterValue}
             toggleFilterPath={toggleFilterPath}
           />
         </div>
-      </Form>
+      </div>
       <div className='px-4 sm:px-8 mt-6 flex gap-4 flex-wrap'>
         {activeFilters.map((activeFilter) => {
           return (

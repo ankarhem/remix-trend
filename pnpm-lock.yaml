@@ -12,6 +12,7 @@ specifiers:
   '@remix-run/eslint-config': ^1.4.3
   '@remix-run/react': ^1.4.3
   '@remix-run/serve': ^1.4.3
+  '@tailwindcss/forms': ^0.5.0
   '@types/react': ^17.0.44
   '@types/react-dom': ^17.0.16
   '@types/react-slider': ^1.3.1
@@ -37,6 +38,7 @@ dependencies:
   '@heroicons/react': 1.0.6_react@17.0.2
   '@remix-run/react': 1.4.3_react-dom@17.0.2+react@17.0.2
   '@remix-run/serve': 1.4.3_react-dom@17.0.2+react@17.0.2
+  '@tailwindcss/forms': 0.5.0_tailwindcss@3.0.24
   dotenv: 16.0.0
   graphql: 16.4.0
   react: 17.0.2
@@ -1730,6 +1732,15 @@ packages:
     dependencies:
       defer-to-connect: 2.0.1
     dev: true
+
+  /@tailwindcss/forms/0.5.0_tailwindcss@3.0.24:
+    resolution: {integrity: sha512-KzWugryEBFkmoaYcBE18rs6gthWCFHHO7cAZm2/hv3hwD67AzwP7udSCa22E7R1+CEJL/FfhYsJWrc0b1aeSzw==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
+    dependencies:
+      mini-svg-data-uri: 1.4.4
+      tailwindcss: 3.0.24
+    dev: false
 
   /@testing-library/dom/8.13.0:
     resolution: {integrity: sha512-9VHgfIatKNXQNaZTtLnalIy0jNZzY35a4S3oi08YAt9Hv1VsfZ/DfA45lM8D/UhtHBGJ4/lGwp0PZkVndRkoOQ==}
@@ -6454,6 +6465,11 @@ packages:
     resolution: {integrity: sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==}
     engines: {node: '>=4'}
     dev: true
+
+  /mini-svg-data-uri/1.4.4:
+    resolution: {integrity: sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==}
+    hasBin: true
+    dev: false
 
   /minimatch/3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}

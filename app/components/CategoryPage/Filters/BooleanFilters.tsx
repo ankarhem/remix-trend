@@ -24,24 +24,30 @@ function BooleanFilters({
       {booleanFilters?.map((filter) => {
         const urlValue = getActiveFilterValue(filter.__typename, filter.id);
         const value =
-          typeof urlValue === 'string' ? urlValue === 'true' : filter.default;
+          typeof urlValue === 'string'
+            ? urlValue === 'true'
+            : filter.default === true;
 
-        if (typeof value !== 'boolean') return null;
         return (
-          <input
+          <label
             key={filter.id}
-            type='checkbox'
-            checked={value}
-            onChange={(event) => {
-              const path = toggleFilterPath(filter.__typename, {
-                id: filter.id,
-                value: String(event.target.checked),
-              });
-              console.log('hello', path);
+            className='flex items-center gap-4 text-sm hover:cursor-pointer'
+          >
+            {filter.name}
+            <input
+              className='p-2.5 rounded text-blue-400 focus:ring-blue-400 hover:ring'
+              type='checkbox'
+              checked={value}
+              onChange={(event) => {
+                const path = toggleFilterPath(filter.__typename, {
+                  id: filter.id,
+                  value: String(event.target.checked),
+                });
 
-              navigate(path);
-            }}
-          />
+                navigate(path);
+              }}
+            />
+          </label>
         );
       })}
     </>
