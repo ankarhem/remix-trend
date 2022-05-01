@@ -1,8 +1,8 @@
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/outline';
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { Link } from 'remix';
-import { Filters, UseFiltersReturnType } from '~/lib/utils/useFilters';
+import type { Filters, UseFiltersReturnType } from '~/lib/utils/useFilters';
 
 export type ListFiltersType =
   | Extract<NonNullable<Filters>[number], { __typename: 'ListFilter' }>[]

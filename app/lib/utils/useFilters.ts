@@ -23,6 +23,7 @@ export interface UseFiltersReturnType {
   toggleFilterPath: (type: FilterType, filter: Filter) => string;
   clearFiltersPath: () => string;
   getActiveFilterValues: (type: FilterType, id: string) => string[];
+  getActiveFilterValue: (type: FilterType, id: string) => string | null;
 }
 
 export function useFilters(filters: Filters): UseFiltersReturnType {
@@ -65,15 +66,29 @@ export function useFilters(filters: Filters): UseFiltersReturnType {
     (type: string, { id, value }: Filter) => {
       const params = new URLSearchParams(currentLocation.search);
       const paramKey = `${type}_${id}`;
-      const values = params.getAll(paramKey);
-      if (values.includes(value)) {
-        // Cannot remove a single value
-        // So we need to remove all and add the rest back
-        const filteredParams = values.filter((v) => v !== value);
-        params.delete(paramKey);
-        filteredParams.forEach((value) => params.append(paramKey, value));
-      } else {
-        params.append(paramKey, value);
+      switch (type) {
+        case 'ListFilter':
+          const urlValues = params.getAll(paramKey);
+          if (urlValues.includes(value)) {
+            // Cannot remove a single value
+            // So we need to remove all and add the rest back
+            const filteredParams = urlValues.filter((v) => v !== value);
+            params.delete(paramKey);
+            filteredParams.forEach((value) => params.append(paramKey, value));
+          } else {
+            params.append(paramKey, value);
+          }
+          break;
+        case 'NumericRangeFilter':
+          const urlValue = params.get(paramKey);
+          if (urlValue === value) {
+            params.delete(paramKey);
+          } else {
+            params.set(paramKey, value);
+          }
+          break;
+        default:
+          break;
       }
       return `?${params.toString()}`;
     },
@@ -99,10 +114,20 @@ export function useFilters(filters: Filters): UseFiltersReturnType {
     [currentLocation.search]
   );
 
+  const getActiveFilterValue = useCallback(
+    (type: string, id: string) => {
+      const params = new URLSearchParams(currentLocation.search);
+      const paramKey = `${type}_${id}`;
+      return params.get(paramKey);
+    },
+    [currentLocation.search]
+  );
+
   return {
     activeFilters,
     toggleFilterPath,
     clearFiltersPath,
     getActiveFilterValues,
+    getActiveFilterValue,
   };
 }
