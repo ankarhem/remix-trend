@@ -1,6 +1,6 @@
 import { MenuIcon } from '@heroicons/react/outline';
 import { Link, NavLink, useLoaderData } from 'remix';
-import { LayoutQueries } from '~/routes/__layout';
+import type { LayoutQueries } from '~/routes/__layout';
 import CartButton from '../Cart/CartButton';
 import SearchField from '../SearchPage/SearchField';
 import UspBar from './UspBar';

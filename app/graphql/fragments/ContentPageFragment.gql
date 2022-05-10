@@ -19,6 +19,7 @@ fragment ContentPage on Page {
       properties {
         name
         type
+        valueType
         value {
           ... on StringValue {
             value

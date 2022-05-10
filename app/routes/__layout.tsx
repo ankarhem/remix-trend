@@ -1,18 +1,12 @@
 import { Outlet } from '@remix-run/react';
 import { Toaster } from 'react-hot-toast';
-import { json, LoaderFunction } from 'remix';
+import type { LoaderFunction } from 'remix';
+import { json } from 'remix';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import { cartIdCookie } from '~/cookies';
-import {
-  CartDocument,
-  CartQuery,
-  // CartQuery,
-  NavTreeDocument,
-  NavTreeQuery,
-  PagesDocument,
-  PagesQuery,
-} from '~/graphql/types';
+import type { CartQuery, NavTreeQuery, PagesQuery } from '~/graphql/types';
+import { CartDocument, NavTreeDocument, PagesDocument } from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
 
 export type LayoutQueries = {
