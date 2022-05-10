@@ -1,6 +1,6 @@
-import React from 'react';
 import { Link } from 'remix';
 import { z } from 'zod';
+import type { ErrorBoundary } from '~/lib/components/ContentRenderer';
 
 const HeroSchema = z.object({
   header: z.string(),
@@ -11,9 +11,16 @@ const HeroSchema = z.object({
   isAboveFold: z.boolean().optional(),
 });
 
-function Hero(props: unknown) {
-  const { header, text, imageSrc, buttonLink, buttonText, isAboveFold } =
-    HeroSchema.parse(props);
+function Hero({
+  header,
+  text,
+  imageSrc,
+  buttonLink,
+  buttonText,
+  isAboveFold,
+}: z.infer<typeof HeroSchema>) {
+  // const { header, text, imageSrc, buttonLink, buttonText, isAboveFold } =
+  //   HeroSchema.parse(props);
 
   return (
     <div className='w-full relative'>
@@ -45,4 +52,18 @@ function Hero(props: unknown) {
   );
 }
 
-export default Hero;
+const ErrorComponent: ErrorBoundary = ({ error }) => {
+  return (
+    <div className='flex flex-col items-start justify-center bg-chestnut-200 text-chestnut-500 rounded my-6'>
+      <div className='p-4'>
+        <h2 className='text-3xl font-bold mb-8'>{error.name}</h2>
+        <pre>{error.message}</pre>
+      </div>
+    </div>
+  );
+};
+
+export default Object.assign(Hero, {
+  ErrorComponent: ErrorComponent,
+  schema: HeroSchema,
+});

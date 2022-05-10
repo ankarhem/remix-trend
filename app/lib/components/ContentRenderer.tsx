@@ -1,8 +1,14 @@
 import React from 'react';
+import type { z } from 'zod';
 import type { ContentItem, Maybe } from '~/graphql/types';
 
-export type Components = {
-  [key: string]: React.FC<any> | undefined;
+export type ErrorBoundary = React.FC<{ error: Error }>;
+
+export type ContentComponents = {
+  [key: string]:
+    | undefined
+    | React.FC<any>
+    | (React.FC<any> & { schema?: z.Schema; ErrorComponent: ErrorBoundary });
 };
 
 const convertPropsToObject = (item: ContentItem) => {
@@ -36,9 +42,11 @@ const convertPropsToObject = (item: ContentItem) => {
 export function ContentRenderer({
   items,
   components,
+  ErrorComponent: FallbackErrorComponent,
 }: {
   items: Maybe<Maybe<ContentItem>[]> | undefined;
-  components: Components;
+  components: ContentComponents;
+  ErrorComponent?: ErrorBoundary;
 }) {
   if (!items) return null;
   return (
@@ -50,6 +58,7 @@ export function ContentRenderer({
           if (!item) return null;
 
           const Component = components[item.type];
+
           if (!Component) {
             throw new Error(
               `Component ${item.type} has no defined implementation. Did you forget to pass it to the ContentRenderer?`
@@ -57,6 +66,20 @@ export function ContentRenderer({
           }
 
           const props = convertPropsToObject(item);
+
+          const schema = Component.hasOwnProperty('schema')
+            ? (Component as any).schema
+            : undefined;
+          if (schema) {
+            try {
+              schema.parse(props);
+            } catch (e) {
+              const ErrorComponent = Component.hasOwnProperty('ErrorComponent')
+                ? (Component as any).ErrorComponent
+                : FallbackErrorComponent;
+              return <ErrorComponent error={e} />;
+            }
+          }
 
           return (
             <Component key={`${item.type}-${index}`} {...props}>

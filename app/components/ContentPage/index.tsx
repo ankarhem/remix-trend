@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'remix';
+import type { ContentComponents } from '~/lib/components/ContentRenderer';
 import { ContentRenderer } from '~/lib/components/ContentRenderer';
 import type { RoutePage } from '~/utils/types';
 import Hero from './components/Hero';
@@ -8,7 +9,7 @@ type Props = {
   page: RoutePage;
 };
 
-const components = {
+const components: ContentComponents = {
   Hero: Hero,
   HTML: (props: Record<string, unknown>) => {
     if (typeof props.html !== 'string') {
@@ -43,7 +44,13 @@ function ContentPage({ page }: Props) {
       </aside>
       <article className='max-w-3xl'>
         <h1 className='text-3xl font-semibold mb-6'>{page.name}</h1>
-        <ContentRenderer items={page.data?.items} components={components} />
+        <ContentRenderer
+          items={page.data?.items}
+          components={components}
+          ErrorComponent={() => {
+            return <div>Error</div>;
+          }}
+        />
       </article>
     </div>
   );
