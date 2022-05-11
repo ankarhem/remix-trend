@@ -1,7 +1,12 @@
 import React from 'react';
 import type { z } from 'zod';
 import type { ContentItemProperty, Maybe, Scalars } from '~/graphql/types';
+import { isDev } from '~/utils/common';
 
+/**
+ * Type juggling because GraphQL changed their type standard,
+ * so we need to force alias on boolean values to it's own property name
+ **/
 type ContentItem = {
   children?: Maybe<Maybe<ContentItem | BoolContentItem>[]> | undefined;
   properties?:
@@ -29,6 +34,10 @@ export type ContentComponents = {
     | (React.FC<any> & { schema?: z.Schema; ErrorComponent: ErrorBoundary });
 };
 
+/**
+ * Convert the shitty GraphQL type to what
+ * one would expect as a React component props
+ */
 const convertPropsToObject = (item: ContentItem) => {
   const props = item.properties?.reduce(
     (merged: Record<string, any>, current) => {
@@ -79,8 +88,12 @@ const renderItem = ({
     ? (Component as any).schema
     : undefined;
 
+  // If the component has a schema, we need to validate the props
+  // This throws a validation error if the props are not valid
   if (schema) {
     schema.parse(props);
+  } else if (isDev) {
+    console.warn(`Component ${item.type} has no schema defined.`);
   }
 
   return (

@@ -1,6 +1,8 @@
-import { LoaderFunction, MetaFunction, useLoaderData } from 'remix';
+import type { LoaderFunction, MetaFunction } from 'remix';
+import { useLoaderData } from 'remix';
 import StartPage from '~/components/StartPage';
-import { RouteDocument, RouteQuery } from '~/graphql/types';
+import type { RouteQuery } from '~/graphql/types';
+import { RouteDocument } from '~/graphql/types';
 import { createRouteLoaderFunction } from '~/lib/loaderFunctions';
 
 export const loader: LoaderFunction = createRouteLoaderFunction({
