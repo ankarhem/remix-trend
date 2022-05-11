@@ -1,6 +1,24 @@
 import React from 'react';
 import type { z } from 'zod';
-import type { ContentItem, Maybe } from '~/graphql/types';
+import type { ContentItemProperty, Maybe, Scalars } from '~/graphql/types';
+
+type ContentItem = {
+  children?: Maybe<Maybe<ContentItem | BoolContentItem>[]> | undefined;
+  properties?:
+    | Maybe<Maybe<ContentItemProperty | BoolContentItemProperty>[]>
+    | undefined;
+  type: Scalars['String'];
+};
+
+type BoolContentItemProperty = Omit<ContentItemProperty, 'value'> & {
+  boolValue?: Maybe<boolean>;
+};
+
+type BoolContentItem = {
+  children?: Maybe<Maybe<BoolContentItem>[]> | undefined;
+  properties?: Maybe<Maybe<BoolContentItemProperty>[]> | undefined;
+  type: Scalars['String'];
+};
 
 export type ErrorBoundary = React.FC<{ error: Error }>;
 
@@ -20,12 +38,13 @@ const convertPropsToObject = (item: ContentItem) => {
 
       switch (current.valueType) {
         case 'SCALAR':
-          const primitive = ((current.value as any)?.value ||
-            (current.value as any)?.boolValue) as string | boolean;
+          const stringValue = (current as any)?.value?.value;
+          const boolValue = (current as any)?.value?.boolValue;
+          const primitive = stringValue || boolValue;
           merged[propKey] = primitive;
           break;
         case 'OBJECT':
-          const object = current.value;
+          const object = (current as any)?.value;
           merged[propKey] = object;
           break;
         default:
@@ -37,6 +56,40 @@ const convertPropsToObject = (item: ContentItem) => {
   );
 
   return props;
+};
+
+const renderItem = ({
+  components,
+  item,
+}: {
+  components: ContentComponents;
+  item: ContentItem;
+}) => {
+  const Component = components[item.type];
+
+  if (!Component) {
+    throw new Error(
+      `Component ${item.type} has no defined implementation. Did you forget to pass it to the ContentRenderer?`
+    );
+  }
+
+  const props = convertPropsToObject(item);
+
+  const schema = Component.hasOwnProperty('schema')
+    ? (Component as any).schema
+    : undefined;
+
+  if (schema) {
+    schema.parse(props);
+  }
+
+  return (
+    <Component {...props}>
+      {item.children && item.children.length > 0 ? (
+        <ContentRenderer items={item.children} components={components} />
+      ) : null}
+    </Component>
+  );
 };
 
 export function ContentRenderer({
@@ -56,41 +109,18 @@ export function ContentRenderer({
         .map((item, index) => {
           // should never happen but types are not correct
           if (!item) return null;
-
           const Component = components[item.type];
+          const ErrorComponent = Component?.hasOwnProperty('ErrorComponent')
+            ? (Component as any).ErrorComponent
+            : FallbackErrorComponent;
 
-          if (!Component) {
-            throw new Error(
-              `Component ${item.type} has no defined implementation. Did you forget to pass it to the ContentRenderer?`
-            );
+          // Need to do this with imperative error handling
+          // because ErrorBoundaries doesn't have SSR support
+          try {
+            return renderItem({ components, item });
+          } catch (e) {
+            return <ErrorComponent key={`${item.type}-${index}`} error={e} />;
           }
-
-          const props = convertPropsToObject(item);
-
-          const schema = Component.hasOwnProperty('schema')
-            ? (Component as any).schema
-            : undefined;
-          if (schema) {
-            try {
-              schema.parse(props);
-            } catch (e) {
-              const ErrorComponent = Component.hasOwnProperty('ErrorComponent')
-                ? (Component as any).ErrorComponent
-                : FallbackErrorComponent;
-              return <ErrorComponent error={e} />;
-            }
-          }
-
-          return (
-            <Component key={`${item.type}-${index}`} {...props}>
-              {item.children && item.children.length > 0 ? (
-                <ContentRenderer
-                  items={item.children}
-                  components={components}
-                />
-              ) : null}
-            </Component>
-          );
         })}
     </>
   );

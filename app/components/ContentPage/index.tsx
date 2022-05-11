@@ -3,6 +3,7 @@ import { Link } from 'remix';
 import type { ContentComponents } from '~/lib/components/ContentRenderer';
 import { ContentRenderer } from '~/lib/components/ContentRenderer';
 import type { RoutePage } from '~/utils/types';
+import ErrorComponent from './components/ErrorComponent';
 import Hero from './components/Hero';
 
 type Props = {
@@ -47,9 +48,7 @@ function ContentPage({ page }: Props) {
         <ContentRenderer
           items={page.data?.items}
           components={components}
-          ErrorComponent={() => {
-            return <div>Error</div>;
-          }}
+          ErrorComponent={ErrorComponent}
         />
       </article>
     </div>

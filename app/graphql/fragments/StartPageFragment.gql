@@ -1,3 +1,5 @@
+#import ./ContentItemFragment.gql
+
 fragment StartPage on StartPage {
   head {
     title
@@ -28,16 +30,10 @@ fragment StartPage on StartPage {
   data {
     id
     items {
+      ...ContentItemFragment
       children {
         ...ContentItemFragment
-        children {
-          ...ContentItemFragment
-          children {
-            ...ContentItemFragment
-          }
-        }
       }
-      ...ContentItemFragment
     }
   }
 }

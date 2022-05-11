@@ -1,3 +1,5 @@
+#import ./ContentItemFragment.gql
+
 fragment ContentPage on Page {
   primaryRoute {
     id
@@ -15,16 +17,9 @@ fragment ContentPage on Page {
   data {
     id
     items {
-      type
-      properties {
-        name
-        type
-        valueType
-        value {
-          ... on StringValue {
-            value
-          }
-        }
+      ...ContentItemFragment
+      children {
+        ...ContentItemFragment
       }
     }
   }

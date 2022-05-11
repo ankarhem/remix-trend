@@ -1,4 +1,5 @@
 import { LoaderFunction, MetaFunction, useLoaderData } from 'remix';
+import StartPage from '~/components/StartPage';
 import { RouteDocument, RouteQuery } from '~/graphql/types';
 import { createRouteLoaderFunction } from '~/lib/loaderFunctions';
 
@@ -32,37 +33,5 @@ export default function PageContent() {
 
   const startPage = route?.object;
 
-  return (
-    <div className=''>
-      <div className='grid md:grid-cols-2 items-stretch'>
-        <img
-          className='object-cover inset-0'
-          src='https://w.wallhaven.cc/full/w8/wallhaven-w86j86.jpg'
-          alt='hero'
-        />
-        <div className='grid sm:grid-cols-2 py-12 px-12 sm:py-16 sm:px-24 sm:col-start-1 sm:row-start-1'>
-          <div className='flex flex-col'>
-            <h1 className='text-4xl sm:text-6xl font-bold mb-8 sm:mb-12'>
-              .amazing.
-              <br />
-              high quality
-              <br />
-              products.
-            </h1>
-            <a
-              href='/news'
-              className='rounded py-4 px-8 border-blue-400 border text-blue-400 hover:bg-blue-400 hover:text-blue-50 w-min whitespace-nowrap'
-            >
-              Shop new arrivals
-            </a>
-          </div>
-        </div>
-        <img
-          className='object-cover'
-          src='https://w.wallhaven.cc/full/w8/wallhaven-w86j86.jpg'
-          alt='hero'
-        />
-      </div>
-    </div>
-  );
+  return <StartPage startPage={startPage} />;
 }
