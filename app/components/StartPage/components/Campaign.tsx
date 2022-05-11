@@ -23,7 +23,11 @@ function Campaign({
 }: z.infer<typeof CampaignSchema>) {
   return (
     <div className='grid grid-cols-2 my-20'>
-      <div className='flex flex-col justify-center items-center'>
+      <div
+        className={`flex flex-col justify-center items-center ${
+          alignment === 'left' ? 'order-1' : 'order-2'
+        }`}
+      >
         <h2 className='text-4xl mb-8 font-semibold'>{header}</h2>
         <p className='text-gray-500 text-xl mb-10'>{text}</p>
         <Link
@@ -36,7 +40,11 @@ function Campaign({
       <img
         src={imageSrc.value}
         alt='campaign'
-        className='block rounded-xl object-cover aspect-video w-full translate-x-4'
+        className={`block rounded-xl object-cover aspect-video w-full ${
+          alignment === 'left'
+            ? 'order-2 translate-x-4'
+            : 'order-1 -translate-x-4'
+        }`}
       />
     </div>
   );
