@@ -19,9 +19,6 @@ function Hero({
   buttonText,
   isAboveFold,
 }: z.infer<typeof HeroSchema>) {
-  // const { header, text, imageSrc, buttonLink, buttonText, isAboveFold } =
-  //   HeroSchema.parse(props);
-
   return (
     <div className='w-full relative'>
       <img

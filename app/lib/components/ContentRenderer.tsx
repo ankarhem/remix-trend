@@ -54,7 +54,7 @@ export function ContentRenderer({
       {items
         .filter((i) => !!i)
         .map((item, index) => {
-          // should never happend but types are not correct
+          // should never happen but types are not correct
           if (!item) return null;
 
           const Component = components[item.type];
