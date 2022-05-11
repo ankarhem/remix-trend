@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import type { z } from 'zod';
 import type { ContentItemProperty, Maybe, Scalars } from '~/graphql/types';
 import { isDev } from '~/utils/common';
@@ -67,7 +67,7 @@ const convertPropsToObject = (item: ContentItem) => {
   return props;
 };
 
-const renderItem = ({
+const ContentItemComponent = ({
   components,
   item,
 }: {
@@ -96,13 +96,50 @@ const renderItem = ({
     console.warn(`Component ${item.type} has no schema defined.`);
   }
 
-  return (
-    <Component {...props}>
-      {item.children && item.children.length > 0 ? (
-        <ContentRenderer items={item.children} components={components} />
-      ) : null}
-    </Component>
-  );
+  /**
+   * This is a bit hacky, but it's the only way encapsulate
+   * components such that we can wrap them in an "ErrorBoundary"
+   *
+   * I.e. what this does is that we render each item in a try-catch block
+   * and if the component itself has an exported ErrorBoundary
+   * it will still render the parent and replace the errored child
+   * with the ErrorBoundary. Therefore allowing partly rendered content.
+   *
+   * If it doesn't have an ErrorBoundary, it will pass the error to the parent
+   * and the parent will render its own ErrorBoundary if it exists.
+   *
+   * If no ErrorBoundary is defined, it will just throw the error, in which case
+   * the Remix Route ErrorComponent will be rendered.
+   */
+  try {
+    const children =
+      item?.children
+        ?.filter((i) => !!i)
+        .map((childItem, index) => {
+          if (!childItem) return null;
+          try {
+            const Contents = ContentItemComponent({
+              components,
+              item: childItem,
+            });
+            return (
+              <Fragment key={`${childItem.type}-${index}`}>{Contents}</Fragment>
+            );
+          } catch (e) {
+            const ChildComponent = components[childItem.type];
+            if (!ChildComponent?.hasOwnProperty('ErrorComponent')) throw e;
+            const ChildErrorComponent = (ChildComponent as any).ErrorComponent;
+
+            return <ChildErrorComponent error={e} />;
+          }
+        }) || null; // cant return undefined as children
+    return <Component {...props}>{children}</Component>;
+  } catch (e) {
+    if (!Component.hasOwnProperty('ErrorComponent')) throw e;
+
+    const ErrorComponent = (Component as any).ErrorComponent;
+    return <ErrorComponent error={e} />;
+  }
 };
 
 export function ContentRenderer({
@@ -129,9 +166,14 @@ export function ContentRenderer({
 
           // Need to do this with imperative error handling
           // because ErrorBoundaries doesn't have SSR support
+          // Calling it as a function circumvents the problem
           try {
-            return renderItem({ components, item });
+            const Contents = ContentItemComponent({ item, components });
+            return (
+              <Fragment key={`${item.type}-${index}`}>{Contents}</Fragment>
+            );
           } catch (e) {
+            if (!ErrorComponent) throw e;
             return <ErrorComponent key={`${item.type}-${index}`} error={e} />;
           }
         })}

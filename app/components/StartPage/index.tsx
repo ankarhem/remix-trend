@@ -3,6 +3,8 @@ import type { ContentComponents } from '~/lib/components/ContentRenderer';
 import { ContentRenderer } from '~/lib/components/ContentRenderer';
 import type { RouteStartPage } from '~/utils/types';
 import ErrorComponent from '../ContentPage/components/ErrorComponent';
+import Campaign from './components/Campaign';
+import Categories from './components/Categories';
 import Hero from './components/Hero';
 
 type Props = {
@@ -11,15 +13,20 @@ type Props = {
 
 const components: ContentComponents = {
   Hero: Hero,
+  Categories: Categories,
+  categoryItem: Categories.Item,
+  Campaign: Campaign,
 };
 
 function StartPage({ startPage }: Props) {
   return (
-    <ContentRenderer
-      items={startPage.data?.items || undefined}
-      components={components}
-      ErrorComponent={ErrorComponent}
-    />
+    <div className='grid gap-8'>
+      <ContentRenderer
+        items={startPage.data?.items || undefined}
+        components={components}
+        ErrorComponent={ErrorComponent}
+      />
+    </div>
   );
 }
 
