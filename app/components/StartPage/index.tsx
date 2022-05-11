@@ -3,7 +3,7 @@ import type { ContentComponents } from '~/lib/components/ContentRenderer';
 import { ContentRenderer } from '~/lib/components/ContentRenderer';
 import type { RouteStartPage } from '~/utils/types';
 import ErrorComponent from '../ContentPage/components/ErrorComponent';
-import Hero from '../ContentPage/components/Hero';
+import Hero from './components/Hero';
 
 type Props = {
   startPage: RouteStartPage;

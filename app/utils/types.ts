@@ -1,4 +1,4 @@
-import { RouteQuery } from '~/graphql/types';
+import type { RouteQuery } from '~/graphql/types';
 
 export type RouteCategory = Extract<
   NonNullable<RouteQuery['route']>['object'],
