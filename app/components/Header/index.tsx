@@ -11,8 +11,8 @@ function Header() {
     <>
       <header className='sticky top-0 z-20'>
         <UspBar />
-        <div className='h-12 bg-blue-50 flex items-center shadow-md px-8 sm:pl-2'>
-          <button className='sm:hidden'>
+        <div className='h-12 bg-blue-50 flex items-center shadow-md px-8 lg:pl-2'>
+          <button className='lg:hidden'>
             <MenuIcon className='w-6 h-6' />
           </button>
           <Link to='/' prefetch='intent'>
@@ -22,7 +22,7 @@ function Header() {
             />
           </Link>
 
-          <nav className='px-4 hidden sm:block'>
+          <nav className='px-4 hidden lg:block'>
             <ul className='flex gap-4'>
               {navTree?.map((category) => {
                 if (!category?.primaryRoute) return null;
