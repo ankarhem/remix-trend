@@ -27,7 +27,7 @@ const Categories: React.FC<z.infer<typeof CategorySchema>> = ({
   return (
     <>
       <h3 className='text-2xl lg:hidden mx-4'>{header}</h3>
-      <div className='pb-8 lg:pb-0 max-w-full lg:container grid mx-auto grid-flow-col auto-cols-[150px] px-8 lg:px-0 lg:translate-x-0 lg:auto-cols-[15%] gap-4 lg:gap-10 lg:-translate-y-1/2 lg:justify-center overflow-x-auto lg:overflow-visible min-h-min lg:min-h-unset'>
+      <div className='pb-8 lg:pb-0 max-w-full lg:container grid mx-auto grid-flow-col auto-cols-[200px] px-8 lg:px-0 lg:translate-x-0 lg:auto-cols-[15%] gap-4 lg:gap-10 lg:-translate-y-1/2 lg:justify-center overflow-x-auto lg:overflow-visible min-h-min lg:min-h-unset'>
         {children}
       </div>
     </>
