@@ -46,15 +46,15 @@ function ProductPage({ product }: Props) {
 
   return (
     <div className='container flex flex-col mx-auto mt-12 mb-8 gap-12'>
-      <div className='flex gap-12'>
+      <div className='flex gap-12 flex-col lg:flex-row mx-4 lg:mx-0 '>
         <div className='basis-full bg-white flex items-center justify-center'>
           <img
-            className='object-contain max-h-[600px] min-h-[500px] p-8'
+            className='object-contain max-h-[600px] lg:min-h-[500px] p-8'
             src={product.images?.[0]?.url}
             alt={product.images?.[0]?.alt ?? product.name}
           />
         </div>
-        <div className='basis-[90%]'>
+        <div className='lg:basis-[90%]'>
           <div className='mb-6'>
             <h1 className='text-gray-900 font-bold text-3xl uppercase'>
               {product.name}
@@ -64,7 +64,7 @@ function ProductPage({ product }: Props) {
           </div>
 
           <div
-            className='text-gray-500 text-sm mb-6'
+            className='text-gray-500 text-sm mb-6 max-w-prose'
             dangerouslySetInnerHTML={{
               __html: product.description,
             }}
@@ -76,7 +76,7 @@ function ProductPage({ product }: Props) {
 
           <button
             onClick={handleAddToCart}
-            className='text-blue-50 bg-blue-400 hover:bg-blue-500 w-96 py-3 rounded focus:ring focus:ring-blue-400 active:ring-blue-500 ring-offset-2 focus:outline-none'
+            className='text-blue-50 bg-blue-400 hover:bg-blue-500 w-full lg:w-96 py-3 rounded focus:ring focus:ring-blue-400 active:ring-blue-500 ring-offset-2 focus:outline-none'
           >
             Add to cart
           </button>
@@ -84,8 +84,8 @@ function ProductPage({ product }: Props) {
       </div>
 
       {product.relatedProducts && product.relatedProducts?.length > 0 ? (
-        <div>
-          <h2 className='text-gray-900 font-bold text-3xl uppercase mb-6'>
+        <div className='mx-4 lg:mx-0'>
+          <h2 className='text-gray-900 font-bold text-2xl uppercase mb-6'>
             Related products
           </h2>
 

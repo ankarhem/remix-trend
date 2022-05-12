@@ -811,6 +811,16 @@ select {
   margin-bottom: 5rem;
 }
 
+.mx-8 {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+.-mx-8 {
+  margin-left: -2rem;
+  margin-right: -2rem;
+}
+
 .mt-12 {
   margin-top: 3rem;
 }
@@ -1025,6 +1035,10 @@ select {
 
 .w-52 {
   width: 13rem;
+}
+
+.w-auto {
+  width: auto;
 }
 
 .min-w-\[32px\] {
@@ -2366,6 +2380,16 @@ select {
     order: 2;
   }
 
+  .lg\:mx-0 {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .lg\:mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .lg\:-mb-\[50\%\] {
     margin-bottom: -50%;
   }
@@ -2390,8 +2414,20 @@ select {
     display: none;
   }
 
+  .lg\:min-h-\[500px\] {
+    min-height: 500px;
+  }
+
+  .lg\:w-96 {
+    width: 24rem;
+  }
+
   .lg\:max-w-5xl {
     max-width: 64rem;
+  }
+
+  .lg\:basis-\[90\%\] {
+    flex-basis: 90%;
   }
 
   .lg\:translate-x-4 {
@@ -2442,6 +2478,10 @@ select {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .lg\:flex-row {
+    flex-direction: row;
+  }
+
   .lg\:justify-center {
     justify-content: center;
   }
@@ -2470,5 +2510,10 @@ select {
   .lg\:text-6xl {
     font-size: 3.75rem;
     line-height: 1;
+  }
+
+  .lg\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
   }
 }
