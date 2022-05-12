@@ -36,9 +36,25 @@ export const loader: LoaderFunction = async (args) => {
 
   const [cart] = await Promise.all([cartResult.json()]);
 
-  return json({
-    cart: cart.data.cart,
-  });
+  const headers = new Headers();
+
+  let purpose =
+    args.request.headers.get('Purpose') ||
+    args.request.headers.get('X-Purpose') ||
+    args.request.headers.get('Sec-Purpose') ||
+    args.request.headers.get('Sec-Fetch-Purpose') ||
+    args.request.headers.get('Moz-Purpose');
+
+  if (purpose) {
+    headers.append('Cache-Control', 'private, max-age=10');
+  }
+
+  return json(
+    {
+      cart: cart.data.cart,
+    },
+    { headers }
+  );
 };
 
 export default function PageContent() {
