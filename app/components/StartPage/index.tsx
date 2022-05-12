@@ -6,6 +6,7 @@ import ErrorComponent from '../ContentPage/components/ErrorComponent';
 import Campaign from './components/Campaign';
 import Categories from './components/Categories';
 import Hero from './components/Hero';
+import ProductGrid from './components/ProductGrid';
 
 type Props = {
   startPage: RouteStartPage;
@@ -16,6 +17,7 @@ const components: ContentComponents = {
   Categories: Categories,
   categoryItem: Categories.Item,
   Campaign: Campaign,
+  ProductGrid: ProductGrid,
 };
 
 function StartPage({ startPage }: Props) {
