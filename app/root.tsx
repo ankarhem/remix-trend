@@ -16,7 +16,16 @@ export const meta: MetaFunction = () => ({
 });
 
 export const links: LinksFunction = () => {
-  return [{ rel: 'stylesheet', href: styles }];
+  return [
+    {
+      rel: 'stylesheet',
+      href: styles,
+    },
+    {
+      rel: 'dns-prefetch',
+      href: 'https://www.demostore.se/',
+    },
+  ];
 };
 
 export default function App() {
