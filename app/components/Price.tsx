@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteCategory } from '~/utils/types';
+import type { RouteCategory } from '~/utils/types';
 
 interface PriceProps {
   price?: NonNullable<

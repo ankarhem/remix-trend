@@ -1,7 +1,7 @@
-import { TypedDocumentNode } from '@graphql-typed-document-node/core';
+import type { TypedDocumentNode } from '@graphql-typed-document-node/core';
 import { print } from 'graphql';
 import { sendGraphQLRequest } from 'remix-graphql/index.server';
-import { FuncParams } from './utils/types';
+import type { FuncParams } from './utils/types';
 
 export const sendJetshopRequest = (
   props: Omit<FuncParams<typeof sendGraphQLRequest>, 'endpoint' | 'query'> & {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteCategory } from '~/utils/types';
+import type { RouteCategory } from '~/utils/types';
 import Pagination from '../Pagination';
 import Filters from './Filters';
 import ProductGrid from './ProductGrid';

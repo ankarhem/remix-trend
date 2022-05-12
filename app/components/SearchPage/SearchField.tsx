@@ -17,6 +17,7 @@ export const SearchField = ({ className, ...inputProps }: Props) => {
     if (urlTerm && urlTerm !== term) {
       setTerm(urlTerm);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [urlTerm]);
 
   return (

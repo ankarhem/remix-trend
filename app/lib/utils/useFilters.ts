@@ -77,7 +77,7 @@ export function useFilters(filters: Filters): UseFiltersReturnType {
     }
 
     return activeFilters;
-  }, [currentLocation.search]);
+  }, [currentLocation.search, filters]);
 
   const toggleFilterPath = useCallback(
     (type: string, { id, value }: Filter) => {

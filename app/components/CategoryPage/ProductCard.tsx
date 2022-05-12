@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'remix';
-import { RouteCategory } from '~/utils/types';
+import type { RouteCategory } from '~/utils/types';
 import Price from '../Price';
 
 type Props = {

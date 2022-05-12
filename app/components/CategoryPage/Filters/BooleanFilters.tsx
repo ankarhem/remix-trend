@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'remix';
-import { Filters, UseFiltersReturnType } from '~/lib/utils/useFilters';
+import type { Filters, UseFiltersReturnType } from '~/lib/utils/useFilters';
 
 export type BooleanFilterType =
   | Extract<NonNullable<Filters>[number], { __typename: 'BooleanFilter' }>[]

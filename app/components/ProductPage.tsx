@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast';
 import { useFetcher } from 'remix';
-import { RouteProduct } from '~/utils/types';
+import type { RouteProduct } from '~/utils/types';
 import ProductGrid from './CategoryPage/ProductGrid';
 import Cross from './Icons/Cross';
 import Price from './Price';
@@ -15,7 +15,7 @@ function ProductPage({ product }: Props) {
   if (!product) return null;
 
   const handleAddToCart = async () => {
-    const result = await fetcher.submit(
+    await fetcher.submit(
       { articleNumber: product.articleNumber },
       { method: 'post', action: '/cart-summary' }
     );

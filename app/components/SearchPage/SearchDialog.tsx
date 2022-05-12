@@ -1,7 +1,7 @@
 import { Combobox, Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { Link, useFetcher, useNavigate } from 'remix';
-import { AutocompleteQuery } from '~/graphql/types';
+import type { AutocompleteQuery } from '~/graphql/types';
 
 type AutocompleteItems =
   | NonNullable<

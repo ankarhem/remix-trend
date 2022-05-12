@@ -1,5 +1,5 @@
 import { Form, Link, useLoaderData } from 'remix';
-import { LayoutQueries } from '~/routes/__layout';
+import type { LayoutQueries } from '~/routes/__layout';
 
 function Footer() {
   const { pages } = useLoaderData<LayoutQueries>();
