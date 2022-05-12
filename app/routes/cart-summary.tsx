@@ -1,11 +1,8 @@
-import { ActionFunction, json, LoaderFunction, useLoaderData } from 'remix';
+import type { ActionFunction, LoaderFunction } from 'remix';
+import { json, useLoaderData } from 'remix';
 import { cartIdCookie } from '~/cookies';
-import {
-  AddToCartDocument,
-  AddToCartMutation,
-  CartDocument,
-  CartQuery,
-} from '~/graphql/types';
+import type { AddToCartMutation, CartQuery } from '~/graphql/types';
+import { AddToCartDocument, CartDocument } from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
 
 export const loader: LoaderFunction = async (args) => {

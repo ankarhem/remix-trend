@@ -111,7 +111,10 @@ export const createRouteLoaderFunction =
     }
 
     const headers = new Headers();
-    headers.set('Cache-Control', 'max-age=60, stale-while-revalidate=300');
+    headers.set(
+      'Cache-Control',
+      'public, s-maxage=60, stale-while-revalidate=300'
+    );
 
     return json(data, { headers });
   };

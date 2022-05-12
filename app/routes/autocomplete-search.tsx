@@ -1,4 +1,4 @@
-import { LoaderFunction } from 'remix';
+import type { LoaderFunction } from 'remix';
 import { AutocompleteDocument } from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
 

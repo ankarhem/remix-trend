@@ -46,7 +46,10 @@ export const loader: LoaderFunction = async (args) => {
   ]);
 
   const headers = new Headers();
-  headers.set('Cache-Control', 'max-age=60, stale-while-revalidate=300');
+  headers.set(
+    'Cache-Control',
+    'public, s-maxage=60, stale-while-revalidate=300'
+  );
   return json(
     {
       navTree: navTree.data.categories,
