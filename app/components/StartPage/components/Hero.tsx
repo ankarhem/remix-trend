@@ -32,10 +32,14 @@ function Hero({
       />
 
       <div className='absolute inset-0 from-blue-700/90 to-transparent bg-gradient-to-br'>
-        <div className='p-4 absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center max-w-sm'>
-          <h2 className='text-white text-6xl font-bold mb-8'>{header}</h2>
+        <div className='p-4 absolute top-1/2 lg:top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center max-w-sm'>
+          <h2 className='text-white text-5xl lg:text-6xl font-bold mb-8'>
+            {header}
+          </h2>
           {text && (
-            <p className='text-blue-50 text-lg font-medium mb-8'>{text}</p>
+            <p className='text-blue-50 text-lg font-medium mb-8 lg:block hidden'>
+              {text}
+            </p>
           )}
           {buttonLink && buttonText && (
             <Link

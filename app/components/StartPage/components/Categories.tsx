@@ -20,11 +20,17 @@ const CategoryItemSchema = z.object({
   }),
 });
 
-const Categories: React.FC<z.infer<typeof CategorySchema>> = ({ children }) => {
+const Categories: React.FC<z.infer<typeof CategorySchema>> = ({
+  header,
+  children,
+}) => {
   return (
-    <div className='container mx-auto grid grid-flow-col auto-cols-auto gap-8 -translate-y-1/2'>
-      {children}
-    </div>
+    <>
+      <h3 className='text-2xl lg:hidden mx-4'>{header}</h3>
+      <div className='pb-8 lg:pb-0 max-w-full lg:container grid mx-auto grid-flow-col auto-cols-[150px] px-8 lg:px-0 lg:translate-x-0 lg:auto-cols-[15%] gap-4 lg:gap-10 lg:-translate-y-1/2 lg:justify-center overflow-x-auto lg:overflow-visible min-h-min lg:min-h-unset'>
+        {children}
+      </div>
+    </>
   );
 };
 
@@ -35,7 +41,7 @@ const CategoryItem = ({
   return (
     <Link
       to={category.primaryRoute?.path || ''}
-      className='group relative block rounded-xl overflow-hidden hover:scale-110 transition -mb-[50%]'
+      className='group relative block rounded-md lg:rounded-xl overflow-hidden hover:scale-110 transition lg:-mb-[50%] overflow-y-visible'
       prefetch='intent'
     >
       <img
