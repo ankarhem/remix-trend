@@ -14,4 +14,6 @@ const HTMLContent = ({ html }: z.infer<typeof HTMLContentSchema>) => {
   );
 };
 
-export default HTMLContent;
+export default Object.assign(HTMLContent, {
+  schema: HTMLContentSchema,
+});

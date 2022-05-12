@@ -39,7 +39,7 @@ function Filters({ filters }: Props) {
 
   return (
     <>
-      <div className='px-4 sm:px-8 flex gap-8'>
+      <div className='px-4 sm:px-8 flex gap-8 flex-col lg:flex-row'>
         <div className='flex gap-6 flex-wrap flex-1'>
           <ListFilters
             listFilters={listFilters}
@@ -52,7 +52,7 @@ function Filters({ filters }: Props) {
             toggleFilterPath={toggleFilterPath}
           />
         </div>
-        <div className='flex flex-col gap-2.5 w-96 items-end'>
+        <div className='flex flex-col gap-2.5 w-96 items-end self-end lg:self-start'>
           <BooleanFilters
             booleanFilters={booleanFilters}
             getActiveFilterValue={getActiveFilterValue}

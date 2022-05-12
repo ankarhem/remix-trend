@@ -1,8 +1,8 @@
-import { MenuIcon } from '@heroicons/react/outline';
 import { Link, NavLink, useLoaderData } from 'remix';
 import type { LayoutQueries } from '~/routes/__layout';
 import CartButton from '../Cart/CartButton';
 import SearchField from '../SearchPage/SearchField';
+import MobileMenu from './MobileMenu';
 import UspBar from './UspBar';
 
 function Header() {
@@ -12,9 +12,7 @@ function Header() {
       <header className='sticky top-0 z-20'>
         <UspBar />
         <div className='h-12 bg-blue-50 flex items-center shadow-md px-8 lg:pl-2'>
-          <button className='lg:hidden'>
-            <MenuIcon className='w-6 h-6' />
-          </button>
+          <MobileMenu />
           <Link to='/' prefetch='intent'>
             <img
               alt='logo'
