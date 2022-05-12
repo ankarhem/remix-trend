@@ -46,7 +46,7 @@ const ProductItem = ({
 }) => {
   const { ref, inView } = useInView({
     /* Optional options */
-    threshold: 0.1,
+    threshold: 0.5,
     triggerOnce: true,
   });
   const alignment = index % 2 === 0 ? 'left' : 'right';
