@@ -43,7 +43,7 @@ const ProductItem = ({
   product: z.infer<typeof ProductSchema>;
   index: number;
 }) => {
-  const { ref, inView, entry } = useInView({
+  const { ref, inView } = useInView({
     /* Optional options */
     threshold: 0.1,
     triggerOnce: true,

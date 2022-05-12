@@ -1,12 +1,12 @@
-import { Outlet } from '@remix-run/react';
 import { Toaster } from 'react-hot-toast';
 import type { LoaderFunction } from 'remix';
-import { json } from 'remix';
+import { json, Outlet } from 'remix';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import { cartIdCookie } from '~/cookies';
 import type { CartQuery, NavTreeQuery, PagesQuery } from '~/graphql/types';
 import { CartDocument, NavTreeDocument, PagesDocument } from '~/graphql/types';
+import ProgressBar from '~/lib/components/ProgressBar';
 import { sendJetshopRequest } from '~/lib/jetshop';
 
 export type LayoutQueries = {
@@ -72,6 +72,7 @@ export const loader: LoaderFunction = async (args) => {
 export default function PageContent() {
   return (
     <>
+      <ProgressBar />
       <Header />
       <main className='flex flex-1 flex-col'>
         <Outlet />

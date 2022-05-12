@@ -746,6 +746,10 @@ select {
   z-index: 10;
 }
 
+.z-50 {
+  z-index: 50;
+}
+
 .order-1 {
   order: 1;
 }
@@ -760,10 +764,6 @@ select {
 
 .col-start-2 {
   grid-column-start: 2;
-}
-
-.col-start-1 {
-  grid-column-start: 1;
 }
 
 .mx-auto {
@@ -951,6 +951,10 @@ select {
   height: 0px;
 }
 
+.h-\[3px\] {
+  height: 3px;
+}
+
 .max-h-\[600px\] {
   max-height: 600px;
 }
@@ -977,22 +981,6 @@ select {
 
 .min-h-\[60vh\] {
   min-height: 60vh;
-}
-
-.min-h-\[80vh\] {
-  min-height: 80vh;
-}
-
-.min-h-\[70vh\] {
-  min-height: 70vh;
-}
-
-.min-h-\[800px\] {
-  min-height: 800px;
-}
-
-.min-h-\[600px\] {
-  min-height: 600px;
 }
 
 .min-h-\[700px\] {
@@ -1063,10 +1051,6 @@ select {
 
 .max-w-prose {
   max-width: 65ch;
-}
-
-.max-w-\[500px\] {
-  max-width: 500px;
 }
 
 .max-w-\[600px\] {
@@ -1276,10 +1260,6 @@ select {
 
 .justify-evenly {
   justify-content: space-evenly;
-}
-
-.justify-items-end {
-  justify-items: end;
 }
 
 .justify-items-center {
@@ -1517,6 +1497,11 @@ select {
   background-color: rgb(228 232 238 / var(--tw-bg-opacity));
 }
 
+.bg-indigo-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(155 122 216 / var(--tw-bg-opacity));
+}
+
 .bg-chestnut-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(252 226 192 / var(--tw-bg-opacity));
@@ -1544,6 +1529,11 @@ select {
 
 .bg-blue-400\/20 {
   background-color: rgb(117 140 236 / 0.2);
+}
+
+.bg-blue-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(172 207 252 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-br {
@@ -1842,10 +1832,6 @@ select {
   color: rgb(133 172 244 / var(--tw-text-opacity));
 }
 
-.underline-offset-2 {
-  text-underline-offset: 2px;
-}
-
 .underline-offset-4 {
   text-underline-offset: 4px;
 }
@@ -1973,6 +1959,10 @@ select {
   transition-duration: 100ms;
 }
 
+.duration-300 {
+  transition-duration: 300ms;
+}
+
 .duration-500 {
   transition-duration: 500ms;
 }
@@ -1983,6 +1973,10 @@ select {
 
 .ease-in {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
+.ease-out {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
 .focus-within\:bg-blue-50:focus-within {
