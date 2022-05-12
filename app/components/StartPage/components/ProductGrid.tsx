@@ -2,6 +2,7 @@ import { Transition } from '@headlessui/react';
 import { useInView } from 'react-intersection-observer';
 import { Link } from 'remix';
 import { z } from 'zod';
+import CategoryGrid from '../../CategoryPage/ProductGrid';
 
 const ProductSchema = z.object({
   id: z.number(),
@@ -109,13 +110,25 @@ function ProductGrid({ header, ...rest }: z.infer<typeof ProductGridSchema>) {
     .map(([key, value]) => value);
 
   return (
-    <div className='grid gap-10'>
-      {products.map((product, index) => {
-        return (
-          <ProductItem key={`${product.id}`} product={product} index={index} />
-        );
-      })}
-    </div>
+    <>
+      {/* Desktop */}
+      <div className='hidden lg:grid gap-10'>
+        {products.map((product, index) => {
+          return (
+            <ProductItem
+              key={`${product.id}`}
+              product={product}
+              index={index}
+            />
+          );
+        })}
+      </div>
+      {/* Mobile */}
+      <div className='lg:hidden'>
+        <h3 className='text-2xl lg:hidden mx-4'>{header}</h3>
+        <CategoryGrid products={products as any} />
+      </div>
+    </>
   );
 }
 
