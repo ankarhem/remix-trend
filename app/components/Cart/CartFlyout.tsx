@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { Link } from 'remix';
-import { CartQuery } from '~/graphql/types';
+import type { CartQuery } from '~/graphql/types';
 import Cross from '../Icons/Cross';
 import Price from '../Price';
 

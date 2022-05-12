@@ -110,5 +110,8 @@ export const createRouteLoaderFunction =
       redirect(data.route.path);
     }
 
-    return json(data);
+    const headers = new Headers();
+    headers.set('Cache-Control', 'max-age=60, stale-while-revalidate=300');
+
+    return json(data, { headers });
   };

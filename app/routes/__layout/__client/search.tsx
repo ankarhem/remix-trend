@@ -1,10 +1,12 @@
-import { CatchBoundaryComponent } from '@remix-run/react/routeModules';
-import { LoaderFunction, MetaFunction, useLoaderData } from 'remix';
+import type { CatchBoundaryComponent } from '@remix-run/react/routeModules';
+import type { LoaderFunction, MetaFunction } from 'remix';
+import { useLoaderData } from 'remix';
 import SearchPage from '~/components/SearchPage';
 import SearchField from '~/components/SearchPage/SearchField';
-import { SearchDocument, SearchQuery } from '~/graphql/types';
+import type { SearchQuery } from '~/graphql/types';
+import { SearchDocument } from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
-import { PAGE_SIZE } from '../__layout';
+import { PAGE_SIZE } from '../../__layout';
 
 export const loader: LoaderFunction = async (args) => {
   const url = new URL(args.request.url);

@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { useLoaderData } from 'remix';
-import { LayoutQueries } from '~/routes/__layout';
+import { useClientData } from '~/routes/__layout/__client';
 import CartFlyout from './CartFlyout';
 
 function CartButton() {
   const [open, setOpen] = useState(false);
-  const { cart } = useLoaderData<LayoutQueries>();
+  const { cart } = useClientData();
 
   return (
     <>
