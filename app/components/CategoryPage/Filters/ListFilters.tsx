@@ -74,6 +74,7 @@ function ListFilters({
                               id: filter.id,
                               value: item.value,
                             })}
+                            prefetch='intent'
                           >
                             <span
                               className={`block truncate ${

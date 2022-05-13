@@ -61,6 +61,7 @@ const ProductItem = ({
         <div className='grid grid-cols-2 place-items-center gap-10'>
           <Transition.Child
             as={Link}
+            prefetch='intent'
             to={product.primaryRoute?.path || ''}
             className={`${alignment === 'left' ? 'order-0' : 'order-1'}`}
             enter='transition duration-500'
@@ -88,6 +89,7 @@ const ProductItem = ({
             <Link
               to={product.primaryRoute?.path || ''}
               className='hover:underline underline-offset-4'
+              prefetch='intent'
             >
               <h3 className='text-4xl font-semibold mb-2'>{product.name}</h3>
             </Link>

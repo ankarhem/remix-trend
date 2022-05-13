@@ -93,6 +93,7 @@ function RangeFilter({
                     value: `${values[0]}${VALUES_SEPERATOR}${values[1]}`,
                   })}
                   className='block text-center w-full bg-blue-400 hover:bg-blue-500 text-blue-50 focus:bg-blue-500 rounded py-2'
+                  prefetch='intent'
                 >
                   {urlMin !== values[0] || urlMax !== values[1]
                     ? 'Apply'
