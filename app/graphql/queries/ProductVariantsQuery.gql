@@ -1,0 +1,16 @@
+query ProductVariants($articleNumber: String!) {
+  product(articleNumber: $articleNumber) {
+    id
+    articleNumber
+    variants {
+      options {
+        name
+        values
+      }
+      values {
+        articleNumber
+        values
+      }
+    }
+  }
+}
