@@ -1,14 +1,19 @@
 import { RadioGroup } from '@headlessui/react';
-import { Link } from 'remix';
+import { useNavigate } from 'remix';
+import { useAllowedOptionValues } from '~/lib/utils/product';
 import { useTransitionalParams } from '~/lib/utils/useTransitionalParams';
 import type { RouteProduct } from '~/utils/types';
 
 export const VariantOption = ({
   option,
+  product,
 }: {
+  product: RouteProduct;
   option: NonNullable<NonNullable<RouteProduct['variants']>['options'][number]>;
 }) => {
+  const navigate = useNavigate();
   const params = useTransitionalParams();
+  const allowedValues = useAllowedOptionValues({ product, option });
   if (!option?.name) return null;
 
   const urlValue = params.get(option.name);
@@ -23,11 +28,17 @@ export const VariantOption = ({
 
     return `?${newParams.toString()}`;
   };
+
   return (
     <RadioGroup
       key={option.name}
       value={urlValue}
-      onChange={() => null}
+      onChange={(value) => {
+        if (!value) return;
+        // Use links even though they can't be disabled?
+        // Would allow us to preload the variant pages
+        navigate(toggleOptionPath(value));
+      }}
       name={option.name}
       className='mb-2'
     >
@@ -38,14 +49,13 @@ export const VariantOption = ({
 
           return (
             <RadioGroup.Option
-              as={Link}
-              to={toggleOptionPath(value)}
+              disabled={!allowedValues.includes(value)}
               key={value}
               value={value}
               className={({ active, checked }) =>
                 `${active ? 'ring-2 ring-blue-200 ' : ''}
                 ${checked ? 'bg-blue-400 text-blue-50' : 'bg-white'}
-                  relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none`
+                  relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none aria-disabled:bg-gray-100/80 aria-disabled:cursor-not-allowed`
               }
             >
               {value}

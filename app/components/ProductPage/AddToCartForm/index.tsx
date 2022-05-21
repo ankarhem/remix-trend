@@ -31,7 +31,13 @@ function AddToCartForm({ product }: Props) {
           <>
             {product.variants?.options.map((option) => {
               if (!option) return null;
-              return <VariantOption key={option?.name} option={option} />;
+              return (
+                <VariantOption
+                  product={product}
+                  key={option?.name}
+                  option={option}
+                />
+              );
             })}
           </>
         ) : null}

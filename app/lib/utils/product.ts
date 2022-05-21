@@ -44,3 +44,43 @@ export const useSelectedArticleNumber = (
 
   return articleNumber;
 };
+
+export const useAllowedOptionValues = ({
+  product,
+  option,
+}: {
+  product: RouteProduct;
+  option: NonNullable<NonNullable<RouteProduct['variants']>['options'][number]>;
+}): string[] => {
+  const productType = getProductType(product);
+  const currentParams = useTransitionalParams();
+
+  if (productType !== ProductType.Variant || !option?.name) return [];
+
+  const params = new URLSearchParams(currentParams.toString());
+  params.delete(option.name);
+
+  const selectedValues = product.variants?.options
+    .map((option) => (option?.name ? params.get(option.name) : null))
+    .filter((value) => value !== null);
+
+  if (!selectedValues || selectedValues?.length === 0) {
+    return option.values.filter(
+      (value) => typeof value === 'string'
+    ) as string[];
+  }
+
+  const matches = product.variants?.values.filter((variant) => {
+    const hasAllSelectedValues = selectedValues?.every((value) =>
+      variant?.values.includes(value)
+    );
+    return hasAllSelectedValues;
+  });
+
+  const allowedValues = matches
+    ?.flatMap((variant) => variant?.values)
+    .filter((value) => !!value && option.values.includes(value))
+    .filter((value) => typeof value === 'string') as string[];
+
+  return allowedValues;
+};

@@ -2231,10 +2231,6 @@ select {
   cursor: not-allowed;
 }
 
-.disabled\:opacity-0:disabled {
-  opacity: 0;
-}
-
 .disabled\:opacity-80:disabled {
   opacity: 0.8;
 }
@@ -2247,6 +2243,14 @@ select {
 
 .group:hover .group-hover\:opacity-100 {
   opacity: 1;
+}
+
+[aria-disabled="true"].aria-disabled\:cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+[aria-disabled="true"].aria-disabled\:bg-gray-100\/80 {
+  background-color: rgb(228 232 238 / 0.8);
 }
 
 @media (min-width: 640px) {
