@@ -1,11 +1,11 @@
 import type { ActionFunction } from 'remix';
 import { json } from 'remix';
 import { badRequest, notFound } from 'remix-utils';
-import { ProductType } from '~/components/ProductPage/AddToCartForm';
 import { cartIdCookie } from '~/cookies';
 import type { AddToCartMutation, ProductVariantsQuery } from '~/graphql/types';
 import { AddToCartDocument, ProductVariantsDocument } from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
+import { ProductType } from '~/lib/utils/product';
 
 export const action: ActionFunction = async (args) => {
   const cookieHeader = args.request.headers.get('Cookie');
@@ -45,7 +45,7 @@ export const action: ActionFunction = async (args) => {
         throw notFound({ message: 'Variant not found matching options' });
       }
 
-      const cartResult = await sendJetshopRequest({
+      const variantCartResult = await sendJetshopRequest({
         args,
         query: AddToCartDocument,
         variables: {
@@ -56,18 +56,44 @@ export const action: ActionFunction = async (args) => {
         },
       });
 
-      const cart: AddToCartMutation = await cartResult
+      const variantCart: AddToCartMutation = await variantCartResult
         .json()
         .then((json) => json?.data);
-      const newCartId = cart.addToCart?.cart?.id;
+      const variantNewCartId = variantCart.addToCart?.cart?.id;
 
-      if (!newCartId) {
+      if (!variantNewCartId) {
         throw badRequest({ message: 'Invalid cart id returned' });
       }
 
-      return json(cart.addToCart?.cart, {
+      return json(variantCart.addToCart?.cart, {
         headers: {
-          'Set-Cookie': await cartIdCookie.serialize(newCartId),
+          'Set-Cookie': await cartIdCookie.serialize(variantNewCartId),
+        },
+      });
+    case ProductType.Basic:
+      const basicCartResult = await sendJetshopRequest({
+        args,
+        query: AddToCartDocument,
+        variables: {
+          input: {
+            cartId: cartId,
+            articleNumber: body.get('_articleNumber'),
+          },
+        },
+      });
+
+      const basicCart: AddToCartMutation = await basicCartResult
+        .json()
+        .then((json) => json?.data);
+      const basicNewCartId = basicCart.addToCart?.cart?.id;
+
+      if (!basicNewCartId) {
+        throw badRequest({ message: 'Invalid cart id returned' });
+      }
+
+      return json(basicCart.addToCart?.cart, {
+        headers: {
+          'Set-Cookie': await cartIdCookie.serialize(basicNewCartId),
         },
       });
     default:

@@ -1,5 +1,6 @@
 import { RadioGroup } from '@headlessui/react';
-import { useState } from 'react';
+import { Link } from 'remix';
+import { useTransitionalParams } from '~/lib/utils/useTransitionalParams';
 import type { RouteProduct } from '~/utils/types';
 
 export const VariantOption = ({
@@ -7,14 +8,26 @@ export const VariantOption = ({
 }: {
   option: NonNullable<NonNullable<RouteProduct['variants']>['options'][number]>;
 }) => {
-  const [selected, setSelected] = useState(option.values[0]);
+  const params = useTransitionalParams();
   if (!option?.name) return null;
 
+  const urlValue = params.get(option.name);
+  const toggleOptionPath = (value: string) => {
+    const newParams = new URLSearchParams(params.toString());
+    if (!option.name) return '';
+    if (urlValue === value) {
+      newParams.delete(option.name);
+    } else {
+      newParams.set(option.name, value);
+    }
+
+    return `?${newParams.toString()}`;
+  };
   return (
     <RadioGroup
       key={option.name}
-      value={selected}
-      onChange={setSelected}
+      value={urlValue}
+      onChange={() => null}
       name={option.name}
       className='mb-2'
     >
@@ -25,6 +38,8 @@ export const VariantOption = ({
 
           return (
             <RadioGroup.Option
+              as={Link}
+              to={toggleOptionPath(value)}
               key={value}
               value={value}
               className={({ active, checked }) =>

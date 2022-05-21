@@ -488,7 +488,8 @@ select {
   background-size: 1.5em 1.5em;
   padding-right: 2.5rem;
   -webkit-print-color-adjust: exact;
-          color-adjust: exact;
+     color-adjust: exact;
+          print-color-adjust: exact;
 }
 
 [multiple] {
@@ -498,7 +499,8 @@ select {
   background-size: initial;
   padding-right: 0.75rem;
   -webkit-print-color-adjust: unset;
-          color-adjust: unset;
+     color-adjust: unset;
+          print-color-adjust: unset;
 }
 
 [type='checkbox'],[type='radio'] {
@@ -507,7 +509,8 @@ select {
           appearance: none;
   padding: 0;
   -webkit-print-color-adjust: exact;
-          color-adjust: exact;
+     color-adjust: exact;
+          print-color-adjust: exact;
   display: inline-block;
   vertical-align: middle;
   background-origin: border-box;
@@ -591,6 +594,7 @@ select {
 }
 
 [type='file']:focus {
+  outline: 1px solid ButtonText;
   outline: 1px auto -webkit-focus-ring-color;
 }
 
@@ -671,18 +675,6 @@ select {
   .container {
     max-width: 1536px;
   }
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border-width: 0;
 }
 
 .pointer-events-none {
@@ -879,16 +871,16 @@ select {
   margin-left: 0.5rem;
 }
 
+.mt-4 {
+  margin-top: 1rem;
+}
+
 .-mt-8 {
   margin-top: -2rem;
 }
 
 .mb-10 {
   margin-bottom: 2.5rem;
-}
-
-.mt-4 {
-  margin-top: 1rem;
 }
 
 .block {
@@ -1321,12 +1313,6 @@ select {
   margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
 }
 
-.space-y-2 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
-}
-
 .self-start {
   align-self: flex-start;
 }
@@ -1556,15 +1542,6 @@ select {
 
 .bg-blue-400\/20 {
   background-color: rgb(117 140 236 / 0.2);
-}
-
-.bg-blue-900 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(21 32 65 / var(--tw-bg-opacity));
-}
-
-.bg-opacity-75 {
-  --tw-bg-opacity: 0.75;
 }
 
 .bg-gradient-to-br {
@@ -1963,21 +1940,6 @@ select {
   --tw-ring-color: rgb(117 140 236 / var(--tw-ring-opacity));
 }
 
-.ring-white {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(255 255 255 / var(--tw-ring-opacity));
-}
-
-.ring-blue-50 {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(245 252 255 / var(--tw-ring-opacity));
-}
-
-.ring-blue-100 {
-  --tw-ring-opacity: 1;
-  --tw-ring-color: rgb(217 237 255 / var(--tw-ring-opacity));
-}
-
 .ring-blue-200 {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(172 207 252 / var(--tw-ring-opacity));
@@ -1987,16 +1949,8 @@ select {
   --tw-ring-opacity: 0.05;
 }
 
-.ring-opacity-60 {
-  --tw-ring-opacity: 0.6;
-}
-
 .ring-offset-2 {
   --tw-ring-offset-width: 2px;
-}
-
-.ring-offset-blue-300 {
-  --tw-ring-offset-color: #85ACF4;
 }
 
 .filter {
@@ -2271,6 +2225,18 @@ select {
 .active\:ring-blue-500:active {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(92 102 210 / var(--tw-ring-opacity));
+}
+
+.disabled\:cursor-not-allowed:disabled {
+  cursor: not-allowed;
+}
+
+.disabled\:opacity-0:disabled {
+  opacity: 0;
+}
+
+.disabled\:opacity-80:disabled {
+  opacity: 0.8;
 }
 
 .group:hover .group-hover\:scale-110 {

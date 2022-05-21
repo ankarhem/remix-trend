@@ -1,21 +1,12 @@
 import React from 'react';
-import { useActionData, useFetcher } from 'remix';
+import { useFetcher } from 'remix';
+import {
+  getProductType,
+  ProductType,
+  useSelectedArticleNumber,
+} from '~/lib/utils/product';
 import type { RouteProduct } from '~/utils/types';
 import { VariantOption } from './VariantOption';
-
-export enum ProductType {
-  Basic = 'Basic',
-  Variant = 'Variant',
-  Package = 'Package',
-  Configuration = 'Configuration',
-}
-
-const getProductType: (product: RouteProduct) => ProductType = (product) => {
-  if (product.hasVariants) return ProductType.Variant;
-  if (product.isPackage) return ProductType.Package;
-  if (product.hasConfigurations) return ProductType.Configuration;
-  return ProductType.Basic;
-};
 
 type Props = {
   product: RouteProduct;
@@ -24,17 +15,17 @@ type Props = {
 function AddToCartForm({ product }: Props) {
   const fetcher = useFetcher();
   const productType = getProductType(product);
-  const data = useActionData();
-  console.log(data);
+  // const data = useActionData();
+  const articleNumber = useSelectedArticleNumber(product);
 
   return (
     <fetcher.Form method='post' action='/cart'>
+      <input type='hidden' name='_productType' value={productType} />
       <input
         type='hidden'
         name='_articleNumber'
-        value={product.articleNumber}
+        value={articleNumber || product.articleNumber}
       />
-      <input type='hidden' name='_productType' value={productType} />
       <fieldset>
         {productType === ProductType.Variant ? (
           <>
@@ -44,10 +35,10 @@ function AddToCartForm({ product }: Props) {
             })}
           </>
         ) : null}
-
         <button
+          disabled={!articleNumber}
           type='submit'
-          className='text-blue-50 bg-blue-400 hover:bg-blue-500 w-full lg:w-96 py-3 rounded focus:ring focus:ring-blue-400 active:ring-blue-500 ring-offset-2 focus:outline-none mt-4'
+          className='text-blue-50 bg-blue-400 hover:bg-blue-500 w-full lg:w-96 py-3 rounded focus:ring focus:ring-blue-400 active:ring-blue-500 ring-offset-2 focus:outline-none mt-4 disabled:opacity-80 disabled:cursor-not-allowed'
         >
           Add to cart
         </button>
