@@ -46,7 +46,13 @@ function AddToCartForm({ product }: Props) {
     );
   }
 
-  const handleSubmit = () => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+    const formData = new FormData(event.currentTarget);
+    const articleNumber = formData.get('_articleNumber') as string;
+    const variant = product.variants?.values.find(
+      (variant) => variant?.articleNumber === articleNumber
+    );
+
     toast.custom((t) => (
       <div
         className={`flex gap-6 transition bg-white px-6 py-4 shadow-md rounded ${
@@ -55,8 +61,8 @@ function AddToCartForm({ product }: Props) {
       >
         <img
           className='h-24 w-24 object-contain'
-          src={product.images?.[0]?.url}
-          alt={product.images?.[0]?.alt ?? product.name}
+          src={(variant || product).images?.[0]?.url}
+          alt={product.name}
         />
         <div>
           <h2 className='font-bold'>Added to cart</h2>
