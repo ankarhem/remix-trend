@@ -1,5 +1,7 @@
 import { RefreshIcon } from '@heroicons/react/outline';
+import toast from 'react-hot-toast';
 import { Link, useFetcher } from 'remix';
+import Cross from '~/components/Icons/Cross';
 import {
   getProductType,
   ProductType,
@@ -44,8 +46,34 @@ function AddToCartForm({ product }: Props) {
     );
   }
 
+  const handleSubmit = () => {
+    toast.custom((t) => (
+      <div
+        className={`flex gap-6 transition bg-white px-6 py-4 shadow-md rounded ${
+          t.visible ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        <img
+          className='h-24 w-24 object-contain'
+          src={product.images?.[0]?.url}
+          alt={product.images?.[0]?.alt ?? product.name}
+        />
+        <div>
+          <h2 className='font-bold'>Added to cart</h2>
+          <span className='text-gray-600 text-sm'>{product.name}</span>
+        </div>
+        <button
+          onClick={() => toast.dismiss(t.id)}
+          className='flex align-start'
+        >
+          <Cross className='w-6 h-6' />
+        </button>
+      </div>
+    ));
+  };
+
   return (
-    <fetcher.Form method='post' action='/cart'>
+    <fetcher.Form method='post' action='/cart' onSubmit={handleSubmit}>
       <input type='hidden' name='_action' value='addToCart' />
       <input type='hidden' name='_productType' value={productType} />
       <input
