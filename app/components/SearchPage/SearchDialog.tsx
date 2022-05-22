@@ -93,7 +93,6 @@ function SearchDialog({ open, onClose }: Props) {
                 <Combobox
                   value={null}
                   onChange={(item: AutocompleteItems[number]) => {
-                    console.log(item);
                     onClose();
                   }}
                 >

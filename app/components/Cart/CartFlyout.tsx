@@ -58,7 +58,9 @@ function CartFlyout({ cart, open, onClose }: Props) {
                       {cart?.items?.map((item) => {
                         if (!item || !item.product) return null;
 
+                        const variant = item.variant;
                         const product = item.product;
+
                         return (
                           <li
                             key={item.id}
@@ -66,8 +68,11 @@ function CartFlyout({ cart, open, onClose }: Props) {
                           >
                             <img
                               className='h-24 w-24 object-contain group-hover:scale-110 transition'
-                              src={product.images?.[0]?.url}
-                              alt={product.images?.[0]?.alt ?? product.name}
+                              src={(variant || product).images?.[0]?.url}
+                              alt={
+                                (variant || product).images?.[0]?.alt ??
+                                product.name
+                              }
                             />
                             <div className='grid'>
                               <div>
@@ -80,7 +85,7 @@ function CartFlyout({ cart, open, onClose }: Props) {
                                   <h2>{product.name}</h2>
                                 </Link>
                                 <span className='text-gray-600 text-sm'>
-                                  {product.articleNumber}
+                                  {item.articleNumber}
                                 </span>
                               </div>
 
@@ -101,7 +106,7 @@ function CartFlyout({ cart, open, onClose }: Props) {
 
                               <span className='text-gray-600 text-sm'>
                                 <Price
-                                  price={product.price}
+                                  price={(variant || product).price}
                                   quantity={item.quantity}
                                 />
                               </span>

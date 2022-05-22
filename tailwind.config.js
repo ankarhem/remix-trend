@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors');
+const ariaAttributes = require('./tw-plugins/aria-attributes');
 
 module.exports = {
   content: ['./app/**/*.{js,ts,jsx,tsx}'],
@@ -133,5 +134,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [ariaAttributes, require('@tailwindcss/forms')],
 };
