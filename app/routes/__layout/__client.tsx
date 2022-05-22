@@ -1,5 +1,5 @@
 import type { LoaderFunction } from 'remix';
-import { json, Outlet, useMatches } from 'remix';
+import { json, Outlet, useFetchers, useMatches } from 'remix';
 import { cartIdCookie } from '~/cookies';
 import type { CartQuery } from '~/graphql/types';
 import { CartDocument } from '~/graphql/types';
@@ -11,9 +11,36 @@ export type ClientQueries = {
 
 export function useClientData() {
   const matches = useMatches();
+  const fetchers = useFetchers();
+
   const clientData = matches.find(
     (match) => match.id === 'routes/__layout/__client'
   )?.data as ClientQueries | undefined;
+
+  const cartFetcher = fetchers.filter((fetcher) => {
+    return fetcher.state !== 'idle' && fetcher.submission?.action === '/cart';
+  })?.[0];
+
+  if (!cartFetcher) {
+    return {
+      cart: clientData?.cart,
+    };
+  }
+
+  const cartForm = cartFetcher.submission?.formData;
+  const action = cartForm?.get('_action');
+  switch (action) {
+    case 'addToCart':
+      const transitionCartWithUpdatedQuantity: CartQuery['cart'] = {
+        ...clientData?.cart,
+        totalQuantity: clientData?.cart?.totalQuantity
+          ? clientData?.cart.totalQuantity + 1
+          : 1,
+      };
+      return {
+        cart: transitionCartWithUpdatedQuantity,
+      };
+  }
 
   return {
     cart: clientData?.cart,

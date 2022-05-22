@@ -61,8 +61,6 @@ function CartFlyout({ cart, open, onClose }: Props) {
                         const variant = item.variant;
                         const product = item.product;
 
-                        console.log(product);
-
                         return (
                           <li
                             key={item.id}

@@ -37,7 +37,7 @@ export const VariantOption = ({
         if (!value) return;
         // Use links even though they can't be disabled?
         // Would allow us to preload the variant pages
-        navigate(toggleOptionPath(value));
+        navigate(toggleOptionPath(value), { replace: true });
       }}
       name={option.name}
       className='mb-2'
