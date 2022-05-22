@@ -21,7 +21,6 @@ function AddToCartForm({ product }: Props) {
   const state =
     fetcher.state === 'idle' && fetcher.data?.error ? 'error' : fetcher.state;
   const productType = getProductType(product);
-  // const data = useActionData();
   const { cart } = useClientData();
   const articleNumber = useSelectedArticleNumber(product);
   const quantity =
