@@ -1,0 +1,9 @@
+#import ~/lib/fragments/CartCoreFragment.gql
+
+mutation removeFromCart($input: RemoveFromCartInput!) {
+  removeFromCart(input: $input) {
+    cart {
+      ...CartCoreFragment
+    }
+  }
+}

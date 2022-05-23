@@ -2,8 +2,10 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { Link } from 'remix';
 import type { CartQuery } from '~/graphql/types';
+import { CartAction } from '~/routes/cart';
 import Cross from '../Icons/Cross';
 import Price from '../Price';
+import CartItemForm from './CartItemForm';
 
 type Props = {
   cart: CartQuery['cart'];
@@ -62,56 +64,70 @@ function CartFlyout({ cart, open, onClose }: Props) {
                         const product = item.product;
 
                         return (
-                          <li
-                            key={item.id}
-                            className='flex py-4 gap-3 border-b border-gray-100/80 max-h-32'
-                          >
-                            <img
-                              className='h-24 w-24 object-contain group-hover:scale-110 transition'
-                              src={(variant || product).images?.[0]?.url}
-                              alt={
-                                (variant || product).images?.[0]?.alt ??
-                                product.name
-                              }
-                            />
-                            <div className='grid'>
-                              <div>
-                                <Link
-                                  className='hover:text-blue-400'
-                                  to={product.primaryRoute?.path || '#'}
-                                  prefetch='intent'
-                                  onClick={onClose}
+                          <CartItemForm key={item.id} item={item}>
+                            <li className='flex py-4 gap-3 border-b border-gray-100/80 max-h-32'>
+                              <img
+                                className='h-24 w-24 object-contain group-hover:scale-110 transition'
+                                src={(variant || product).images?.[0]?.url}
+                                alt={
+                                  (variant || product).images?.[0]?.alt ??
+                                  product.name
+                                }
+                              />
+                              <div className='grid'>
+                                <div>
+                                  <Link
+                                    className='hover:text-blue-400'
+                                    to={product.primaryRoute?.path || '#'}
+                                    prefetch='intent'
+                                    onClick={onClose}
+                                  >
+                                    <h2>{product.name}</h2>
+                                  </Link>
+                                  <span className='text-gray-600 text-sm'>
+                                    {item.articleNumber}
+                                  </span>
+                                </div>
+
+                                <div className='flex items-center gap-2 self-end text-sm'>
+                                  <button
+                                    type='submit'
+                                    className='rounded bg-gray-300 w-5 h-5'
+                                    name='_action'
+                                    disabled={item.quantity === 1}
+                                    value={CartAction.DecrementItemQuantity}
+                                  >
+                                    -
+                                  </button>
+                                  <span>{item.quantity}</span>
+                                  <button
+                                    type='submit'
+                                    className='rounded bg-gray-300 w-5 h-5'
+                                    name='_action'
+                                    value={CartAction.IncrementItemQuanity}
+                                  >
+                                    +
+                                  </button>
+                                </div>
+                              </div>
+                              <div className='flex flex-col ml-auto justify-between'>
+                                <button
+                                  name='_action'
+                                  value={CartAction.RemoveFromCart}
+                                  className='self-end'
                                 >
-                                  <h2>{product.name}</h2>
-                                </Link>
+                                  <Cross className='w-6 h-6' />
+                                </button>
+
                                 <span className='text-gray-600 text-sm'>
-                                  {item.articleNumber}
+                                  <Price
+                                    price={(variant || product).price}
+                                    quantity={item.quantity}
+                                  />
                                 </span>
                               </div>
-
-                              <div className='flex items-center gap-2 self-end text-sm'>
-                                <button className='rounded bg-gray-300 w-5 h-5'>
-                                  -
-                                </button>
-                                <span>{item.quantity}</span>
-                                <button className='rounded bg-gray-300 w-5 h-5'>
-                                  +
-                                </button>
-                              </div>
-                            </div>
-                            <div className='flex flex-col ml-auto justify-between'>
-                              <button onClick={() => null} className='self-end'>
-                                <Cross className='w-6 h-6' />
-                              </button>
-
-                              <span className='text-gray-600 text-sm'>
-                                <Price
-                                  price={(variant || product).price}
-                                  quantity={item.quantity}
-                                />
-                              </span>
-                            </div>
-                          </li>
+                            </li>
+                          </CartItemForm>
                         );
                       })}
                     </ul>

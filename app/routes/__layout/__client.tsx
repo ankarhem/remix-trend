@@ -4,6 +4,7 @@ import { cartIdCookie } from '~/cookies';
 import type { CartQuery } from '~/graphql/types';
 import { CartDocument } from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
+import { CartAction } from '../cart';
 
 export type ClientQueries = {
   cart: CartQuery['cart'];
@@ -12,6 +13,8 @@ export type ClientQueries = {
 export function useClientData() {
   const matches = useMatches();
   const fetchers = useFetchers();
+
+  console.log(fetchers);
 
   const clientData = matches.find(
     (match) => match.id === 'routes/__layout/__client'
@@ -29,16 +32,81 @@ export function useClientData() {
 
   const cartForm = cartFetcher.submission?.formData;
   const action = cartForm?.get('_action');
+  const itemId = cartForm?.get('_itemId'); // only for remove, increment, decrement
   switch (action) {
-    case 'addToCart':
-      const transitionCartWithUpdatedQuantity: CartQuery['cart'] = {
+    case CartAction.AddToCart:
+      const AddTransitionCart: CartQuery['cart'] = {
         ...clientData?.cart,
         totalQuantity: clientData?.cart?.totalQuantity
           ? clientData?.cart.totalQuantity + 1
           : 1,
       };
       return {
-        cart: transitionCartWithUpdatedQuantity,
+        cart: AddTransitionCart,
+      };
+    case CartAction.RemoveFromCart:
+      if (!itemId) {
+        return {
+          cart: clientData?.cart,
+        };
+      }
+      const removeItems = clientData?.cart?.items?.filter(
+        (item) => item?.id !== itemId
+      );
+      const RemoveTransitionCart: CartQuery['cart'] = {
+        ...clientData?.cart,
+        items: removeItems,
+      };
+      return {
+        cart: RemoveTransitionCart,
+      };
+
+    case CartAction.IncrementItemQuanity:
+      if (!itemId) {
+        return {
+          cart: clientData?.cart,
+        };
+      }
+
+      const incrementItems = clientData?.cart?.items?.map((item) => {
+        if (item?.id === itemId) {
+          return {
+            ...item,
+            quantity: item.quantity + 1,
+          };
+        }
+        return item;
+      });
+      const IncrementTransitionCart: CartQuery['cart'] = {
+        ...clientData?.cart,
+        items: incrementItems,
+      };
+      return {
+        cart: IncrementTransitionCart,
+      };
+
+    case CartAction.DecrementItemQuantity:
+      if (!itemId) {
+        return {
+          cart: clientData?.cart,
+        };
+      }
+
+      const decrementItems = clientData?.cart?.items?.map((item) => {
+        if (item?.id === itemId) {
+          return {
+            ...item,
+            quantity: item.quantity - 1,
+          };
+        }
+        return item;
+      });
+      const DecrementTransitionCart: CartQuery['cart'] = {
+        ...clientData?.cart,
+        items: decrementItems,
+      };
+      return {
+        cart: DecrementTransitionCart,
       };
   }
 
