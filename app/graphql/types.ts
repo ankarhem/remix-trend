@@ -962,6 +962,21 @@ export type Mutation = {
   updateCart?: Maybe<UpdateCartMutation>;
   /** This mutation's purpose is to update a existing customer's information. An authorization token is needed in the request, in order to be able to update the customer. */
   updateCustomer?: Maybe<CustomerUpdateResponse>;
+  /**
+   * ## Description
+   * This mutation's purpose is to update a existing customer's group using an access code. An authorization token is needed in the request, in order to be able to update the customer.
+   * ## Error Codes
+   * ### Unauthorized
+   * Unauthorized
+   * ### UnableToUpdateCustomer
+   * Error in underlying API call, more info may be contained in the error message.
+   * ### CustomerAlreadyUpdated
+   * Customer already in the customer group
+   * ### CustomerNotFound
+   * No match on customer with access code
+   *
+   */
+  updateCustomerGroup?: Maybe<UpdateCustomerGroupResult>;
   /** This mutation's purpose is to update a existing customer's price list using an access code. An authorization token is needed in the request, in order to be able to update the customer. */
   updateCustomerPriceList?: Maybe<UpdateCustomerPriceListResult>;
   /**
@@ -1117,6 +1132,11 @@ export type MutationUpdateCartArgs = {
 
 export type MutationUpdateCustomerArgs = {
   input: CustomerUpdateInput;
+};
+
+
+export type MutationUpdateCustomerGroupArgs = {
+  customerGroupAccessCode: Scalars['String'];
 };
 
 
@@ -1377,6 +1397,11 @@ export type Price = {
   vat: Scalars['Decimal'];
 };
 
+export type PriceHistory = {
+  price?: Maybe<Price>;
+  timestamp?: Maybe<Scalars['DateTime']>;
+};
+
 export type PrivateCustomer = Customer & {
   billingAddress?: Maybe<CustomerAddress>;
   communication?: Maybe<CustomerCommunication>;
@@ -1450,6 +1475,8 @@ export type Product = Document & {
   hasVariantsWithDifferingPrices: Scalars['Boolean'];
   head?: Maybe<HtmlHead>;
   hidePrice?: Maybe<Scalars['Boolean']>;
+  /** Get Product History within the set number of days */
+  history?: Maybe<ProductHistory>;
   id: Scalars['Int'];
   images?: Maybe<Array<Maybe<ProductImage>>>;
   inPackages?: Maybe<Array<Product>>;
@@ -1507,6 +1534,11 @@ export type ProductCategoriesArgs = {
 
 export type ProductConfigurationPriceArgs = {
   options?: InputMaybe<Array<ProductConfigurationPriceInput>>;
+};
+
+
+export type ProductHistoryArgs = {
+  days?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -1606,6 +1638,10 @@ export enum ProductCustomFieldType {
   String = 'STRING'
 }
 
+export type ProductHistory = {
+  previousPrice?: Maybe<Array<Maybe<PriceHistory>>>;
+};
+
 export type ProductImage = {
   /** Alternate text for the image, commonly used for the alt attribute of img-tags. */
   alt?: Maybe<Scalars['String']>;
@@ -1663,6 +1699,8 @@ export type ProductVariant = {
   defaultPreviousPrice?: Maybe<Price>;
   /** Default price for the product in the channel, disregards Customer specific prices. */
   defaultPrice?: Maybe<Price>;
+  /** Get Product History within the set number of days */
+  history?: Maybe<ProductVariantHistory>;
   id: Scalars['String'];
   images?: Maybe<Array<Maybe<ProductImage>>>;
   /** The previous price (i.e. this will be higher than `price` if the product is discounted). Will be a Customer specific previous price, if that Customer has a separate price list. */
@@ -1682,8 +1720,17 @@ export type ProductVariant = {
 };
 
 
+export type ProductVariantHistoryArgs = {
+  days?: InputMaybe<Scalars['Int']>;
+};
+
+
 export type ProductVariantWarehouseStockArgs = {
   includeInactive?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type ProductVariantHistory = {
+  previousPrice?: Maybe<Array<Maybe<PriceHistory>>>;
 };
 
 export type ProductVariantOption = {
@@ -2136,6 +2183,10 @@ export type UpdateCartItemInput = {
 
 export type UpdateCartMutation = {
   cart?: Maybe<Cart>;
+};
+
+export type UpdateCustomerGroupResult = {
+  success: Scalars['Boolean'];
 };
 
 export type UpdateCustomerPriceListResult = {
