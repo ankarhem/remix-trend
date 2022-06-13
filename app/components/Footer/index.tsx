@@ -1,31 +1,36 @@
 import { Link, useLoaderData, useFetcher } from 'remix';
 import type { LayoutQueries } from '~/routes/__layout';
-import { SubscriptionData } from '~/routes/_subscription';
+import type { SubscriptionData } from '~/routes/_subscription';
 
 function NewsletterSubscriptionForm() {
-  const fetcher = useFetcher<SubscriptionData>();
+  const { state, Form } = useFetcher<SubscriptionData>();
+  const disabled = state === 'loading';
+
   return (
-    <fetcher.Form
+    <Form
       method="post"
       action="/_subscription"
       className="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center"
     >
       <div className="relative">
+        <input type="hidden" name="_subscriptionType" value="newsletter" />
         <input
           type="email"
           className="rounded flex-1 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base hover:ring-gray-500/50 focus:ring-gray-500 hover:ring focus:ring-1 focus:hover:ring focus:border-gray-500"
           placeholder="Email"
           name="email"
           required
+          disabled={disabled}
         />
       </div>
       <button
         className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-gray-500 rounded shadow-md hover:bg-gray-600 focus:outline-none focus:ring-1 focus:hover:ring focus:ring-gray-600"
         type="submit"
+        disabled={disabled}
       >
         Subscribe
       </button>
-    </fetcher.Form>
+    </Form>
   );
 }
 
