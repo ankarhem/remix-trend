@@ -4,10 +4,11 @@ import { sendJetshopRequest } from '~/lib/jetshop';
 
 enum SubscriptionType {
   Newsletter = 'newsletter',
+  StockNotifications = 'stockNotifications',
 }
 
 export type SubscriptionData = {
-  subscribed: Mutation['subscribeToNewsletter'];
+  subscribed: Mutation['subscribeToNewsletter'] | null;
   error: {
     message: string;
   } | null;
@@ -15,7 +16,7 @@ export type SubscriptionData = {
 
 const getErrorDetail = (errors: unknown): string => {
   if (Array.isArray(errors)) {
-    return errors[0].message;
+    return errors[0].message || 'Unknown error';
   }
   return 'Unknown error';
 };
@@ -49,7 +50,7 @@ export const action: ActionFunction = async (args) => {
         const { data, errors } = await response.json();
 
         // Response is not to consistent, meaning API will respond with a status 200 and subscribeToNewsletter null,
-        // Therefor we need both try catch and still check if the response is a true/false or null.
+        // Which is why we need both try and if statements
         if (!data.subscribeToNewsletter) {
           return onError(errors);
         }
@@ -63,7 +64,7 @@ export const action: ActionFunction = async (args) => {
       }
     }
     default: {
-      return { error: 'Unknown subscription type' };
+      return onError(null);
     }
   }
 };
