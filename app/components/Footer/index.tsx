@@ -3,34 +3,52 @@ import type { LayoutQueries } from '~/routes/__layout';
 import type { SubscriptionData } from '~/routes/_subscription';
 
 function NewsletterSubscriptionForm() {
-  const { state, Form } = useFetcher<SubscriptionData>();
+  const { data, state, Form } = useFetcher<SubscriptionData>();
   const disabled = state === 'loading';
+  const alreadySubscribed = data?.error?.message === 'AlreadySubscribed';
 
   return (
-    <Form
-      method="post"
-      action="/_subscription"
-      className="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center"
-    >
-      <div className="relative">
-        <input type="hidden" name="_subscriptionType" value="newsletter" />
-        <input
-          type="email"
-          className="rounded flex-1 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base hover:ring-gray-500/50 focus:ring-gray-500 hover:ring focus:ring-1 focus:hover:ring focus:border-gray-500"
-          placeholder="Email"
-          name="email"
-          required
-          disabled={disabled}
-        />
-      </div>
-      <button
-        className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-gray-500 rounded shadow-md hover:bg-gray-600 focus:outline-none focus:ring-1 focus:hover:ring focus:ring-gray-600"
-        type="submit"
-        disabled={disabled}
+    <div className="flex flex-col">
+      <Form
+        method="post"
+        action="/_subscription"
+        className="flex flex-col md:flex-row md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center"
       >
-        Subscribe
-      </button>
-    </Form>
+        <div className="relative">
+          <input type="hidden" name="_subscriptionType" value="newsletter" />
+          <input
+            type="email"
+            className="rounded flex-1 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base hover:ring-gray-500/50 focus:ring-gray-500 hover:ring focus:ring-1 focus:hover:ring focus:border-gray-500"
+            placeholder="Email"
+            name="email"
+            required
+            disabled={disabled}
+          />
+        </div>
+        <button
+          className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-gray-500 rounded shadow-md hover:bg-gray-600 focus:outline-none focus:ring-1 focus:hover:ring focus:ring-gray-600"
+          type="submit"
+          disabled={disabled}
+        >
+          Subscribe
+        </button>
+      </Form>
+      {alreadySubscribed && (
+        <p className="text-sm pt-1">
+          You're already signed up to our newsletter.
+        </p>
+      )}
+      {data?.error?.message === 'Unknown error' && (
+        <p className="text-sm pt-1">
+          Something went wrong on our end. Please try again.
+        </p>
+      )}
+      {data?.subscribed && (
+        <p className="text-sm pt-1">
+          You are now subscribed to our newsletter.
+        </p>
+      )}
+    </div>
   );
 }
 

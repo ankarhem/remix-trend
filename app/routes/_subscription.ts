@@ -6,23 +6,25 @@ enum SubscriptionType {
   Newsletter = 'newsletter',
 }
 
-export type SubscriptionData = Mutation['subscribeToNewsletter'] & {
+export type SubscriptionData = {
+  subscribed: Mutation['subscribeToNewsletter'];
   error: {
     message: string;
-  };
+  } | null;
 };
 
-const getErrorDetail = (error: unknown): string => {
-  if (Array.isArray(error)) {
-    return error[0].message;
+const getErrorDetail = (errors: unknown): string => {
+  if (Array.isArray(errors)) {
+    return errors[0].message;
   }
   return 'Unknown error';
 };
 
-const onError = (data: unknown) => {
+const onError = (error: unknown) => {
   return {
+    subscribed: null,
     error: {
-      message: getErrorDetail(data),
+      message: getErrorDetail(error),
     },
   };
 };
@@ -44,15 +46,20 @@ export const action: ActionFunction = async (args) => {
           },
         });
 
-        const data = await response.json();
+        const { data, errors } = await response.json();
 
         // Response is not to consistent, meaning API will respond with a status 200 and subscribeToNewsletter null,
         // Therefor we need both try catch and still check if the response is a true/false or null.
         if (!data.subscribeToNewsletter) {
-          return onError(data);
+          return onError(errors);
         }
-      } catch (err) {
-        return onError(err);
+
+        return {
+          subscribed: data.subscribeToNewsletter,
+          error: null,
+        };
+      } catch (error) {
+        return onError(error);
       }
     }
     default: {
