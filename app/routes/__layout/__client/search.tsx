@@ -20,7 +20,7 @@ export const loader: LoaderFunction = async (args) => {
 
   const page = parseInt(url.searchParams.get('page') || '1');
   const offset = Math.max((page - 1) * PAGE_SIZE, 0);
-  const response = await sendJetshopRequest({
+  const search = await sendJetshopRequest({
     args: args,
     query: SearchDocument,
     variables: {
@@ -28,16 +28,15 @@ export const loader: LoaderFunction = async (args) => {
       first: PAGE_SIZE,
       offset: offset,
     },
-  });
-  const { data }: { data: SearchQuery } = await response.json();
+  }).then((data) => data.search);
 
-  if (!data.search?.products?.result.length) {
+  if (!search?.products?.result.length) {
     throw new Response(`No results found for ${term}`, {
       status: 404,
     });
   }
 
-  return data;
+  return search;
 };
 
 export const CatchBoundary: CatchBoundaryComponent = () => {
@@ -58,7 +57,7 @@ export const meta: MetaFunction = (args) => {
 };
 
 export default function PageContent() {
-  const { search } = useLoaderData<SearchQuery>();
+  const search = useLoaderData<SearchQuery['search']>();
   if (!search) return null;
 
   return <SearchPage search={search} />;

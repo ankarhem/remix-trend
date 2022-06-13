@@ -21,7 +21,7 @@ export type LayoutQueries = {
 export const PAGE_SIZE = 24;
 
 export const loader: LoaderFunction = async (args) => {
-  const [navTreeResult, pagesResult] = await Promise.all([
+  const [navTree, pages] = await Promise.all([
     sendJetshopRequest({
       args: args,
       query: NavTreeDocument,
@@ -33,16 +33,8 @@ export const loader: LoaderFunction = async (args) => {
     sendJetshopRequest({
       args: args,
       query: PagesDocument,
-      variables: {
-        levels: 1,
-        includeHidden: false,
-      },
+      variables: {},
     }),
-  ]);
-
-  const [navTree, pages] = await Promise.all([
-    navTreeResult.json(),
-    pagesResult.json(),
   ]);
 
   const headers = new Headers();
@@ -52,8 +44,8 @@ export const loader: LoaderFunction = async (args) => {
   );
   return json(
     {
-      navTree: navTree.data.categories,
-      pages: pages.data.pages,
+      navTree: navTree.categories,
+      pages: pages.pages,
     },
     {
       headers,
