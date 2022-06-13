@@ -47,7 +47,7 @@ export function useClientData() {
 
 export const loader: LoaderFunction = async (args) => {
   const session = await getSession(args);
-  const cart = session.getCart();
+  const cart = await session.getCart();
 
   const headers = new Headers();
 

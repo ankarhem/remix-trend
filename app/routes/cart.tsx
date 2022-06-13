@@ -12,11 +12,13 @@ export type CartActionData = {
     stack?: string;
   };
 };
+
 export const action: ActionFunction = async (args) => {
   const session = await getSession(args);
   const body = await args.request.formData();
+  const serializedCart = body.get('_cart') as CartQuery['cart'] | null;
 
-  let cart: Partial<CartQuery['cart']> = session.getCart();
+  let cart: CartQuery['cart'] = serializedCart || (await session.getCart());
 
   switch (body.get('_productType')) {
     case ProductType.Variant:

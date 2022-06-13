@@ -1,7 +1,12 @@
 import type { DataFunctionArgs } from '@remix-run/server-runtime';
 import { createCookieSessionStorage } from 'remix';
-import type { AddToCartInput, Cart, UpdateCartInput } from './graphql/types';
-import { AddToCartDocument, _UpdateCartDocument } from './graphql/types';
+import {
+  AddToCartDocument,
+  AddToCartInput,
+  CartDocument,
+  UpdateCartInput,
+  _UpdateCartDocument,
+} from './graphql/types';
 import { sendJetshopRequest } from './lib/jetshop';
 
 const secret = process.env.ENCRYPTION_KEY;
@@ -19,7 +24,7 @@ const sessionStorage = createCookieSessionStorage({
   },
 });
 
-const CART_KEY = 'cart';
+const CART_ID_KEY = 'cart';
 const CULTURE_KEY = 'culture';
 
 export async function getSession(args: DataFunctionArgs) {
@@ -30,10 +35,20 @@ export async function getSession(args: DataFunctionArgs) {
     commitSession() {
       return sessionStorage.commitSession(session);
     },
-    getCart(): (Cart & Required<Pick<Cart, 'id' | 'items'>>) | undefined {
-      let cart: Cart = JSON.parse(session.get(CART_KEY) || '{}');
-      if (!cart.id || !cart.items) return undefined;
-      return cart as any;
+    getCartId(): string | undefined {
+      return session.get(CART_ID_KEY);
+    },
+    async getCart() {
+      const cartId = await this.getCartId();
+      const cart = await sendJetshopRequest({
+        args: args,
+        query: CartDocument,
+        variables: {
+          cartId: cartId,
+        },
+      }).then((data) => data.cart);
+
+      return cart;
     },
     /**
      * Can only be called once a cart has been created.
@@ -42,9 +57,9 @@ export async function getSession(args: DataFunctionArgs) {
      * - If removing an item from the cart, you should use removeFromCart instead.
      */
     async setCart(cartItems: NonNullable<UpdateCartInput['items']>) {
-      const sessionCart = await this.getCart();
+      const cartId = await this.getCartId();
       const updateCartInput: UpdateCartInput = {
-        cartId: sessionCart?.id,
+        cartId: cartId,
         items: cartItems,
       };
       const cart = await sendJetshopRequest({
@@ -59,14 +74,14 @@ export async function getSession(args: DataFunctionArgs) {
         throw new Error('Error updating cart');
       }
 
-      session.set(CART_KEY, JSON.stringify(cart));
+      session.set(CART_ID_KEY, cart.id);
       return cart;
     },
     async addToCart(item: Omit<AddToCartInput, 'cartId'>) {
-      const sessionCart = await this.getCart();
+      const cartId = await this.getCartId();
 
       const addToCartInput: AddToCartInput = {
-        cartId: sessionCart?.id,
+        cartId: cartId,
         ...item,
       };
       const cart = await sendJetshopRequest({
@@ -83,7 +98,9 @@ export async function getSession(args: DataFunctionArgs) {
         throw new Error('Error updating cart');
       }
 
-      session.set(CART_KEY, JSON.stringify(cart));
+      console.log('cart', cart);
+
+      session.set(CART_ID_KEY, cart.id);
       return cart;
     },
     getCulture(): string | undefined {
