@@ -1,0 +1,10 @@
+#import ~/lib/fragments/CartCoreFragment.gql
+
+# avoiding duplication with internal type name with naming
+mutation _updateCart($input: UpdateCartInput!) {
+  updateCart(input: $input) {
+    cart {
+      ...CartCoreFragment
+    }
+  }
+}

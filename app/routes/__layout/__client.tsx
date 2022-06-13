@@ -1,9 +1,7 @@
 import type { LoaderFunction } from 'remix';
 import { json, Outlet, useFetchers, useMatches } from 'remix';
-import { cartIdCookie } from '~/cookies';
 import type { CartQuery } from '~/graphql/types';
-import { CartDocument } from '~/graphql/types';
-import { sendJetshopRequest } from '~/lib/jetshop';
+import { getSession } from '~/session.server';
 
 export type ClientQueries = {
   cart: CartQuery['cart'];
@@ -48,20 +46,8 @@ export function useClientData() {
 }
 
 export const loader: LoaderFunction = async (args) => {
-  const cookieHeader = args.request.headers.get('Cookie');
-  const cartIdInCookie = await cartIdCookie.parse(cookieHeader);
-
-  const [cartResult] = await Promise.all([
-    sendJetshopRequest({
-      args: args,
-      query: CartDocument,
-      variables: {
-        cartId: cartIdInCookie || '498954d6-a89b-4360-aa1b-a8e2a543c8fc',
-      },
-    }),
-  ]);
-
-  const [cart] = await Promise.all([cartResult.json()]);
+  const session = await getSession(args);
+  const cart = session.getCart();
 
   const headers = new Headers();
 
@@ -78,7 +64,7 @@ export const loader: LoaderFunction = async (args) => {
 
   return json(
     {
-      cart: cart.data.cart,
+      cart: cart,
     },
     { headers }
   );

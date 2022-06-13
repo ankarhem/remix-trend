@@ -1,19 +1,39 @@
 import type { LoaderFunction, MetaFunction } from 'remix';
-import { useLoaderData } from 'remix';
+import { redirect, useLoaderData } from 'remix';
 import CategoryPage from '~/components/CategoryPage';
 import ContentPage from '~/components/ContentPage';
 import ProductPage from '~/components/ProductPage';
 import type { RouteQuery } from '~/graphql/types';
 import { RouteDocument } from '~/graphql/types';
 import DynamicRoute from '~/lib/components/DynamicRoute';
-import { createRouteLoaderFunction } from '~/lib/loaderFunctions';
+import { sendJetshopRequest } from '~/lib/jetshop';
+import { getRouteQueryVariables } from '~/lib/loaderFunctions';
+import { PAGE_SIZE } from '~/routes/__layout';
 
-export const loader: LoaderFunction = createRouteLoaderFunction({
-  query: RouteDocument,
-  variables: {
-    pageSize: 24,
-  },
-});
+export const loader: LoaderFunction = async (args) => {
+  const pathname = new URL(args.request.url).pathname;
+  const variables = getRouteQueryVariables({ args, pageSize: PAGE_SIZE });
+
+  const route = await sendJetshopRequest({
+    args: args,
+    query: RouteDocument,
+    variables: variables,
+  }).then((data) => data.route);
+
+  // If the path is not found, redirect to the 404 page.
+  if (!route) {
+    throw new Response('Not Found', {
+      status: 404,
+    });
+  }
+
+  // If the path is a redirect, redirect to the target.
+  if (route.path !== pathname) {
+    redirect(route.path);
+  }
+
+  return route;
+};
 
 export const meta: MetaFunction = (args) => {
   const data: RouteQuery | undefined = args.data;
@@ -32,8 +52,7 @@ export const meta: MetaFunction = (args) => {
 };
 
 export default function PageContent() {
-  const data = useLoaderData<RouteQuery>();
-  const route = data?.route;
+  const route = useLoaderData<RouteQuery['route']>();
   if (!route?.object) return null;
 
   return (
