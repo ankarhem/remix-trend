@@ -1,12 +1,32 @@
+import { useEffect, useRef } from 'react';
 import { Link, useLoaderData, useFetcher } from 'remix';
 import type { LayoutQueries } from '~/routes/__layout';
 import type { SubscriptionData } from '~/routes/_subscription';
 
 function NewsletterSubscriptionForm() {
-  const fetcher = useFetcher<SubscriptionData>();
-  const { data, state } = fetcher;
-  const error = data?.error;
-  const disabled = state === 'loading';
+  const newsletterForm = useFetcher<SubscriptionData>();
+  const { data } = newsletterForm;
+
+  const state: 'idle' | 'success' | 'error' | 'submitting' =
+    newsletterForm.submission
+      ? 'submitting'
+      : data?.subscribed
+      ? 'success'
+      : data?.error
+      ? 'error'
+      : 'idle';
+
+  const successRef = useRef<HTMLParagraphElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (state === 'error') {
+      inputRef.current?.focus();
+    }
+    if (state === 'success') {
+      successRef.current?.focus();
+    }
+  }, [state]);
 
   return (
     <>
@@ -15,10 +35,10 @@ function NewsletterSubscriptionForm() {
       </h2>
 
       <div>
-        <fetcher.Form method="post" action="/_subscription">
+        <newsletterForm.Form method="post" action="/_subscription">
           <fieldset
-            aria-disabled={disabled}
-            disabled={disabled}
+            aria-disabled={state === 'submitting'}
+            disabled={state === 'submitting'}
             className="flex flex-wrap flex-col md:flex-row md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 "
           >
             <input type="hidden" name="_subscriptionType" value="newsletter" />
@@ -30,6 +50,7 @@ function NewsletterSubscriptionForm() {
               aria-describedby="error-message"
               aria-label="Email"
               required
+              ref={inputRef}
             />
             <button
               className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-gray-500 rounded shadow-md hover:bg-gray-600 focus:outline-none focus:ring-1 focus:hover:ring focus:ring-gray-600 aria-disabled:bg-gray-100/95 aria-disabled:cursor-not-allowed"
@@ -41,19 +62,21 @@ function NewsletterSubscriptionForm() {
               <p
                 aria-hidden={data?.subscribed ? false : true}
                 className="text-sm absolute aria-hidden:invisible"
+                tabIndex={state === 'success' ? 0 : -1}
               >
                 You are now subscribed to our newsletter.
               </p>
               <p
-                aria-hidden={error ? false : true}
+                aria-hidden={state === 'error' ? false : true}
                 id="error-message"
                 className="text-sm absolute aria-hidden:invisible"
+                tabIndex={state === 'success' ? -1 : 0}
               >
-                {error?.message}
+                {data?.error?.message}
               </p>
             </div>
           </fieldset>
-        </fetcher.Form>
+        </newsletterForm.Form>
       </div>
     </>
   );

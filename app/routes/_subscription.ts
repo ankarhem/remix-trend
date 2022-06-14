@@ -17,7 +17,7 @@ export type SubscriptionData = {
 
 type ValidationMessages = { [key: string]: string };
 
-const fields: ValidationMessages = {
+const validationMessages: ValidationMessages = {
   AlreadySubscribed: `You're already a subscriber to our newsletter.`,
   'Unknown error': 'Something went wrong. Please try again.',
 };
@@ -33,7 +33,7 @@ const onError = (error: unknown) => {
   return {
     subscribed: null,
     error: {
-      message: fields[getErrorDetail(error)],
+      message: validationMessages[getErrorDetail(error)],
     },
   };
 };
