@@ -1,7 +1,7 @@
 import type { ActionFunction } from 'remix';
-import { json } from 'remix';
 import type { Mutation } from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
+import { SubscribeToNewsletterDocument } from '~/graphql/types';
 
 enum SubscriptionType {
   Newsletter = 'newsletter',
@@ -24,7 +24,7 @@ const validationMessages: ValidationMessages = {
 
 const getErrorDetail = (errors: unknown): string => {
   if (Array.isArray(errors)) {
-    return errors[0].message || 'Unknown error';
+    return errors[0]?.message ?? 'Unknown error';
   }
   return 'Unknown error';
 };
@@ -47,9 +47,7 @@ export const action: ActionFunction = async (args) => {
       try {
         const response = await sendJetshopRequest({
           args,
-          query: `mutation($email: String!) {
-            subscribeToNewsletter(email: $email)
-          }`,
+          query: SubscribeToNewsletterDocument,
           variables: {
             email,
           },
