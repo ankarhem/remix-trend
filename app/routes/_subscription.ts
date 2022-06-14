@@ -1,4 +1,5 @@
 import type { ActionFunction } from 'remix';
+import { json } from 'remix';
 import type { Mutation } from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
 
@@ -14,6 +15,13 @@ export type SubscriptionData = {
   } | null;
 };
 
+type ValidationMessages = { [key: string]: string };
+
+const fields: ValidationMessages = {
+  AlreadySubscribed: `You're already a subscriber to our newsletter.`,
+  'Unknown error': 'Something went wrong. Please try again.',
+};
+
 const getErrorDetail = (errors: unknown): string => {
   if (Array.isArray(errors)) {
     return errors[0].message || 'Unknown error';
@@ -25,7 +33,7 @@ const onError = (error: unknown) => {
   return {
     subscribed: null,
     error: {
-      message: getErrorDetail(error),
+      message: fields[getErrorDetail(error)],
     },
   };
 };

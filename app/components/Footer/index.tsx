@@ -3,9 +3,10 @@ import type { LayoutQueries } from '~/routes/__layout';
 import type { SubscriptionData } from '~/routes/_subscription';
 
 function NewsletterSubscriptionForm() {
-  const { data, state, Form } = useFetcher<SubscriptionData>();
+  const fetcher = useFetcher<SubscriptionData>();
+  const { data, state } = fetcher;
+  const error = data?.error;
   const disabled = state === 'loading';
-  const alreadySubscribed = data?.error?.message === 'AlreadySubscribed';
 
   return (
     <>
@@ -13,48 +14,46 @@ function NewsletterSubscriptionForm() {
         Join our newsletter
       </h2>
 
-      <div className="flex flex-col">
-        <Form
-          method="post"
-          action="/_subscription"
-          className="flex flex-col md:flex-row md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center"
-        >
-          <div className="relative">
+      <div>
+        <fetcher.Form method="post" action="/_subscription">
+          <fieldset
+            aria-disabled={disabled}
+            disabled={disabled}
+            className="flex flex-wrap flex-col md:flex-row md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 "
+          >
             <input type="hidden" name="_subscriptionType" value="newsletter" />
             <input
               type="email"
               className="rounded flex-1 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base hover:ring-gray-500/50 focus:ring-gray-500 hover:ring focus:ring-1 focus:hover:ring focus:border-gray-500 aria-disabled:bg-gray-100/95 aria-disabled:cursor-not-allowed"
               placeholder="Email"
               name="email"
+              aria-describedby="error-message"
+              aria-label="Email"
               required
-              disabled={disabled}
-              aria-disabled={disabled}
             />
-          </div>
-          <button
-            className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-gray-500 rounded shadow-md hover:bg-gray-600 focus:outline-none focus:ring-1 focus:hover:ring focus:ring-gray-600 aria-disabled:bg-gray-100/95 aria-disabled:cursor-not-allowed"
-            type="submit"
-            disabled={disabled}
-            aria-disabled={disabled}
-          >
-            Subscribe
-          </button>
-        </Form>
-        {alreadySubscribed && (
-          <p className="text-sm pt-1">
-            You're already a subscriber to our newsletter.
-          </p>
-        )}
-        {data?.error?.message === 'Unknown error' && (
-          <p className="text-sm pt-1">
-            Something went wrong on our end. Please try again.
-          </p>
-        )}
-        {data?.subscribed && (
-          <p className="text-sm pt-1">
-            You are now subscribed to our newsletter.
-          </p>
-        )}
+            <button
+              className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-gray-500 rounded shadow-md hover:bg-gray-600 focus:outline-none focus:ring-1 focus:hover:ring focus:ring-gray-600 aria-disabled:bg-gray-100/95 aria-disabled:cursor-not-allowed"
+              type="submit"
+            >
+              Subscribe
+            </button>
+            <div className="relative pt-1 min-w-[100%] w-100">
+              <p
+                aria-hidden={data?.subscribed ? false : true}
+                className="text-sm absolute aria-hidden:invisible"
+              >
+                You are now subscribed to our newsletter.
+              </p>
+              <p
+                aria-hidden={error ? false : true}
+                id="error-message"
+                className="text-sm absolute aria-hidden:invisible"
+              >
+                {error?.message}
+              </p>
+            </div>
+          </fieldset>
+        </fetcher.Form>
       </div>
     </>
   );
