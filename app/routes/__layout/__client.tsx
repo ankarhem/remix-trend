@@ -51,7 +51,7 @@ export const loader: LoaderFunction = async (args) => {
   const cookieHeader = args.request.headers.get('Cookie');
   const cartIdInCookie = await cartIdCookie.parse(cookieHeader);
 
-  const [cartResult] = await Promise.all([
+  const [cart] = await Promise.all([
     sendJetshopRequest({
       args: args,
       query: CartDocument,
@@ -60,8 +60,6 @@ export const loader: LoaderFunction = async (args) => {
       },
     }),
   ]);
-
-  const [cart] = await Promise.all([cartResult.json()]);
 
   const headers = new Headers();
 
@@ -78,7 +76,7 @@ export const loader: LoaderFunction = async (args) => {
 
   return json(
     {
-      cart: cart.data.cart,
+      cart: cart.data?.cart,
     },
     { headers }
   );

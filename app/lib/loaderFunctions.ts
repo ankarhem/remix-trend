@@ -84,7 +84,7 @@ export const createRouteLoaderFunction =
       multiListFilters: [],
     };
 
-    const response = await sendJetshopRequest({
+    const result = await sendJetshopRequest({
       args: args,
       query: props.query,
       variables: {
@@ -94,7 +94,6 @@ export const createRouteLoaderFunction =
         filters: filterInput,
       },
     });
-    const result = await response.json();
 
     const data: RouteQuery = result.data;
 
