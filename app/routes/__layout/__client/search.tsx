@@ -29,15 +29,14 @@ export const loader: LoaderFunction = async (args) => {
       offset: offset,
     },
   });
-  const { data }: { data: SearchQuery } = await response.json();
 
-  if (!data.search?.products?.result.length) {
+  if (!response.data?.search?.products?.result.length) {
     throw new Response(`No results found for ${term}`, {
       status: 404,
     });
   }
 
-  return data;
+  return response?.data;
 };
 
 export const CatchBoundary: CatchBoundaryComponent = () => {

@@ -24,28 +24,29 @@ export const action: ActionFunction = async (args) => {
   switch (body.get('_productType')) {
     case ProductType.Variant:
     case ProductType.Basic:
-      const cartResult = await sendJetshopRequest({
+      const articleNumber = body.get('_articleNumber');
+      if (typeof articleNumber !== 'string')
+        return new Response('Missing articleNumber', { status: 400 });
+
+      const cart = await sendJetshopRequest({
         args,
         query: AddToCartDocument,
         variables: {
           input: {
             cartId: cartId,
-            articleNumber: body.get('_articleNumber'),
+            articleNumber: articleNumber,
           },
         },
       });
 
-      const cart: AddToCartMutation = await cartResult
-        .json()
-        .then((json) => json?.data);
-      const newCartId = cart.addToCart?.cart?.id;
+      const newCartId = cart.data?.addToCart?.cart?.id;
 
       if (!newCartId) {
         throw badRequest({ message: 'Invalid cart id returned' });
       }
 
       return json<CartActionData>(
-        { cart: cart.addToCart?.cart },
+        { cart: cart.data?.addToCart?.cart },
         {
           headers: {
             'Set-Cookie': await cartIdCookie.serialize(newCartId),
