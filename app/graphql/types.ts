@@ -962,6 +962,21 @@ export type Mutation = {
   updateCart?: Maybe<UpdateCartMutation>;
   /** This mutation's purpose is to update a existing customer's information. An authorization token is needed in the request, in order to be able to update the customer. */
   updateCustomer?: Maybe<CustomerUpdateResponse>;
+  /**
+   * ## Description
+   * This mutation's purpose is to update a existing customer's group using an access code. An authorization token is needed in the request, in order to be able to update the customer.
+   * ## Error Codes
+   * ### Unauthorized
+   * Unauthorized
+   * ### UnableToUpdateCustomer
+   * Error in underlying API call, more info may be contained in the error message.
+   * ### CustomerAlreadyUpdated
+   * Customer already in the customer group
+   * ### CustomerNotFound
+   * No match on customer with access code
+   *
+   */
+  updateCustomerGroup?: Maybe<UpdateCustomerGroupResult>;
   /** This mutation's purpose is to update a existing customer's price list using an access code. An authorization token is needed in the request, in order to be able to update the customer. */
   updateCustomerPriceList?: Maybe<UpdateCustomerPriceListResult>;
   /**
@@ -1117,6 +1132,11 @@ export type MutationUpdateCartArgs = {
 
 export type MutationUpdateCustomerArgs = {
   input: CustomerUpdateInput;
+};
+
+
+export type MutationUpdateCustomerGroupArgs = {
+  customerGroupAccessCode: Scalars['String'];
 };
 
 
@@ -1377,6 +1397,11 @@ export type Price = {
   vat: Scalars['Decimal'];
 };
 
+export type PriceHistory = {
+  price?: Maybe<Price>;
+  timestamp?: Maybe<Scalars['DateTime']>;
+};
+
 export type PrivateCustomer = Customer & {
   billingAddress?: Maybe<CustomerAddress>;
   communication?: Maybe<CustomerCommunication>;
@@ -1450,6 +1475,8 @@ export type Product = Document & {
   hasVariantsWithDifferingPrices: Scalars['Boolean'];
   head?: Maybe<HtmlHead>;
   hidePrice?: Maybe<Scalars['Boolean']>;
+  /** Get Product History within the set number of days */
+  history?: Maybe<ProductHistory>;
   id: Scalars['Int'];
   images?: Maybe<Array<Maybe<ProductImage>>>;
   inPackages?: Maybe<Array<Product>>;
@@ -1507,6 +1534,11 @@ export type ProductCategoriesArgs = {
 
 export type ProductConfigurationPriceArgs = {
   options?: InputMaybe<Array<ProductConfigurationPriceInput>>;
+};
+
+
+export type ProductHistoryArgs = {
+  days?: InputMaybe<Scalars['Int']>;
 };
 
 
@@ -1606,6 +1638,10 @@ export enum ProductCustomFieldType {
   String = 'STRING'
 }
 
+export type ProductHistory = {
+  previousPrice?: Maybe<Array<Maybe<PriceHistory>>>;
+};
+
 export type ProductImage = {
   /** Alternate text for the image, commonly used for the alt attribute of img-tags. */
   alt?: Maybe<Scalars['String']>;
@@ -1663,6 +1699,8 @@ export type ProductVariant = {
   defaultPreviousPrice?: Maybe<Price>;
   /** Default price for the product in the channel, disregards Customer specific prices. */
   defaultPrice?: Maybe<Price>;
+  /** Get Product History within the set number of days */
+  history?: Maybe<ProductVariantHistory>;
   id: Scalars['String'];
   images?: Maybe<Array<Maybe<ProductImage>>>;
   /** The previous price (i.e. this will be higher than `price` if the product is discounted). Will be a Customer specific previous price, if that Customer has a separate price list. */
@@ -1682,8 +1720,17 @@ export type ProductVariant = {
 };
 
 
+export type ProductVariantHistoryArgs = {
+  days?: InputMaybe<Scalars['Int']>;
+};
+
+
 export type ProductVariantWarehouseStockArgs = {
   includeInactive?: InputMaybe<Scalars['Boolean']>;
+};
+
+export type ProductVariantHistory = {
+  previousPrice?: Maybe<Array<Maybe<PriceHistory>>>;
 };
 
 export type ProductVariantOption = {
@@ -2138,6 +2185,10 @@ export type UpdateCartMutation = {
   cart?: Maybe<Cart>;
 };
 
+export type UpdateCustomerGroupResult = {
+  success: Scalars['Boolean'];
+};
+
 export type UpdateCustomerPriceListResult = {
   success: Scalars['Boolean'];
 };
@@ -2227,6 +2278,13 @@ export type AddToCartMutationVariables = Exact<{
 
 
 export type AddToCartMutation = { addToCart?: { cart?: { id?: string | null, externalCheckoutUrl?: any | null, totalQuantity?: number | null, productTotal?: { incVat: any, exVat: any, vat: any } | null, productPreviousTotal?: { incVat: any, exVat: any, vat: any } | null, discountTotal?: { incVat: any, exVat: any, vat: any } | null, aggregatedDiscounts?: Array<{ name?: string | null, description?: string | null, value?: { incVat: any, exVat: any, vat: any } | null, campaign?: { name: string } | null } | null> | null, items?: Array<{ id: string, quantity: number, articleNumber: string, subHeading?: string | null, variant?: { values: Array<string | null>, articleNumber: string, images?: Array<{ modifiedDate?: string | null, url?: any | null, alt?: string | null, title?: string | null } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null, configurations?: Array<{ name?: string | null, option: { id: string, name?: string | null } } | null> | null, discounts?: Array<{ name?: string | null, description?: string | null, value?: { incVat: any, exVat: any, vat: any } | null } | null> | null, discount?: { incVat: any, exVat: any, vat: any } | null, total: { incVat: any, exVat: any, vat: any }, previousTotal: { incVat: any, exVat: any, vat: any }, product?: { id: number, name: string, articleNumber: string, primaryRoute?: { id: string, path: string } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, canonicalCategory?: { primaryRoute?: { path: string } | null } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null } | null> | null } | null } | null };
+
+export type SubscribeToNewsletterMutationVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type SubscribeToNewsletterMutation = { subscribeToNewsletter?: boolean | null };
 
 export type AutocompleteQueryVariables = Exact<{
   term: Scalars['String'];
@@ -2372,6 +2430,7 @@ export const ProductMetadataFragmentDoc = {"kind":"Document","definitions":[{"ki
 export const RouteCrumbFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteCrumb"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"parents"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"object"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"breadcrumbText"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"canonicalPath"}},{"kind":"Field","name":{"kind":"Name","value":"alternateRoutes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"channelId"}},{"kind":"Field","name":{"kind":"Name","value":"culture"}},{"kind":"Field","name":{"kind":"Name","value":"route"}},{"kind":"Field","name":{"kind":"Name","value":"alias"}}]}}]}}]} as unknown as DocumentNode<RouteCrumbFragment, unknown>;
 export const RouteMetaFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMeta"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"parents"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"canonicalPath"}},{"kind":"Field","name":{"kind":"Name","value":"alternateRoutes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"channelId"}},{"kind":"Field","name":{"kind":"Name","value":"culture"}},{"kind":"Field","name":{"kind":"Name","value":"route"}},{"kind":"Field","name":{"kind":"Name","value":"alias"}}]}},{"kind":"Field","name":{"kind":"Name","value":"breadcrumbs"}}]}}]} as unknown as DocumentNode<RouteMetaFragment, unknown>;
 export const AddToCartDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"addToCart"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddToCartInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addToCart"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cart"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CartCoreFragment"}}]}}]}}]}},...CartCoreFragmentFragmentDoc.definitions]} as unknown as DocumentNode<AddToCartMutation, AddToCartMutationVariables>;
+export const SubscribeToNewsletterDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SubscribeToNewsletter"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"subscribeToNewsletter"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}}]}]}}]} as unknown as DocumentNode<SubscribeToNewsletterMutation, SubscribeToNewsletterMutationVariables>;
 export const AutocompleteDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Autocomplete"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"term"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"searchAutoComplete"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"term"},"value":{"kind":"Variable","name":{"kind":"Name","value":"term"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"result"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"path"}},{"kind":"Field","name":{"kind":"Name","value":"breadcrumbs"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"products"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"result"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"path"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<AutocompleteQuery, AutocompleteQueryVariables>;
 export const CartDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Cart"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cartId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cart"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cartId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CartCoreFragment"}}]}}]}},...CartCoreFragmentFragmentDoc.definitions]} as unknown as DocumentNode<CartQuery, CartQueryVariables>;
 export const NavTreeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"NavTree"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"root"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"levels"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"includeHidden"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categories"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"root"},"value":{"kind":"Variable","name":{"kind":"Name","value":"root"}}},{"kind":"Argument","name":{"kind":"Name","value":"levels"},"value":{"kind":"Variable","name":{"kind":"Name","value":"levels"}}},{"kind":"Argument","name":{"kind":"Name","value":"includeHidden"},"value":{"kind":"Variable","name":{"kind":"Name","value":"includeHidden"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"categoriesWithSubcategories"}}]}}]}},...CategoriesWithSubcategoriesFragmentDoc.definitions]} as unknown as DocumentNode<NavTreeQuery, NavTreeQueryVariables>;
