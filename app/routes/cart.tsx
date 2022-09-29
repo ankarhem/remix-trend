@@ -1,7 +1,6 @@
-import type { ActionFunction } from 'remix';
-import { json } from 'remix';
+import { type DataFunctionArgs, json } from '@remix-run/server-runtime';
 import { badRequest } from 'remix-utils';
-import { cartIdCookie } from '~/cookies';
+import { commitSession, getSession } from '~/cookies';
 import type { AddToCartMutation } from '~/graphql/types';
 import { AddToCartDocument } from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
@@ -15,9 +14,10 @@ export type CartActionData = {
     stack?: string;
   };
 };
-export const action: ActionFunction = async (args) => {
+export const action = async (args: DataFunctionArgs) => {
   const cookieHeader = args.request.headers.get('Cookie');
-  const cartId = await cartIdCookie.parse(cookieHeader);
+  const session = await getSession(cookieHeader);
+  const cartId = session.get('cartId');
   const body = await args.request.formData();
 
   // try {
@@ -30,7 +30,7 @@ export const action: ActionFunction = async (args) => {
         variables: {
           input: {
             cartId: cartId,
-            articleNumber: body.get('_articleNumber'),
+            articleNumber: body.get('_articleNumber') as string,
           },
         },
       });
@@ -44,11 +44,13 @@ export const action: ActionFunction = async (args) => {
         throw badRequest({ message: 'Invalid cart id returned' });
       }
 
+      session.set('cartId', newCartId);
+
       return json<CartActionData>(
         { cart: cart.addToCart?.cart },
         {
           headers: {
-            'Set-Cookie': await cartIdCookie.serialize(newCartId),
+            'Set-Cookie': await commitSession(session),
           },
         }
       );

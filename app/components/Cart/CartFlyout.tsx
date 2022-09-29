@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
-import { Link } from 'remix';
+import { Link } from '@remix-run/react';
 import type { CartQuery } from '~/graphql/types';
 import Cross from '../Icons/Cross';
 import Price from '../Price';
@@ -17,7 +17,7 @@ function CartFlyout({ cart, open, onClose }: Props) {
       <Dialog
         open={open}
         onClose={onClose}
-        className='fixed z-20 inset-0 overflow-y-auto'
+        className='fixed inset-0 z-20 overflow-y-auto'
       >
         <div className='min-h-screen'>
           <Transition.Child
@@ -37,11 +37,11 @@ function CartFlyout({ cart, open, onClose }: Props) {
             leave='transition ease-in-out'
             leaveFrom='opacity-100 translate-x-0'
             leaveTo='opacity-0 translate-x-full'
-            className='fixed right-0 top-0 bottom-0 w-96'
+            className='fixed top-0 bottom-0 right-0 w-96'
           >
-            <div className='relative bg-white h-full py-4 flex flex-col px-6'>
-              <div className='grid grid-cols-3 items-center mb-6'>
-                <Dialog.Title className='text-xl text-center text-gray-900 col-start-2'>
+            <div className='relative flex flex-col h-full px-6 py-4 bg-white'>
+              <div className='grid items-center grid-cols-3 mb-6'>
+                <Dialog.Title className='col-start-2 text-xl text-center text-gray-900'>
                   Cart
                 </Dialog.Title>
                 <button onClick={onClose} className='justify-self-end'>
@@ -54,7 +54,7 @@ function CartFlyout({ cart, open, onClose }: Props) {
               <>
                 {cart ? (
                   <>
-                    <ul className='flex flex-col mb-6 flex-1 overflow-auto -mx-6 px-6'>
+                    <ul className='flex flex-col flex-1 px-6 mb-6 -mx-6 overflow-auto'>
                       {cart?.items?.map((item) => {
                         if (!item || !item.product) return null;
 
@@ -64,10 +64,10 @@ function CartFlyout({ cart, open, onClose }: Props) {
                         return (
                           <li
                             key={item.id}
-                            className='flex py-4 gap-3 border-b border-gray-100/80 max-h-32'
+                            className='flex gap-3 py-4 border-b border-gray-100/80 max-h-32'
                           >
                             <img
-                              className='h-24 w-24 object-contain group-hover:scale-110 transition'
+                              className='object-contain w-24 h-24 transition group-hover:scale-110'
                               src={(variant || product).images?.[0]?.url}
                               alt={
                                 (variant || product).images?.[0]?.alt ??
@@ -84,27 +84,27 @@ function CartFlyout({ cart, open, onClose }: Props) {
                                 >
                                   <h2>{product.name}</h2>
                                 </Link>
-                                <span className='text-gray-600 text-sm'>
+                                <span className='text-sm text-gray-600'>
                                   {item.articleNumber}
                                 </span>
                               </div>
 
-                              <div className='flex items-center gap-2 self-end text-sm'>
-                                <button className='rounded bg-gray-300 w-5 h-5'>
+                              <div className='flex items-center self-end gap-2 text-sm'>
+                                <button className='w-5 h-5 bg-gray-300 rounded'>
                                   -
                                 </button>
                                 <span>{item.quantity}</span>
-                                <button className='rounded bg-gray-300 w-5 h-5'>
+                                <button className='w-5 h-5 bg-gray-300 rounded'>
                                   +
                                 </button>
                               </div>
                             </div>
-                            <div className='flex flex-col ml-auto justify-between'>
+                            <div className='flex flex-col justify-between ml-auto'>
                               <button onClick={() => null} className='self-end'>
                                 <Cross className='w-6 h-6' />
                               </button>
 
-                              <span className='text-gray-600 text-sm'>
+                              <span className='text-sm text-gray-600'>
                                 <Price
                                   price={(variant || product).price}
                                   quantity={item.quantity}
@@ -118,7 +118,7 @@ function CartFlyout({ cart, open, onClose }: Props) {
 
                     <a
                       href={cart.externalCheckoutUrl}
-                      className='flex text-blue-50 bg-blue-400 hover:bg-blue-500 py-3 rounded focus:ring focus:ring-blue-400 active:ring-blue-500 ring-offset-2 focus:outline-none items-center justify-center'
+                      className='flex items-center justify-center py-3 bg-blue-400 rounded text-blue-50 hover:bg-blue-500 focus:ring focus:ring-blue-400 active:ring-blue-500 ring-offset-2 focus:outline-none'
                     >
                       Go to checkout
                     </a>

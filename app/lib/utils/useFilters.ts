@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { useLocation, useTransition } from 'remix';
+import { useLocation, useTransition } from '@remix-run/react';
 import type { RouteCategory } from '~/utils/types';
 
 export type Filters = NonNullable<RouteCategory['products']>['filters'];

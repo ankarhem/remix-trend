@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { Link, useLoaderData, useFetcher } from 'remix';
+import { Link, useLoaderData, useFetcher } from '@remix-run/react';
 import type { LayoutQueries } from '~/routes/__layout';
 import type { SubscriptionData } from '~/routes/_subscription';
 
@@ -30,7 +30,7 @@ function NewsletterSubscriptionForm() {
 
   return (
     <>
-      <h2 className="text-gray-700 font-bold text-md uppercase mb-4 md:text-right">
+      <h2 className="mb-4 font-bold text-gray-700 uppercase text-md md:text-right">
         Join our newsletter
       </h2>
 
@@ -39,12 +39,12 @@ function NewsletterSubscriptionForm() {
           <fieldset
             aria-disabled={state === 'submitting'}
             disabled={state === 'submitting'}
-            className="flex flex-wrap flex-col md:flex-row md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 "
+            className="flex flex-col flex-wrap max-w-sm space-y-3 md:flex-row md:w-full md:space-x-3 md:space-y-0 "
           >
             <input type="hidden" name="_subscriptionType" value="newsletter" />
             <input
               type="email"
-              className="rounded flex-1 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base hover:ring-gray-500/50 focus:ring-gray-500 hover:ring focus:ring-1 focus:hover:ring focus:border-gray-500 aria-disabled:bg-gray-100/95 aria-disabled:cursor-not-allowed"
+              className="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white rounded shadow-sm hover:ring-gray-500/50 focus:ring-gray-500 hover:ring focus:ring-1 focus:hover:ring focus:border-gray-500 aria-disabled:bg-gray-100/95 aria-disabled:cursor-not-allowed"
               placeholder="Email"
               name="email"
               aria-describedby="error-message"
@@ -61,7 +61,7 @@ function NewsletterSubscriptionForm() {
             <div className="relative pt-1 min-w-[100%] w-100">
               <p
                 aria-hidden={data?.subscribed ? false : true}
-                className="text-sm absolute aria-hidden:invisible"
+                className="absolute text-sm aria-hidden:invisible"
                 tabIndex={state === 'success' ? 0 : -1}
               >
                 You are now subscribed to our newsletter.
@@ -69,7 +69,7 @@ function NewsletterSubscriptionForm() {
               <p
                 aria-hidden={state === 'error' ? false : true}
                 id="error-message"
-                className="text-sm absolute aria-hidden:invisible"
+                className="absolute text-sm aria-hidden:invisible"
                 tabIndex={state === 'success' ? -1 : 0}
               >
                 {data?.error?.message}
@@ -85,10 +85,10 @@ function NewsletterSubscriptionForm() {
 function Footer() {
   const { pages } = useLoaderData<LayoutQueries>();
   return (
-    <footer className="bg-white mt-6 py-8">
-      <div className="container grid mx-auto grid-cols-2 md:grid-cols-3 pb-20 justify-items-center md:justify-items-start gap-y-6">
+    <footer className="py-8 mt-6 bg-white">
+      <div className="container grid grid-cols-2 pb-20 mx-auto md:grid-cols-3 justify-items-center md:justify-items-start gap-y-6">
         <section>
-          <h2 className="text-gray-700 text-md uppercase mb-4 font-bold">
+          <h2 className="mb-4 font-bold text-gray-700 uppercase text-md">
             Remix Store
           </h2>
           <ul>
@@ -97,7 +97,7 @@ function Footer() {
               return (
                 <li
                   key={page.id}
-                  className="mb-2 text-gray-500 hover:text-blue-400 transition-colors duration-200"
+                  className="mb-2 text-gray-500 transition-colors duration-200 hover:text-blue-400"
                 >
                   <Link to={page.primaryRoute.path} prefetch="intent">
                     {page.name}
@@ -108,7 +108,7 @@ function Footer() {
           </ul>
         </section>
         <section>
-          <h2 className="text-gray-700 font-bold text-md uppercase mb-4">
+          <h2 className="mb-4 font-bold text-gray-700 uppercase text-md">
             Address
           </h2>
           <address className="text-gray-500">
@@ -117,17 +117,17 @@ function Footer() {
             <p>Sweden</p>
           </address>
         </section>
-        <section className="md:justify-self-end col-span-full md:col-span-1 w-full flex flex-col items-center md:items-end">
+        <section className="flex flex-col items-center w-full md:justify-self-end col-span-full md:col-span-1 md:items-end">
           <NewsletterSubscriptionForm />
         </section>
       </div>
-      <div className="pt-8 flex border-t border-gray-200 max-w-xs mx-auto items-center justify-center gap-6">
+      <div className="flex items-center justify-center max-w-xs gap-6 pt-8 mx-auto border-t border-gray-200">
         <button aria-label="Go to facebook">
           <svg
             width="20"
             height="20"
             fill="currentColor"
-            className="text-xl hover:text-gray-800 transition-colors duration-200"
+            className="text-xl transition-colors duration-200 hover:text-gray-800"
             viewBox="0 0 1792 1792"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -139,7 +139,7 @@ function Footer() {
             width="20"
             height="20"
             fill="currentColor"
-            className="text-xl hover:text-gray-800 transition-colors duration-200"
+            className="text-xl transition-colors duration-200 hover:text-gray-800"
             viewBox="0 0 1792 1792"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -163,7 +163,7 @@ function Footer() {
           </svg>
         </button>
       </div>
-      <div className="text-center pt-10 sm:pt-12 font-light flex items-center justify-center text-gray-700">
+      <div className="flex items-center justify-center pt-10 font-light text-center text-gray-700 sm:pt-12">
         Powered by Jetshop
       </div>
     </footer>

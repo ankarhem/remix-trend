@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSearchParams } from 'remix';
+import { useSearchParams } from '@remix-run/react';
 import type { SearchQuery } from '~/graphql/types';
 import ProductGrid from '../CategoryPage/ProductGrid';
 import Pagination from '../Pagination';
@@ -17,9 +17,9 @@ function SearchPage({ search }: Props) {
   if (!products?.result || !products.totalResults) return null;
 
   return (
-    <div className='container mx-auto py-8'>
+    <div className='container py-8 mx-auto'>
       <SearchField />
-      <span className='text-sm px-4 sm:px-8'>
+      <span className='px-4 text-sm sm:px-8'>
         {products?.totalResults} results for "{term}"
       </span>
       <ProductGrid products={products?.result} />

@@ -1,5 +1,5 @@
 import { RadioGroup } from '@headlessui/react';
-import { useNavigate } from 'remix';
+import { useNavigate } from '@remix-run/react';
 import { useAllowedOptionValues } from '~/lib/utils/product';
 import { useTransitionalParams } from '~/lib/utils/useTransitionalParams';
 import type { RouteProduct } from '~/utils/types';

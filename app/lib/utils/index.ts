@@ -1,4 +1,4 @@
-import { useSearchParams } from 'remix';
+import { useSearchParams } from '@remix-run/react';
 
 export const usePagination = ({
   totalResults,

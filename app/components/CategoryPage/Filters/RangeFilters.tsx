@@ -2,7 +2,7 @@ import { Popover, Transition } from '@headlessui/react';
 import { SelectorIcon } from '@heroicons/react/outline';
 import { Fragment, useState } from 'react';
 import ReactSlider from 'react-slider';
-import { Link } from 'remix';
+import { Link } from '@remix-run/react';
 import type { Filters, UseFiltersReturnType } from '~/lib/utils/useFilters';
 
 export type RangeFiltersType =

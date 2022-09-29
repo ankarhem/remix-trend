@@ -1,4 +1,4 @@
-import { Link, NavLink, useLoaderData } from 'remix';
+import { Link, NavLink, useLoaderData } from '@remix-run/react';
 import type { LayoutQueries } from '~/routes/__layout';
 import CartButton from '../Cart/CartButton';
 import SearchField from '../SearchPage/SearchField';
@@ -11,7 +11,7 @@ function Header() {
     <>
       <header className='sticky top-0 z-20'>
         <UspBar />
-        <div className='h-12 bg-blue-50 flex items-center shadow-md px-8 lg:pl-2'>
+        <div className='flex items-center h-12 px-8 shadow-md bg-blue-50 lg:pl-2'>
           <MobileMenu />
           <Link to='/' prefetch='intent'>
             <img
@@ -20,7 +20,7 @@ function Header() {
             />
           </Link>
 
-          <nav className='px-4 hidden lg:block'>
+          <nav className='hidden px-4 lg:block'>
             <ul className='flex gap-4'>
               {navTree?.map((category) => {
                 if (!category?.primaryRoute) return null;
@@ -41,7 +41,7 @@ function Header() {
               })}
             </ul>
           </nav>
-          <div className='ml-auto flex items-center gap-4'>
+          <div className='flex items-center gap-4 ml-auto'>
             <SearchField className='py-1' autoFocus={false} />
             <CartButton />
           </div>

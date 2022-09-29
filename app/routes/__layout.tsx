@@ -1,9 +1,8 @@
 import { Disclosure } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/outline';
-import type { CatchBoundaryComponent } from '@remix-run/react/routeModules';
+import { type ErrorBoundaryComponent, json, type DataFunctionArgs } from '@remix-run/server-runtime';
+import { Outlet, useCatch } from "@remix-run/react";
 import { Toaster } from 'react-hot-toast';
-import type { ErrorBoundaryComponent, LoaderFunction } from 'remix';
-import { json, Outlet, useParams } from 'remix';
 import Footer from '~/components/Footer';
 import Header from '~/components/Header';
 import type { CartQuery, NavTreeQuery, PagesQuery } from '~/graphql/types';
@@ -20,7 +19,7 @@ export type LayoutQueries = {
 // TODO: Move this to a config file
 export const PAGE_SIZE = 24;
 
-export const loader: LoaderFunction = async (args) => {
+export const loader = async (args: DataFunctionArgs) => {
   const [navTreeResult, pagesResult] = await Promise.all([
     sendJetshopRequest({
       args: args,
@@ -32,11 +31,7 @@ export const loader: LoaderFunction = async (args) => {
     }),
     sendJetshopRequest({
       args: args,
-      query: PagesDocument,
-      variables: {
-        levels: 1,
-        includeHidden: false,
-      },
+      query: PagesDocument
     }),
   ]);
 
@@ -66,7 +61,7 @@ const LayoutComponent: React.FC = ({ children }) => {
     <>
       <ProgressBar />
       <Header />
-      <main className='flex flex-1 flex-col'>{children}</main>
+      <main className='flex flex-col flex-1'>{children}</main>
       <Footer />
       <Toaster
         position='top-right'
@@ -87,13 +82,13 @@ export default function PageContent() {
   );
 }
 
-export const CatchBoundary: CatchBoundaryComponent = () => {
-  const params = useParams();
+export const CatchBoundary = () => {
+  const caught = useCatch();
   return (
     <LayoutComponent>
       <div className='flex flex-col items-center justify-center h-full'>
-        <h1>404</h1>
-        <p>Could not find page {params['*']}</p>
+        <h1>{caught.status}</h1>
+        <p>{caught.statusText}</p>
       </div>
     </LayoutComponent>
   );
@@ -103,21 +98,21 @@ export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
   return (
     <LayoutComponent>
       <div className='flex flex-col items-center justify-center h-full my-6'>
-        <h1 className='text-4xl my-6'>Whoops!</h1>
+        <h1 className='my-6 text-4xl'>Whoops!</h1>
         <p>
           An unexepected{' '}
-          <code className='bg-gray-300 rounded-sm text-black px-1 text-base'>
+          <code className='px-1 text-base text-black bg-gray-300 rounded-sm'>
             {error.name}
           </code>{' '}
           occured:
         </p>
         <p>{error.message}</p>
       </div>
-      <div className='mx-auto w-full container rounded-2xl bg-white p-2 max-w-prose'>
+      <div className='container w-full p-2 mx-auto bg-white rounded-2xl max-w-prose'>
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className='flex w-full justify-between rounded-lg bg-chestnut-100 px-4 py-2 text-left text-sm font-medium text-chestnut-900 hover:bg-chestnut-200 focus:outline-none focus-visible:ring focus-visible:ring-chestnut-500 focus-visible:ring-opacity-75'>
+              <Disclosure.Button className='flex justify-between w-full px-4 py-2 text-sm font-medium text-left rounded-lg bg-chestnut-100 text-chestnut-900 hover:bg-chestnut-200 focus:outline-none focus-visible:ring focus-visible:ring-chestnut-500 focus-visible:ring-opacity-75'>
                 <span>Stack trace</span>{' '}
                 <ChevronDownIcon
                   className={`${
@@ -126,7 +121,7 @@ export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
                 />
               </Disclosure.Button>
               <Disclosure.Panel>
-                <pre className='text-sm my-4 mx-2 whitespace-pre-wrap'>
+                <pre className='mx-2 my-4 text-sm whitespace-pre-wrap'>
                   {error.stack}
                 </pre>
               </Disclosure.Panel>

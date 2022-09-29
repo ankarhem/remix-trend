@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useLocation, useTransition } from 'remix';
+import { useLocation, useTransition } from '@remix-run/react';
 
 export function useTransitionalParams() {
   const transition = useTransition();

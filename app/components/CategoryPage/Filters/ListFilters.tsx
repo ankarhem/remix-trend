@@ -1,7 +1,7 @@
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/outline';
 import { Fragment } from 'react';
-import { Link } from 'remix';
+import { Link } from '@remix-run/react';
 import type { Filters, UseFiltersReturnType } from '~/lib/utils/useFilters';
 
 export type ListFiltersType =

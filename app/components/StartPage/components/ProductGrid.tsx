@@ -1,6 +1,6 @@
 import { Transition } from '@headlessui/react';
 import { useInView } from 'react-intersection-observer';
-import { Link } from 'remix';
+import { Link } from '@remix-run/react';
 import { z } from 'zod';
 import CategoryGrid from '../../CategoryPage/ProductGrid';
 
@@ -58,7 +58,7 @@ const ProductItem = ({
       key={product.id}
     >
       <Transition show={inView}>
-        <div className='grid grid-cols-2 place-items-center gap-10'>
+        <div className='grid grid-cols-2 gap-10 place-items-center'>
           <Transition.Child
             as={Link}
             prefetch='intent'
@@ -91,11 +91,11 @@ const ProductItem = ({
               className='hover:underline underline-offset-4'
               prefetch='intent'
             >
-              <h3 className='text-4xl font-semibold mb-2'>{product.name}</h3>
+              <h3 className='mb-2 text-4xl font-semibold'>{product.name}</h3>
             </Link>
-            <p className='text-gray-400 text-xl mb-10'>{product.subName}</p>
+            <p className='mb-10 text-xl text-gray-400'>{product.subName}</p>
             <div
-              className='max-w-prose text-gray-600'
+              className='text-gray-600 max-w-prose'
               dangerouslySetInnerHTML={{ __html: product.description }}
             ></div>
           </Transition.Child>
@@ -114,7 +114,7 @@ function ProductGrid({ header, ...rest }: z.infer<typeof ProductGridSchema>) {
   return (
     <>
       {/* Desktop */}
-      <div className='hidden lg:grid gap-10'>
+      <div className='hidden gap-10 lg:grid'>
         {products.map((product, index) => {
           return (
             <ProductItem
@@ -127,7 +127,7 @@ function ProductGrid({ header, ...rest }: z.infer<typeof ProductGridSchema>) {
       </div>
       {/* Mobile */}
       <div className='lg:hidden'>
-        <h3 className='text-2xl lg:hidden mx-4'>{header}</h3>
+        <h3 className='mx-4 text-2xl lg:hidden'>{header}</h3>
         <CategoryGrid products={products as any} />
       </div>
     </>

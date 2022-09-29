@@ -1,6 +1,6 @@
-import type { LoaderFunction } from 'remix';
-import { json, Outlet, useFetchers, useMatches } from 'remix';
-import { cartIdCookie } from '~/cookies';
+import { Outlet, useFetchers, useMatches } from '@remix-run/react';
+import { json, type DataFunctionArgs } from '@remix-run/server-runtime';
+import { getSession } from '~/cookies';
 import type { CartQuery } from '~/graphql/types';
 import { CartDocument } from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
@@ -47,16 +47,18 @@ export function useClientData() {
   };
 }
 
-export const loader: LoaderFunction = async (args) => {
+export const loader = async (args: DataFunctionArgs) => {
   const cookieHeader = args.request.headers.get('Cookie');
-  const cartIdInCookie = await cartIdCookie.parse(cookieHeader);
+  const session = await getSession(cookieHeader);
+
+  const cartId = session.get('cartId');
 
   const [cartResult] = await Promise.all([
     sendJetshopRequest({
       args: args,
       query: CartDocument,
       variables: {
-        cartId: cartIdInCookie || '498954d6-a89b-4360-aa1b-a8e2a543c8fc',
+        cartId: cartId || '498954d6-a89b-4360-aa1b-a8e2a543c8fc',
       },
     }),
   ]);

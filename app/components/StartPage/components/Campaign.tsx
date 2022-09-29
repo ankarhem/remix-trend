@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'remix';
+import { Link } from '@remix-run/react';
 import { z } from 'zod';
 
 const CampaignSchema = z.object({
@@ -22,17 +22,17 @@ function Campaign({
   imageSrc,
 }: z.infer<typeof CampaignSchema>) {
   return (
-    <div className='grid lg:grid-cols-2 my-20'>
+    <div className='grid my-20 lg:grid-cols-2'>
       <div
         className={`flex flex-col justify-center items-center ${
           alignment === 'left' ? 'order-1 lg:order-1' : 'order-1 lg:order-2'
         }`}
       >
-        <h2 className='text-4xl mb-6 lg:mb-8 font-semibold'>{header}</h2>
-        <p className='text-gray-500 text-xl mb-4 lg:mb-10'>{text}</p>
+        <h2 className='mb-6 text-4xl font-semibold lg:mb-8'>{header}</h2>
+        <p className='mb-4 text-xl text-gray-500 lg:mb-10'>{text}</p>
         <Link
           to={buttonLink}
-          className='text-blue-400 border-2 border-blue-400 hover:bg-blue-400 hover:text-blue-50 rounded py-2 px-4 mb-8'
+          className='px-4 py-2 mb-8 text-blue-400 border-2 border-blue-400 rounded hover:bg-blue-400 hover:text-blue-50'
         >
           {buttonText}
         </Link>

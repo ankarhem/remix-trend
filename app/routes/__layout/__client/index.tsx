@@ -1,5 +1,5 @@
-import type { LoaderFunction, MetaFunction } from 'remix';
-import { useLoaderData } from 'remix';
+import type { LoaderFunction, MetaFunction } from '@remix-run/server-runtime';
+import { useLoaderData } from '@remix-run/react';
 import StartPage from '~/components/StartPage';
 import type { RouteQuery } from '~/graphql/types';
 import { RouteDocument } from '~/graphql/types';
