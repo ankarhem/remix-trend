@@ -1,6 +1,5 @@
-import type { CatchBoundaryComponent } from '@remix-run/react/routeModules';
-import type { LoaderFunction, MetaFunction } from 'remix';
-import { useLoaderData } from 'remix';
+import type { DataFunctionArgs, MetaFunction } from '@remix-run/server-runtime';
+import { useCatch, useLoaderData } from '@remix-run/react';
 import SearchPage from '~/components/SearchPage';
 import SearchField from '~/components/SearchPage/SearchField';
 import type { SearchQuery } from '~/graphql/types';
@@ -8,7 +7,7 @@ import { SearchDocument } from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
 import { PAGE_SIZE } from '../../__layout';
 
-export const loader: LoaderFunction = async (args) => {
+export const loader = async (args: DataFunctionArgs) => {
   const url = new URL(args.request.url);
   const term = url.searchParams.get('term');
 
@@ -40,11 +39,12 @@ export const loader: LoaderFunction = async (args) => {
   return data;
 };
 
-export const CatchBoundary: CatchBoundaryComponent = () => {
+export const CatchBoundary = () => {
+  const caught = useCatch();
   return (
-    <div className='container mx-auto py-8'>
+    <div className='container py-8 mx-auto'>
       <SearchField />
-      <p className='text-center py-8'>No results found for "{}"</p>
+      <p className='py-8 text-center'>No results found for "{caught.data}"</p>
     </div>
   );
 };

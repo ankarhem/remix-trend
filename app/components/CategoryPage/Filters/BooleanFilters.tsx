@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'remix';
+import { useNavigate } from '@remix-run/react';
 import type { Filters, UseFiltersReturnType } from '~/lib/utils/useFilters';
 
 export type BooleanFilterType =

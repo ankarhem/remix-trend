@@ -1,5 +1,5 @@
-import type { LoaderFunction, MetaFunction } from 'remix';
-import { useLoaderData } from 'remix';
+import type { LoaderFunction, MetaFunction } from '@remix-run/server-runtime';
+import { useLoaderData } from '@remix-run/react';
 import CategoryPage from '~/components/CategoryPage';
 import ContentPage from '~/components/ContentPage';
 import ProductPage from '~/components/ProductPage';

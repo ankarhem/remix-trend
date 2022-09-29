@@ -2,7 +2,7 @@ import {
   ArrowNarrowLeftIcon,
   ArrowNarrowRightIcon,
 } from '@heroicons/react/solid';
-import { Link } from 'remix';
+import { Link } from '@remix-run/react';
 import { usePagination } from '~/lib/utils';
 import { PAGE_SIZE } from '~/routes/__layout';
 
@@ -22,7 +22,7 @@ function Pagination({ totalResults }: Props) {
   });
 
   return (
-    <nav className='grid grid-cols-3 mb-8 px-4 sm:px-8'>
+    <nav className='grid grid-cols-3 px-4 mb-8 sm:px-8'>
       <span
         className={`flex justify-start ${
           !previousPage ? 'cursor-not-allowed' : ''

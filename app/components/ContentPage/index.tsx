@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'remix';
+import { Link } from '@remix-run/react';
 import type { ContentComponents } from '~/lib/components/ContentRenderer';
 import { ContentRenderer } from '~/lib/components/ContentRenderer';
 import type { RoutePage } from '~/utils/types';
@@ -29,7 +29,7 @@ const components: ContentComponents = {
 
 function ContentPage({ page }: Props) {
   return (
-    <div className='container mx-auto my-10 flex lg:max-w-5xl'>
+    <div className='container flex mx-auto my-10 lg:max-w-5xl'>
       <aside className='max-w-[250px] flex-auto border-r border-gray-400 mr-8'>
         <ol>
           {page.subPages?.map((subPage) => {
@@ -44,7 +44,7 @@ function ContentPage({ page }: Props) {
         </ol>
       </aside>
       <article className='max-w-3xl'>
-        <h1 className='text-3xl font-semibold mb-6'>{page.name}</h1>
+        <h1 className='mb-6 text-3xl font-semibold'>{page.name}</h1>
         <ContentRenderer
           items={page.data?.items}
           components={components}

@@ -1,6 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
-import { Link, useLoaderData } from 'remix';
+import { Link, useLoaderData } from '@remix-run/react';
 import Cross from '~/components/Icons/Cross';
 import type { LayoutQueries } from '~/routes/__layout';
 
@@ -16,7 +16,7 @@ function FlyoutMenu({ open, onClose }: Props) {
       <Dialog
         open={open}
         onClose={onClose}
-        className='fixed z-20 inset-0 overflow-y-auto'
+        className='fixed inset-0 z-20 overflow-y-auto'
       >
         <div className='min-h-screen'>
           <Transition.Child
@@ -36,11 +36,11 @@ function FlyoutMenu({ open, onClose }: Props) {
             leave='transition ease-in-out'
             leaveFrom='opacity-100 translate-x-0'
             leaveTo='opacity-0 -translate-x-full'
-            className='fixed left-0 top-0 bottom-0 w-96'
+            className='fixed top-0 bottom-0 left-0 w-96'
           >
-            <div className='relative bg-white h-full py-4 flex flex-col px-6'>
-              <div className='grid grid-cols-3 items-center mb-6'>
-                <Dialog.Title className='text-xl text-center text-gray-900 col-start-2'>
+            <div className='relative flex flex-col h-full px-6 py-4 bg-white'>
+              <div className='grid items-center grid-cols-3 mb-6'>
+                <Dialog.Title className='col-start-2 text-xl text-center text-gray-900'>
                   Menu
                 </Dialog.Title>
                 <button onClick={onClose} className='justify-self-end'>
@@ -58,7 +58,7 @@ function FlyoutMenu({ open, onClose }: Props) {
                     return (
                       <li
                         key={`${category.id}`}
-                        className='py-3 px-4 border-b border-gray-100/80'
+                        className='px-4 py-3 border-b border-gray-100/80'
                       >
                         <Link
                           to={category?.primaryRoute?.path}

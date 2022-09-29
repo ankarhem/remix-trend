@@ -1,5 +1,4 @@
-import type { LoaderFunction } from 'remix';
-import { json, redirect } from 'remix';
+import { type LoaderFunction, json, redirect } from '@remix-run/server-runtime';
 import { VALUES_SEPERATOR } from '~/components/CategoryPage/Filters/RangeFilters';
 import type { RouteQuery } from '~/graphql/types';
 import { sendJetshopRequest } from './jetshop';

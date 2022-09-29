@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Link } from 'remix';
+import { Link } from '@remix-run/react';
 import Cross from '~/components/Icons/Cross';
 import type { Filters as FiltersType } from '~/lib/utils/useFilters';
 import { useFilters } from '~/lib/utils/useFilters';

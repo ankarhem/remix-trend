@@ -1,4 +1,4 @@
-import type { LinksFunction, MetaFunction } from 'remix';
+import type { LinksFunction, MetaFunction } from '@remix-run/server-runtime';
 import {
   Links,
   LiveReload,
@@ -6,7 +6,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-} from 'remix';
+} from '@remix-run/react';
 import styles from './styles/app.css';
 
 export const meta: MetaFunction = () => ({
@@ -35,7 +35,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className='h-screen bg-gray-50 flex flex-col'>
+      <body className='flex flex-col h-screen bg-gray-50'>
         <Outlet />
         <ScrollRestoration />
         <Scripts />

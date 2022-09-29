@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, PrefetchPageLinks, useSearchParams } from 'remix';
+import { Form, PrefetchPageLinks, useSearchParams } from '@remix-run/react';
 
 interface Props
   extends React.DetailedHTMLProps<

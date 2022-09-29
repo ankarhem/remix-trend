@@ -1,7 +1,7 @@
 import { NProgress } from '@tanem/react-nprogress';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { useTransition } from 'remix';
+import { useTransition } from '@remix-run/react';
 import { useHydrated } from 'remix-utils';
 
 interface BarProps {

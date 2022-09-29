@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'remix';
+import { Link } from '@remix-run/react';
 import { z } from 'zod';
 
 const CategorySchema = z.object({
@@ -26,7 +26,7 @@ const Categories: React.FC<z.infer<typeof CategorySchema>> = ({
 }) => {
   return (
     <>
-      <h3 className='text-2xl lg:hidden mx-4'>{header}</h3>
+      <h3 className='mx-4 text-2xl lg:hidden'>{header}</h3>
       <div className='-mt-8 lg:mt-0 pt-6 pb-8 lg:pb-0 max-w-full lg:container grid mx-auto grid-flow-col auto-cols-[200px] px-6 lg:px-0 lg:translate-x-0 lg:auto-cols-[15%] gap-4 lg:gap-10 lg:-translate-y-1/2 lg:justify-center overflow-x-auto lg:overflow-visible min-h-min lg:min-h-unset'>
         {children}
       </div>
@@ -49,8 +49,8 @@ const CategoryItem = ({
         alt='category'
         className='object-cover w-full h-full'
       />
-      <div className='bg-blue-400/20 inset-0 absolute group-hover:opacity-100 transition opacity-0 flex items-center justify-center'>
-        <h3 className='text-white text-2xl font-bold'>{category.name}</h3>
+      <div className='absolute inset-0 flex items-center justify-center transition opacity-0 bg-blue-400/20 group-hover:opacity-100'>
+        <h3 className='text-2xl font-bold text-white'>{category.name}</h3>
       </div>
     </Link>
   );

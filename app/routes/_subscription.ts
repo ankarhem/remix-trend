@@ -1,7 +1,8 @@
-import type { ActionFunction } from 'remix';
 import type { Mutation } from '~/graphql/types';
 import { sendJetshopRequest } from '~/lib/jetshop';
 import { SubscribeToNewsletterDocument } from '~/graphql/types';
+import { z } from 'zod';
+import type { DataFunctionArgs } from '@remix-run/server-runtime';
 
 enum SubscriptionType {
   Newsletter = 'newsletter',
@@ -38,9 +39,21 @@ const onError = (error: unknown) => {
   };
 };
 
-export const action: ActionFunction = async (args) => {
+export const action = async (args: DataFunctionArgs) => {
   const body = await args.request.formData();
   const email = body.get('email');
+
+  try {
+    const schema = z.string().email();
+    schema.parse(email);
+  } catch {
+    return {
+      subscribed: null,
+      error: {
+        message: 'Please enter a valid email address.',
+      }
+    }
+  }
 
   switch (body.get('_subscriptionType')) {
     case SubscriptionType.Newsletter: {
@@ -49,7 +62,7 @@ export const action: ActionFunction = async (args) => {
           args,
           query: SubscribeToNewsletterDocument,
           variables: {
-            email,
+            email: email as string,
           },
         });
 
