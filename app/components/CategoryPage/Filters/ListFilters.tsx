@@ -32,12 +32,12 @@ function ListFilters({
             onChange={() => null}
             multiple
           >
-            <div className='relative w-52'>
-              <Listbox.Button className='focus:outline-none relative w-full cursor-default rounded bg-white py-2 pl-3 pr-10 text-left shadow-md focus:ring-2 focus:ring-blue-400 sm:text-sm'>
+            <div className='relative md:w-52'>
+              <Listbox.Button className='relative w-full py-2 pl-3 pr-10 text-left bg-white rounded shadow-md cursor-default focus:outline-none focus:ring-2 focus:ring-blue-400 sm:text-sm'>
                 <span className='block truncate'>{filter.name}</span>
-                <span className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2'>
+                <span className='absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none'>
                   <SelectorIcon
-                    className='h-5 w-5 text-gray-400'
+                    className='w-5 h-5 text-gray-400'
                     aria-hidden='true'
                   />
                 </span>
@@ -48,7 +48,7 @@ function ListFilters({
                 leaveFrom='opacity-100'
                 leaveTo='opacity-0'
               >
-                <Listbox.Options className='z-10 focus:outline-none absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 sm:text-sm'>
+                <Listbox.Options className='absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg focus:outline-none max-h-60 ring-1 ring-black ring-opacity-5 sm:text-sm'>
                   {filter.items.map((item) => {
                     if (!item?.id) return null;
 
@@ -69,7 +69,7 @@ function ListFilters({
                       >
                         {({ selected }) => (
                           <Link
-                            className='flex py-2 pl-10 pr-4 justify-between items-center'
+                            className='flex items-center justify-between py-2 pl-10 pr-4'
                             to={toggleFilterPath(filter.__typename, {
                               id: filter.id,
                               value: item.value,
@@ -87,7 +87,7 @@ function ListFilters({
                             {selected ? (
                               <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
                                 <CheckIcon
-                                  className='h-5 w-5'
+                                  className='w-5 h-5'
                                   aria-hidden='true'
                                 />
                               </span>
