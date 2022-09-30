@@ -90,7 +90,7 @@ function AddToCartForm({ product }: Props) {
       <fieldset>
         <SelectionFactory product={product} />
         <button
-          disabled={!articleNumber}
+          // disabled={!articleNumber}
           type="submit"
           className="w-full py-3 mt-4 bg-blue-400 rounded text-blue-50 hover:bg-blue-500 lg:w-96 focus:ring focus:ring-blue-400 active:ring-blue-500 ring-offset-2 focus:outline-none disabled:opacity-80 disabled:cursor-not-allowed"
         >

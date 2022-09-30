@@ -1,12 +1,12 @@
-import { useMemo } from 'react';
-import type { RouteProduct } from '~/utils/types';
-import { useTransitionalParams } from './useTransitionalParams';
+import { useMemo } from "react";
+import type { RouteProduct } from "~/utils/types";
+import { useTransitionalParams } from "./useTransitionalParams";
 
 export enum ProductType {
-  Basic = 'Basic',
-  Variant = 'Variant',
-  Package = 'Package',
-  Configuration = 'Configuration',
+  Basic = "Basic",
+  Variant = "Variant",
+  Package = "Package",
+  Configuration = "Configuration",
 }
 
 export const getProductType: (product: RouteProduct) => ProductType = (
@@ -45,42 +45,42 @@ export const useSelectedArticleNumber = (
   return articleNumber;
 };
 
-export const useAllowedOptionValues = ({
-  product,
-  option,
-}: {
-  product: RouteProduct;
-  option: NonNullable<NonNullable<RouteProduct['variants']>['options'][number]>;
-}): string[] => {
-  const productType = getProductType(product);
-  const currentParams = useTransitionalParams();
+// export const useAllowedOptionValues = ({
+//   product,
+//   option,
+// }: {
+//   product: RouteProduct;
+//   option: NonNullable<NonNullable<RouteProduct['variants']>['options'][number]>;
+// }): string[] => {
+//   const productType = getProductType(product);
+//   const currentParams = useTransitionalParams();
 
-  if (productType !== ProductType.Variant || !option?.name) return [];
+//   if (productType !== ProductType.Variant || !option?.name) return [];
 
-  const params = new URLSearchParams(currentParams.toString());
-  params.delete(option.name);
+//   const params = new URLSearchParams(currentParams.toString());
+//   params.delete(option.name);
 
-  const selectedValues = product.variants?.options
-    .map((option) => (option?.name ? params.get(option.name) : null))
-    .filter((value) => value !== null);
+//   const selectedValues = product.variants?.options
+//     .map((option) => (option?.name ? params.get(option.name) : null))
+//     .filter((value) => value !== null);
 
-  if (!selectedValues || selectedValues?.length === 0) {
-    return option.values.filter(
-      (value) => typeof value === 'string'
-    ) as string[];
-  }
+//   if (!selectedValues || selectedValues?.length === 0) {
+//     return option.values.filter(
+//       (value) => typeof value === 'string'
+//     ) as string[];
+//   }
 
-  const matches = product.variants?.values.filter((variant) => {
-    const hasAllSelectedValues = selectedValues?.every((value) =>
-      variant?.values.includes(value)
-    );
-    return hasAllSelectedValues;
-  });
+//   const matches = product.variants?.values.filter((variant) => {
+//     const hasAllSelectedValues = selectedValues?.every((value) =>
+//       variant?.values.includes(value)
+//     );
+//     return hasAllSelectedValues;
+//   });
 
-  const allowedValues = matches
-    ?.flatMap((variant) => variant?.values)
-    .filter((value) => !!value && option.values.includes(value))
-    .filter((value) => typeof value === 'string') as string[];
+//   const allowedValues = matches
+//     ?.flatMap((variant) => variant?.values)
+//     .filter((value) => !!value && option.values.includes(value))
+//     .filter((value) => typeof value === 'string') as string[];
 
-  return allowedValues;
-};
+//   return allowedValues;
+// };
