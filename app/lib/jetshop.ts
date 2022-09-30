@@ -2,11 +2,11 @@ import type {
   ResultOf,
   TypedDocumentNode,
   VariablesOf,
-} from '@graphql-typed-document-node/core';
-import { print } from 'graphql';
-import { Exact } from '~/graphql/types';
-import { sendGraphQLRequest } from 'remix-graphql/index.server';
-import type { FuncParams } from './utils/types';
+} from "@graphql-typed-document-node/core";
+import { print } from "graphql";
+import type { Exact } from "~/graphql/types";
+import { sendGraphQLRequest } from "remix-graphql/index.server";
+import type { FuncParams } from "./utils/types";
 
 type StoreAPIError = {
   message?: string;
@@ -15,19 +15,21 @@ type StoreAPIError = {
   };
 };
 
-interface StoreAPIResponse<T> {
+export interface StoreAPIResponse<T> {
   data?: T;
   errors?: StoreAPIError[];
 }
 
-type TypedResponse<T> = Promise<Response & {
-  json: () => Promise<StoreAPIResponse<ResultOf<T>>>
-}>
+type TypedResponse<T> = Promise<
+  Omit<Response, "json"> & {
+    json: () => Promise<StoreAPIResponse<ResultOf<T>>>;
+  }
+>;
 
 export const sendJetshopRequest = async <T extends TypedDocumentNode<any, any>>(
   props: Omit<
     FuncParams<typeof sendGraphQLRequest>,
-    'endpoint' | 'query' | 'variables'
+    "endpoint" | "query" | "variables"
   > & {
     query: T;
     variables?: VariablesOf<T> extends Exact<{
@@ -42,17 +44,17 @@ export const sendJetshopRequest = async <T extends TypedDocumentNode<any, any>>(
   const token = process.env.STOREAPI_TOKEN;
 
   if (!token) {
-    throw new Error('STOREAPI_TOKEN is not set');
+    throw new Error("STOREAPI_TOKEN is not set");
   }
 
   return sendGraphQLRequest({
     ...props,
-    endpoint: 'https://storeapi.jetshop.io',
+    endpoint: "https://storeapi.jetshop.io",
     headers: {
       token: token,
-      shopid: process.env.SHOP_ID || 'demostore',
+      shopid: process.env.SHOP_ID || "demostore",
       ...props.headers,
     },
-    query: typeof props.query === 'string' ? props.query : print(props.query),
-  })
+    query: typeof props.query === "string" ? props.query : print(props.query),
+  });
 };

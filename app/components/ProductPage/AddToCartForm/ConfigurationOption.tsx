@@ -23,13 +23,12 @@ export const ConfigurationOption = ({
 
   return (
     <div className="w-72">
-      <Listbox name={configuration.name} defaultValue={defaultValue}>
+      <Listbox name={"_configurationId"} defaultValue={defaultValue}>
         <Listbox.Label>{configuration.name}</Listbox.Label>
         <div className="relative mt-1">
           <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded shadow-md cursor-default focus:outline-none focus:ring-2 focus:ring-blue-400 sm:text-sm">
             {({ value }) => {
               const selectedOption = getOptionFromId(value);
-              console.log("selectedOption", selectedOption);
               return (
                 <>
                   <div className="flex justify-between">
