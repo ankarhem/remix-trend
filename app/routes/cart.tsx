@@ -1,16 +1,9 @@
 import { Response } from "@remix-run/node";
-import type { TypedResponse } from "@remix-run/server-runtime";
-import {
-  type DataFunctionArgs,
-  json,
-  type Session,
-} from "@remix-run/server-runtime";
+import type { TypedResponse } from "@remix-run/node";
+import { type DataFunctionArgs, json, type Session } from "@remix-run/node";
 import { badRequest, serverError } from "remix-utils";
 import { commitSession, getSession } from "~/cookies";
-import type {
-  AddMultipleToCartInput,
-  AddMultipleToCartMutation,
-} from "~/graphql/types";
+import type { AddMultipleToCartMutation } from "~/graphql/types";
 import {
   type AddToCartMutation,
   ProductVariantsDocument,

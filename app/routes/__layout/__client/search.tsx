@@ -1,23 +1,24 @@
-import type { DataFunctionArgs, MetaFunction } from '@remix-run/server-runtime';
-import { useCatch, useLoaderData } from '@remix-run/react';
-import SearchPage from '~/components/SearchPage';
-import SearchField from '~/components/SearchPage/SearchField';
-import type { SearchQuery } from '~/graphql/types';
-import { SearchDocument } from '~/graphql/types';
-import { sendJetshopRequest } from '~/lib/jetshop';
-import { PAGE_SIZE } from '../../__layout';
+import type { MetaFunction } from "remix";
+import { useCatch, useLoaderData } from "@remix-run/react";
+import SearchPage from "~/components/SearchPage";
+import SearchField from "~/components/SearchPage/SearchField";
+import type { SearchQuery } from "~/graphql/types";
+import { SearchDocument } from "~/graphql/types";
+import { sendJetshopRequest } from "~/lib/jetshop";
+import { PAGE_SIZE } from "../../__layout";
+import type { DataFunctionArgs } from "@remix-run/node";
 
 export const loader = async (args: DataFunctionArgs) => {
   const url = new URL(args.request.url);
-  const term = url.searchParams.get('term');
+  const term = url.searchParams.get("term");
 
   if (!term || term.length === 0) {
-    throw new Response('No search term provided', {
+    throw new Response("No search term provided", {
       status: 404,
     });
   }
 
-  const page = parseInt(url.searchParams.get('page') || '1');
+  const page = parseInt(url.searchParams.get("page") || "1");
   const offset = Math.max((page - 1) * PAGE_SIZE, 0);
   const response = await sendJetshopRequest({
     args: args,
@@ -42,18 +43,18 @@ export const loader = async (args: DataFunctionArgs) => {
 export const CatchBoundary = () => {
   const caught = useCatch();
   return (
-    <div className='container py-8 mx-auto'>
+    <div className="container py-8 mx-auto">
       <SearchField />
-      <p className='py-8 text-center'>No results found for "{caught.data}"</p>
+      <p className="py-8 text-center">No results found for "{caught.data}"</p>
     </div>
   );
 };
 
 export const meta: MetaFunction = (args) => {
   const searchParams = new URLSearchParams(args.location.search);
-  const term = searchParams.get('term');
+  const term = searchParams.get("term");
   return {
-    title: term ? `${searchParams.get('term')} - Search` : 'Search',
+    title: term ? `${searchParams.get("term")} - Search` : "Search",
   };
 };
 

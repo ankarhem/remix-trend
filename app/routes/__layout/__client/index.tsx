@@ -1,9 +1,9 @@
-import type { LoaderFunction, MetaFunction } from '@remix-run/server-runtime';
-import { useLoaderData } from '@remix-run/react';
-import StartPage from '~/components/StartPage';
-import type { RouteQuery } from '~/graphql/types';
-import { RouteDocument } from '~/graphql/types';
-import { createRouteLoaderFunction } from '~/lib/loaderFunctions';
+import type { LoaderFunction, MetaFunction } from "remix";
+import { useLoaderData } from "@remix-run/react";
+import StartPage from "~/components/StartPage";
+import type { RouteQuery } from "~/graphql/types";
+import { RouteDocument } from "~/graphql/types";
+import { createRouteLoaderFunction } from "~/lib/loaderFunctions";
 
 export const loader: LoaderFunction = createRouteLoaderFunction({
   query: RouteDocument,
@@ -23,7 +23,7 @@ export const meta: MetaFunction = (args) => {
   }, {} as Record<string, string>);
 
   return {
-    title: 'Demostore on Remix',
+    title: "Demostore on Remix",
     ...tags,
   };
 };
@@ -31,7 +31,7 @@ export const meta: MetaFunction = (args) => {
 export default function PageContent() {
   const { route } = useLoaderData<RouteQuery>();
   // just to help types, won't actually trigger
-  if (route?.object?.__typename !== 'StartPage') return null;
+  if (route?.object?.__typename !== "StartPage") return null;
 
   const startPage = route?.object;
 
