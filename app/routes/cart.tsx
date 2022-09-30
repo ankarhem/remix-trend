@@ -5,7 +5,7 @@ import {
 } from "@remix-run/server-runtime";
 import { badRequest } from "remix-utils";
 import { commitSession, getSession } from "~/cookies";
-import type { AddToCartMutation, Cart } from "~/graphql/types";
+import type { AddToCartMutation } from "~/graphql/types";
 import { AddToCartDocument } from "~/graphql/types";
 import { sendJetshopRequest, type StoreAPIResponse } from "~/lib/jetshop";
 import { ProductType } from "~/lib/utils/product";

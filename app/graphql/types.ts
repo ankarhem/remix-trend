@@ -1065,10 +1065,12 @@ export type MutationIncrementItemQuantityArgs = {
 
 export type MutationLoginArgs = {
   email?: InputMaybe<Scalars['String']>;
+  externalHashId?: InputMaybe<Scalars['String']>;
   externalId?: InputMaybe<Scalars['String']>;
   memberNumber?: InputMaybe<Scalars['String']>;
-  password: Scalars['String'];
+  password?: InputMaybe<Scalars['String']>;
   pid?: InputMaybe<Scalars['String']>;
+  timeStamp?: InputMaybe<Scalars['String']>;
 };
 
 

@@ -1395,10 +1395,6 @@ select {
   grid-column: 1 / -1;
 }
 
-.col-span-12 {
-  grid-column: span 12 / span 12;
-}
-
 .col-start-2 {
   grid-column-start: 2;
 }
@@ -1865,10 +1861,6 @@ select {
 
 .\!grid-cols-\[repeat\(auto-fit\2c _minmax\(300px\2c 350px\)\)\] {
   grid-template-columns: repeat(auto-fit, minmax(300px,350px)) !important;
-}
-
-.grid-cols-12 {
-  grid-template-columns: repeat(12, minmax(0, 1fr));
 }
 
 .flex-col {
@@ -3084,18 +3076,6 @@ select {
 
   .lg\:order-2 {
     order: 2;
-  }
-
-  .lg\:col-span-6 {
-    grid-column: span 6 / span 6;
-  }
-
-  .lg\:col-span-7 {
-    grid-column: span 7 / span 7;
-  }
-
-  .lg\:col-span-5 {
-    grid-column: span 5 / span 5;
   }
 
   .lg\:mx-0 {

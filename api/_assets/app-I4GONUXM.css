@@ -3090,14 +3090,6 @@ select {
     grid-column: span 6 / span 6;
   }
 
-  .lg\:col-span-7 {
-    grid-column: span 7 / span 7;
-  }
-
-  .lg\:col-span-5 {
-    grid-column: span 5 / span 5;
-  }
-
   .lg\:mx-0 {
     margin-left: 0px;
     margin-right: 0px;
