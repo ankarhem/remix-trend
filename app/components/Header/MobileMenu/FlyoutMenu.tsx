@@ -16,53 +16,53 @@ function FlyoutMenu({ open, onClose }: Props) {
       <Dialog
         open={open}
         onClose={onClose}
-        className='fixed inset-0 z-20 overflow-y-auto'
+        className="fixed inset-0 z-20 overflow-y-auto"
       >
-        <div className='min-h-screen'>
+        <div className="min-h-screen">
           <Transition.Child
-            enter='transition-opacity ease-in-out'
-            enterFrom='opacity-0'
-            enterTo='opacity-100'
-            leave='transition-opacity ease-in-out'
-            leaveFrom='opacity-100'
-            leaveTo='opacity-0'
+            enter="transition-opacity ease-in-out"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity ease-in-out"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            <Dialog.Overlay className='fixed inset-0 bg-black opacity-30' />
+            <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
           </Transition.Child>
           <Transition.Child
-            enter='transition ease-in-out'
-            enterFrom='opacity-0 -translate-x-full'
-            enterTo='opacity-100 translate-x-0'
-            leave='transition ease-in-out'
-            leaveFrom='opacity-100 translate-x-0'
-            leaveTo='opacity-0 -translate-x-full'
-            className='fixed top-0 bottom-0 left-0 w-96'
+            enter="transition ease-in-out"
+            enterFrom="opacity-0 -translate-x-full"
+            enterTo="opacity-100 translate-x-0"
+            leave="transition ease-in-out"
+            leaveFrom="opacity-100 translate-x-0"
+            leaveTo="opacity-0 -translate-x-full"
+            className="fixed top-0 bottom-0 left-0 w-96"
           >
-            <div className='relative flex flex-col h-full px-6 py-4 bg-white'>
-              <div className='grid items-center grid-cols-3 mb-6'>
-                <Dialog.Title className='col-start-2 text-xl text-center text-gray-900'>
+            <div className="relative flex h-full flex-col bg-white px-6 py-4">
+              <div className="mb-6 grid grid-cols-3 items-center">
+                <Dialog.Title className="col-start-2 text-center text-xl text-gray-900">
                   Menu
                 </Dialog.Title>
-                <button onClick={onClose} className='justify-self-end'>
-                  <Cross className='w-6 h-6' />
+                <button onClick={onClose} className="justify-self-end">
+                  <Cross className="h-6 w-6" />
                 </button>
               </div>
 
-              <hr className='border-gray-100/80' />
+              <hr className="border-gray-100/80" />
 
               {/* <h1 className='mt-6 text-xl'>Categories</h1> */}
               <nav>
-                <ul className='flex flex-col'>
+                <ul className="flex flex-col">
                   {navTree.map((category) => {
                     if (!category?.primaryRoute?.path) return null;
                     return (
                       <li
                         key={`${category.id}`}
-                        className='px-4 py-3 border-b border-gray-100/80'
+                        className="border-b border-gray-100/80 px-4 py-3"
                       >
                         <Link
                           to={category?.primaryRoute?.path}
-                          className='text-lg'
+                          className="text-lg"
                           onClick={onClose}
                         >
                           {category.name}

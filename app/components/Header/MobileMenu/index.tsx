@@ -7,8 +7,8 @@ function MobileMenu() {
 
   return (
     <>
-      <button className='lg:hidden' onClick={() => setOpen(!open)}>
-        <MenuIcon className='w-6 h-6' />
+      <button className="lg:hidden" onClick={() => setOpen(!open)}>
+        <MenuIcon className="h-6 w-6" />
       </button>
       <FlyoutMenu open={open} onClose={() => setOpen(false)} />
     </>

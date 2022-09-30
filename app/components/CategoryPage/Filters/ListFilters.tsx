@@ -32,23 +32,23 @@ function ListFilters({
             onChange={() => null}
             multiple
           >
-            <div className='relative md:w-52'>
-              <Listbox.Button className='relative w-full py-2 pl-3 pr-10 text-left bg-white rounded shadow-md cursor-default focus:outline-none focus:ring-2 focus:ring-blue-400 sm:text-sm'>
-                <span className='block truncate'>{filter.name}</span>
-                <span className='absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none'>
+            <div className="relative md:w-52">
+              <Listbox.Button className="relative w-full cursor-default rounded bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 sm:text-sm">
+                <span className="block truncate">{filter.name}</span>
+                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                   <SelectorIcon
-                    className='w-5 h-5 text-gray-400'
-                    aria-hidden='true'
+                    className="h-5 w-5 text-gray-400"
+                    aria-hidden="true"
                   />
                 </span>
               </Listbox.Button>
               <Transition
                 as={Fragment}
-                leave='transition ease-in duration-100'
-                leaveFrom='opacity-100'
-                leaveTo='opacity-0'
+                leave="transition ease-in duration-100"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
               >
-                <Listbox.Options className='absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg focus:outline-none max-h-60 ring-1 ring-black ring-opacity-5 sm:text-sm'>
+                <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                   {filter.items.map((item) => {
                     if (!item?.id) return null;
 
@@ -56,7 +56,7 @@ function ListFilters({
                       <Listbox.Option
                         key={item.id}
                         className={({ active }) =>
-                          `block relative text-gray-900 cursor-default select-none hover:text-blue-500 hover-bg-blue-50 ${
+                          `hover-bg-blue-50 relative block cursor-default select-none text-gray-900 hover:text-blue-500 ${
                             active ? 'bg-blue-50 text-blue-500' : ''
                           }${
                             typeof item.resultCount === 'number' &&
@@ -69,12 +69,12 @@ function ListFilters({
                       >
                         {({ selected }) => (
                           <Link
-                            className='flex items-center justify-between py-2 pl-10 pr-4'
+                            className="flex items-center justify-between py-2 pl-10 pr-4"
                             to={toggleFilterPath(filter.__typename, {
                               id: filter.id,
                               value: item.value,
                             })}
-                            prefetch='intent'
+                            prefetch="intent"
                           >
                             <span
                               className={`block truncate ${
@@ -83,12 +83,12 @@ function ListFilters({
                             >
                               {item.text}
                             </span>
-                            <span className='px-2'>{item.resultCount}</span>
+                            <span className="px-2">{item.resultCount}</span>
                             {selected ? (
-                              <span className='absolute inset-y-0 left-0 flex items-center pl-3'>
+                              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                                 <CheckIcon
-                                  className='w-5 h-5'
-                                  aria-hidden='true'
+                                  className="h-5 w-5"
+                                  aria-hidden="true"
                                 />
                               </span>
                             ) : null}

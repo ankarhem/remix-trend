@@ -10,7 +10,7 @@ type Props = {
 
 function CategoryPage({ category }: Props) {
   return (
-    <div className='container mx-auto my-6'>
+    <div className="container mx-auto my-6">
       <Filters filters={category.products?.filters} />
       <ProductGrid products={category.products?.result ?? []} />
       <Pagination totalResults={category?.products?.totalResults ?? 0} />

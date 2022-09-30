@@ -11,7 +11,7 @@ type Props = {
 function ProductGrid({ products, className }: Props) {
   return (
     <div
-      className={`grid gap-4 grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] w-full py-8 px-4 sm:px-8 ${
+      className={`grid w-full grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] gap-4 py-8 px-4 sm:px-8 ${
         className ? className : ''
       }`}
     >

@@ -54,48 +54,48 @@ const ProductItem = ({
   return (
     <div
       ref={ref}
-      className={`grid place-items-center min-h-[700px]`}
+      className={`grid min-h-[700px] place-items-center`}
       key={product.id}
     >
       <Transition show={inView}>
-        <div className='grid grid-cols-2 gap-10 place-items-center'>
+        <div className="grid grid-cols-2 place-items-center gap-10">
           <Transition.Child
             as={Link}
-            prefetch='intent'
+            prefetch="intent"
             to={product.primaryRoute?.path || ''}
             className={`${alignment === 'left' ? 'order-0' : 'order-1'}`}
-            enter='transition duration-500'
+            enter="transition duration-500"
             enterFrom={`opacity-0 ${
               alignment === 'left' ? '-translate-x-5' : 'translate-x-5'
             }`}
-            enterTo='opacity-100'
+            enterTo="opacity-100"
           >
             <img
               src={product.images?.[0].url}
               alt={product.images?.[0].alt}
-              className='max-h-[500px] max-w-[600px]'
+              className="max-h-[500px] max-w-[600px]"
             />
           </Transition.Child>
           <Transition.Child
-            enter='transition duration-500'
+            enter="transition duration-500"
             enterFrom={`opacity-0 ${
               alignment === 'left' ? 'translate-x-5' : '-translate-x-5'
             }`}
-            enterTo='opacity-100 translate-x-0'
+            enterTo="opacity-100 translate-x-0"
             className={`justify-self-start ${
-              alignment === 'left' ? '' : 'text-right justify-self-end'
+              alignment === 'left' ? '' : 'justify-self-end text-right'
             }`}
           >
             <Link
               to={product.primaryRoute?.path || ''}
-              className='hover:underline underline-offset-4'
-              prefetch='intent'
+              className="underline-offset-4 hover:underline"
+              prefetch="intent"
             >
-              <h3 className='mb-2 text-4xl font-semibold'>{product.name}</h3>
+              <h3 className="mb-2 text-4xl font-semibold">{product.name}</h3>
             </Link>
-            <p className='mb-10 text-xl text-gray-400'>{product.subName}</p>
+            <p className="mb-10 text-xl text-gray-400">{product.subName}</p>
             <div
-              className='text-gray-600 max-w-prose'
+              className="max-w-prose text-gray-600"
               dangerouslySetInnerHTML={{ __html: product.description }}
             ></div>
           </Transition.Child>
@@ -114,7 +114,7 @@ function ProductGrid({ header, ...rest }: z.infer<typeof ProductGridSchema>) {
   return (
     <>
       {/* Desktop */}
-      <div className='hidden gap-10 lg:grid'>
+      <div className="hidden gap-10 lg:grid">
         {products.map((product, index) => {
           return (
             <ProductItem
@@ -126,8 +126,8 @@ function ProductGrid({ header, ...rest }: z.infer<typeof ProductGridSchema>) {
         })}
       </div>
       {/* Mobile */}
-      <div className='lg:hidden'>
-        <h3 className='mx-4 text-2xl lg:hidden'>{header}</h3>
+      <div className="lg:hidden">
+        <h3 className="mx-4 text-2xl lg:hidden">{header}</h3>
         <CategoryGrid products={products as any} />
       </div>
     </>

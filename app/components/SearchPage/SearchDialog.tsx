@@ -30,20 +30,20 @@ const AutocompleteOptions = ({
   if (items.length === 0) return null;
   return (
     <>
-      <h2 className='mt-2 mb-1 mx-4 font-bold uppercase text-xs'>{header}</h2>
+      <h2 className="mx-4 mt-2 mb-1 text-xs font-bold uppercase">{header}</h2>
       {items.map((item) => {
         if (!item?.primaryRoute?.path) return null;
         return (
           <Combobox.Option
             onClick={() => null}
             key={item.id}
-            className='relative text-gray-900 hover:text-blue-500 hover:bg-blue-50 cursor-default select-none'
+            className="relative cursor-default select-none text-gray-900 hover:bg-blue-50 hover:text-blue-500"
             value={item}
           >
             <Link
-              prefetch='intent'
+              prefetch="intent"
               to={item.primaryRoute.path}
-              className='block truncate py-2 pl-10 pr-4 focus-within:bg-blue-50 focus-within:text-blue-500 focus-within:outline-none'
+              className="block truncate py-2 pl-10 pr-4 focus-within:bg-blue-50 focus-within:text-blue-500 focus-within:outline-none"
             >
               {item.name}
             </Link>
@@ -65,42 +65,42 @@ function SearchDialog({ open, onClose }: Props) {
       <Dialog
         open={open}
         onClose={onClose}
-        className='fixed z-10 inset-0 overflow-y-auto'
+        className="fixed inset-0 z-10 overflow-y-auto"
       >
-        <div className='flex min-h-[60vh] items-center justify-center'>
+        <div className="flex min-h-[60vh] items-center justify-center">
           <Transition.Child
             // as={Fragment}
-            enter='transition duration-200 ease-in-out'
-            enterFrom='opacity-0'
-            enterTo='opacity-100'
-            leave='transition duration-200 ease-in-out'
-            leaveFrom='opacity-100'
-            leaveTo='opacity-0'
+            enter="transition duration-200 ease-in-out"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition duration-200 ease-in-out"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            <Dialog.Overlay className='fixed inset-0 bg-black opacity-30' />
+            <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
           </Transition.Child>
-          <div className='relative'>
+          <div className="relative">
             <Transition.Child
               // as={Fragment}
-              enter='transition duration-100'
-              enterFrom='opacity-50 scale-95'
-              enterTo='opacity-100 scale-100'
-              leave='transition duration-100'
-              leaveFrom='opacity-100 scale-100'
-              leaveTo='opacity-50 scale-95'
+              enter="transition duration-100"
+              enterFrom="opacity-50 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="transition duration-100"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-50 scale-95"
             >
-              <autocomplete.Form action='/autocomplete-search'>
+              <autocomplete.Form action="/autocomplete-search">
                 <Combobox
                   value={null}
                   onChange={(item: AutocompleteItems[number]) => {
                     onClose();
                   }}
                 >
-                  <div className='relative mt-1'>
-                    <div className='focus:outline-none relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm'>
+                  <div className="relative mt-1">
+                    <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-teal-300 sm:text-sm">
                       <input
-                        name='term'
-                        className='w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0'
+                        name="term"
+                        className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
                         onChange={(event) => {
                           setQuery(event.target.value);
                           autocomplete.submit(event.target.form);
@@ -112,11 +112,11 @@ function SearchDialog({ open, onClose }: Props) {
                             onClose();
                           }
                         }}
-                        placeholder='Search...'
-                        autoComplete='off'
+                        placeholder="Search..."
+                        autoComplete="off"
                       />
-                      <Combobox.Button className='absolute inset-y-0 right-0 flex items-center pr-2'>
-                        <span className='text-[8px] leading-[12px] bg-gray-100 rounded p-1'>
+                      <Combobox.Button className="absolute inset-y-0 right-0 flex items-center pr-2">
+                        <span className="rounded bg-gray-100 p-1 text-[8px] leading-[12px]">
                           ESC
                         </span>
                       </Combobox.Button>
@@ -124,24 +124,24 @@ function SearchDialog({ open, onClose }: Props) {
                     <Transition
                       show={query.length > 0}
                       as={Fragment}
-                      leave='transition ease-in duration-100'
-                      leaveFrom='opacity-100'
-                      leaveTo='opacity-0'
+                      leave="transition ease-in duration-100"
+                      leaveFrom="opacity-100"
+                      leaveTo="opacity-0"
                       afterLeave={() => setQuery('')}
                     >
-                      <Combobox.Options className='focus:outline-none absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 sm:text-sm'>
+                      <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                         {autocomplete.state === 'loading' ? (
-                          <div className='relative cursor-default select-none py-2 px-4 text-gray-700'>
+                          <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
                             Loading.
                           </div>
                         ) : autocomplete.data?.searchAutoComplete?.products
                             ?.result.length === 0 &&
                           autocomplete.data?.searchAutoComplete?.categories
                             ?.result?.length === 0 ? (
-                          <div className='relative cursor-default select-none py-2 px-4 text-gray-700'>
+                          <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
                             Nothing found. <br />
                             Press{' '}
-                            <span className='text-[8px] leading-[12px] bg-gray-100 rounded p-1 mx-1'>
+                            <span className="mx-1 rounded bg-gray-100 p-1 text-[8px] leading-[12px]">
                               ENTER
                             </span>{' '}
                             to do a full search.
@@ -150,7 +150,7 @@ function SearchDialog({ open, onClose }: Props) {
                         {autocomplete.data?.searchAutoComplete?.products
                           ?.result && (
                           <AutocompleteOptions
-                            header='Products'
+                            header="Products"
                             items={
                               autocomplete.data?.searchAutoComplete?.products
                                 ?.result
@@ -160,7 +160,7 @@ function SearchDialog({ open, onClose }: Props) {
                         {autocomplete.data?.searchAutoComplete?.categories
                           ?.result && (
                           <AutocompleteOptions
-                            header='Categories'
+                            header="Categories"
                             items={
                               autocomplete.data?.searchAutoComplete?.categories
                                 ?.result

@@ -39,8 +39,8 @@ function Filters({ filters }: Props) {
 
   return (
     <>
-      <div className='flex flex-col gap-8 px-4 sm:px-8 lg:flex-row'>
-        <div className='grid flex-wrap flex-1 grid-cols-2 gap-6 sm:grid-cols-3 md:flex'>
+      <div className="flex flex-col gap-8 px-4 sm:px-8 lg:flex-row">
+        <div className="grid flex-1 grid-cols-2 flex-wrap gap-6 sm:grid-cols-3 md:flex">
           <ListFilters
             listFilters={listFilters}
             getActiveFilterValues={getActiveFilterValues}
@@ -52,7 +52,7 @@ function Filters({ filters }: Props) {
             toggleFilterPath={toggleFilterPath}
           />
         </div>
-        <div className='flex flex-col gap-2.5 min-w-[200px] items-end self-end lg:self-start'>
+        <div className="flex min-w-[200px] flex-col items-end gap-2.5 self-end lg:self-start">
           <BooleanFilters
             booleanFilters={booleanFilters}
             getActiveFilterValue={getActiveFilterValue}
@@ -60,23 +60,25 @@ function Filters({ filters }: Props) {
           />
         </div>
       </div>
-      <div className='flex flex-wrap gap-4 px-4 mt-6 sm:px-8'>
+      <div className="mt-6 flex flex-wrap gap-4 px-4 sm:px-8">
         {activeFilters.map((activeFilter) => {
           return (
             <Link
               key={`${activeFilter.id}-${activeFilter.value}`}
-              className='flex items-center px-4 py-2 text-sm font-medium bg-blue-400 rounded text-blue-50 ring-1'
+              className="flex items-center rounded bg-blue-400 px-4 py-2 text-sm font-medium text-blue-50 ring-1"
               to={toggleFilterPath(activeFilter.type, activeFilter)}
             >
-              <span className='mr-2 text-xs'>{activeFilter.name}: </span>
-              <span className='font-bold max-w-[10ch] sm:max-w-[20ch] truncate'>{activeFilter.text}</span>
-              <Cross className='inline w-5 h-5 ml-2' />
+              <span className="mr-2 text-xs">{activeFilter.name}: </span>
+              <span className="max-w-[10ch] truncate font-bold sm:max-w-[20ch]">
+                {activeFilter.text}
+              </span>
+              <Cross className="ml-2 inline h-5 w-5" />
             </Link>
           );
         })}
         {activeFilters.length > 0 ? (
           <Link
-            className='flex items-center px-4 py-2 text-sm font-medium text-blue-400 rounded ring-1 ring-blue-400'
+            className="flex items-center rounded px-4 py-2 text-sm font-medium text-blue-400 ring-1 ring-blue-400"
             to={clearFiltersPath()}
           >
             Clear all filters

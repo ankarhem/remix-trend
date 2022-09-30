@@ -12,12 +12,12 @@ interface BarProps {
 const Bar = ({ progress, isFinished }: BarProps) => {
   return (
     <div
-      className={`duration-400 fixed top-0 left-0 z-50 w-full transition-opacity ease-out overflow-hidden ${
+      className={`duration-400 fixed top-0 left-0 z-50 w-full overflow-hidden transition-opacity ease-out ${
         isFinished ? 'opacity-0' : 'opacity-100'
       }`}
     >
       <div
-        className='bg-blue-200 transition duration-300 h-[3px]'
+        className="h-[3px] bg-blue-200 transition duration-300"
         style={{
           transform: `translateX(-${100 - progress * 100}%)`,
         }}

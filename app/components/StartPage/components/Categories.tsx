@@ -26,8 +26,8 @@ const Categories: React.FC<z.infer<typeof CategorySchema>> = ({
 }) => {
   return (
     <>
-      <h3 className='mx-4 text-2xl lg:hidden'>{header}</h3>
-      <div className='-mt-8 lg:mt-0 pt-6 pb-8 lg:pb-0 max-w-full lg:container grid mx-auto grid-flow-col auto-cols-[200px] px-6 lg:px-0 lg:translate-x-0 lg:auto-cols-[15%] gap-4 lg:gap-10 lg:-translate-y-1/2 lg:justify-center overflow-x-auto lg:overflow-visible min-h-min lg:min-h-unset'>
+      <h3 className="mx-4 text-2xl lg:hidden">{header}</h3>
+      <div className="lg:min-h-unset mx-auto -mt-8 grid min-h-min max-w-full auto-cols-[200px] grid-flow-col gap-4 overflow-x-auto px-6 pt-6 pb-8 lg:container lg:mt-0 lg:translate-x-0 lg:-translate-y-1/2 lg:auto-cols-[15%] lg:justify-center lg:gap-10 lg:overflow-visible lg:px-0 lg:pb-0">
         {children}
       </div>
     </>
@@ -41,16 +41,16 @@ const CategoryItem = ({
   return (
     <Link
       to={category.primaryRoute?.path || ''}
-      className='group relative block rounded-md lg:rounded-xl overflow-hidden hover:scale-110 transition lg:-mb-[50%] overflow-y-visible'
-      prefetch='intent'
+      className="group relative block overflow-hidden overflow-y-visible rounded-md transition hover:scale-110 lg:-mb-[50%] lg:rounded-xl"
+      prefetch="intent"
     >
       <img
         src={categoryImage.value}
-        alt='category'
-        className='object-cover w-full h-full'
+        alt="category"
+        className="h-full w-full object-cover"
       />
-      <div className='absolute inset-0 flex items-center justify-center transition opacity-0 bg-blue-400/20 group-hover:opacity-100'>
-        <h3 className='text-2xl font-bold text-white'>{category.name}</h3>
+      <div className="absolute inset-0 flex items-center justify-center bg-blue-400/20 opacity-0 transition group-hover:opacity-100">
+        <h3 className="text-2xl font-bold text-white">{category.name}</h3>
       </div>
     </Link>
   );

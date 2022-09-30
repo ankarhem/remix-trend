@@ -11,11 +11,11 @@ function ProductCard({ product }: Props) {
   if (!product) return null;
 
   return (
-    <div className='rounded shadow hover:shadow-md group'>
-      <div className='overflow-hidden bg-white border border-b-0 rounded-t'>
-        <Link to={product.primaryRoute?.path || ''} prefetch='intent'>
+    <div className="group rounded shadow hover:shadow-md">
+      <div className="overflow-hidden rounded-t border border-b-0 bg-white">
+        <Link to={product.primaryRoute?.path || ''} prefetch="intent">
           <img
-            className='object-contain w-full h-56 py-4 transition group-hover:scale-110'
+            className="h-56 w-full object-contain py-4 transition group-hover:scale-110"
             src={product.images?.[0]?.url ? product.images[0]?.url : undefined}
             alt={
               product.images?.[0]?.alt ? product.images[0]?.alt : product.name
@@ -23,13 +23,13 @@ function ProductCard({ product }: Props) {
           />
         </Link>
       </div>
-      <div className='flex flex-col px-8 py-2 bg-transparent border rounded-b'>
-        <Link to={product.primaryRoute?.path || ''} prefetch='intent'>
-          <h1 className='self-start overflow-hidden text-gray-900 text-md whitespace-nowrap text-ellipsis hover:text-blue-400'>
+      <div className="flex flex-col rounded-b border bg-transparent px-8 py-2">
+        <Link to={product.primaryRoute?.path || ''} prefetch="intent">
+          <h1 className="text-md self-start overflow-hidden text-ellipsis whitespace-nowrap text-gray-900 hover:text-blue-400">
             {product?.name}
           </h1>
         </Link>
-        <span className='text-sm font-bold'>
+        <span className="text-sm font-bold">
           <Price price={product.price} />
         </span>
       </div>

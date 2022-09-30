@@ -1,9 +1,15 @@
 import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -42,7 +48,7 @@ export enum ActivationStatusSource {
   AdditionalUserDataRequired = 'ADDITIONAL_USER_DATA_REQUIRED',
   CountryNotValid = 'COUNTRY_NOT_VALID',
   NonExistingCustomer = 'NON_EXISTING_CUSTOMER',
-  PreexistingCustomer = 'PREEXISTING_CUSTOMER'
+  PreexistingCustomer = 'PREEXISTING_CUSTOMER',
 }
 
 export type AddMultipleToCartInput = {
@@ -118,7 +124,6 @@ export type BusinessCustomer = Customer & {
   /** @deprecated Use communication.acceptsEmail */
   subscribedToNewsletter?: Maybe<Scalars['Boolean']>;
 };
-
 
 export type BusinessCustomerOrderHeadersArgs = {
   first?: InputMaybe<Scalars['Int']>;
@@ -210,7 +215,6 @@ export type Category = Document & {
   subcategories?: Maybe<Array<Maybe<Category>>>;
 };
 
-
 export type CategoryProductsArgs = {
   filters?: InputMaybe<FilterInput>;
   first?: InputMaybe<Scalars['Paging']>;
@@ -233,7 +237,10 @@ export type CategoryDynamicFilter = {
   value?: Maybe<CategoryDynamicFilterValue>;
 };
 
-export type CategoryDynamicFilterValue = BoolValue | ListStringValue | StringValue;
+export type CategoryDynamicFilterValue =
+  | BoolValue
+  | ListStringValue
+  | StringValue;
 
 export type CategoryImage = {
   height?: Maybe<Scalars['Int']>;
@@ -299,7 +306,6 @@ export type ContentItem = {
   type: Scalars['String'];
 };
 
-
 export type ContentItemPropertiesArgs = {
   getImageAsImageValue?: InputMaybe<Scalars['Boolean']>;
 };
@@ -311,11 +317,16 @@ export type ContentItemProperty = {
   valueType?: Maybe<ContentPropertyValueType>;
 };
 
-export type ContentItemPropertyValue = BoolValue | Category | ImageValue | Product | StringValue;
+export type ContentItemPropertyValue =
+  | BoolValue
+  | Category
+  | ImageValue
+  | Product
+  | StringValue;
 
 export enum ContentPropertyValueType {
   Object = 'OBJECT',
-  Scalar = 'SCALAR'
+  Scalar = 'SCALAR',
 }
 
 export type Coordinates = {
@@ -451,7 +462,6 @@ export type Customer = {
   subscribedToNewsletter?: Maybe<Scalars['Boolean']>;
 };
 
-
 export type CustomerOrderHeadersArgs = {
   first?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
@@ -502,7 +512,6 @@ export type CustomerLoyalty = {
   discounts?: Maybe<Array<Maybe<CustomerLoyaltyDiscount>>>;
   pointCards?: Maybe<Array<Maybe<CustomerLoyaltyPointCard>>>;
 };
-
 
 export type CustomerLoyaltyDiscountsArgs = {
   includeRedeemed?: Scalars['Boolean'];
@@ -591,7 +600,7 @@ export type CustomerProductListType = {
 
 export enum CustomerType {
   Company = 'COMPANY',
-  Private = 'PRIVATE'
+  Private = 'PRIVATE',
 }
 
 /** Fields that are required to have a value is determined by CustomerFields found in CountrySettings */
@@ -646,9 +655,13 @@ export type CustomerUpdateExternalAttribute = {
 export type CustomerUpdateInput = {
   billingAddress: CustomerUpdateBillingAddressInput;
   consents?: InputMaybe<Array<InputMaybe<CustomerUpdateConsentInput>>>;
-  deliveryAddresses?: InputMaybe<Array<InputMaybe<CustomerUpdateDeliveryAddressInput>>>;
+  deliveryAddresses?: InputMaybe<
+    Array<InputMaybe<CustomerUpdateDeliveryAddressInput>>
+  >;
   dynamicContent?: InputMaybe<Scalars['String']>;
-  externalAttributes?: InputMaybe<Array<InputMaybe<CustomerUpdateExternalAttribute>>>;
+  externalAttributes?: InputMaybe<
+    Array<InputMaybe<CustomerUpdateExternalAttribute>>
+  >;
   organizationNumber?: InputMaybe<Scalars['String']>;
   pid?: InputMaybe<Scalars['String']>;
   preferences?: InputMaybe<CustomerUpdatePreferenceInput>;
@@ -1015,53 +1028,43 @@ export type Mutation = {
   updatePassword?: Maybe<UpdatePasswordResult>;
 };
 
-
 export type MutationActivateExternalCustomerByIdArgs = {
   input?: InputMaybe<ActivateExternalCustomerByIdInput>;
 };
 
-
 export type MutationActivateExternalCustomerByTokenArgs = {
   input?: InputMaybe<ActivateExternalCustomerByTokenInput>;
 };
-
 
 export type MutationAddMultipleToCartArgs = {
   cartId?: InputMaybe<Scalars['String']>;
   items: Array<InputMaybe<AddMultipleToCartInput>>;
 };
 
-
 export type MutationAddToCartArgs = {
   input: AddToCartInput;
 };
-
 
 export type MutationAddToCustomerProductListArgs = {
   id?: InputMaybe<Scalars['ID']>;
   items: Array<AddToCustomerProductListInput>;
 };
 
-
 export type MutationCreateCustomerProductListArgs = {
   input: CreateCustomerProductListInput;
 };
-
 
 export type MutationDecrementItemQuantityArgs = {
   input: ChangeByOneItemQuantityInput;
 };
 
-
 export type MutationDeleteCustomerProductListArgs = {
   id: Scalars['ID'];
 };
 
-
 export type MutationIncrementItemQuantityArgs = {
   input: ChangeByOneItemQuantityInput;
 };
-
 
 export type MutationLoginArgs = {
   email?: InputMaybe<Scalars['String']>;
@@ -1073,89 +1076,72 @@ export type MutationLoginArgs = {
   timeStamp?: InputMaybe<Scalars['String']>;
 };
 
-
 export type MutationLoginExternalCustomerArgs = {
   input?: InputMaybe<LoginExternalCustomerInput>;
 };
 
-
 export type MutationRemoveFromCartArgs = {
   input: RemoveFromCartInput;
 };
-
 
 export type MutationRemoveFromCustomerProductListArgs = {
   articleNumbers?: InputMaybe<Array<Scalars['String']>>;
   id?: InputMaybe<Scalars['ID']>;
 };
 
-
 export type MutationRemoveMultipleFromCartArgs = {
   input: RemoveMultipleFromCartInput;
 };
 
-
 export type MutationRequestPasswordResetArgs = {
   email: Scalars['String'];
 };
-
 
 export type MutationResetPasswordArgs = {
   newPassword: Scalars['String'];
   resetPasswordToken: Scalars['String'];
 };
 
-
 export type MutationSetItemQuantityArgs = {
   input: SetItemQuantityInput;
 };
-
 
 export type MutationSignUpArgs = {
   input: SignUpInput;
 };
 
-
 export type MutationSubscribeToNewsletterArgs = {
   email: Scalars['String'];
 };
-
 
 export type MutationSubscribeToStockNotificationsArgs = {
   articleNumber: Scalars['String'];
   email: Scalars['String'];
 };
 
-
 export type MutationUpdateCartArgs = {
   input: UpdateCartInput;
 };
-
 
 export type MutationUpdateCustomerArgs = {
   input: CustomerUpdateInput;
 };
 
-
 export type MutationUpdateCustomerGroupArgs = {
   customerGroupAccessCode: Scalars['String'];
 };
-
 
 export type MutationUpdateCustomerPriceListArgs = {
   priceListAccessCode: Scalars['String'];
 };
 
-
 export type MutationUpdateCustomerProductListArgs = {
   input: UpdateCustomerProductListInput;
 };
 
-
 export type MutationUpdateCustomerProductListItemArgs = {
   input: UpdateCustomerProductListItemInput;
 };
-
 
 export type MutationUpdatePasswordArgs = {
   newPassword: Scalars['String'];
@@ -1190,7 +1176,6 @@ export type Order = {
   status?: Maybe<OrderStatus>;
   total?: Maybe<Price>;
 };
-
 
 export type OrderItemsArgs = {
   first?: InputMaybe<Scalars['Int']>;
@@ -1357,7 +1342,6 @@ export type Page = Document & {
   subPages?: Maybe<Array<Page>>;
 };
 
-
 export type PageSubPagesArgs = {
   includeHidden?: InputMaybe<Scalars['Boolean']>;
 };
@@ -1370,7 +1354,6 @@ export type PagedResult = {
   sortOrders?: Maybe<Array<Maybe<ProductSortOrder>>>;
   totalResults?: Maybe<Scalars['Int']>;
 };
-
 
 export type PagedResultFiltersArgs = {
   ids?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
@@ -1426,7 +1409,6 @@ export type PrivateCustomer = Customer & {
   /** @deprecated Use communication.acceptsEmail */
   subscribedToNewsletter?: Maybe<Scalars['Boolean']>;
 };
-
 
 export type PrivateCustomerOrderHeadersArgs = {
   first?: InputMaybe<Scalars['Int']>;
@@ -1528,32 +1510,26 @@ export type Product = Document & {
   warehouseStock?: Maybe<Array<Maybe<Warehouse>>>;
 };
 
-
 export type ProductCategoriesArgs = {
   includeHidden?: InputMaybe<Scalars['Boolean']>;
 };
-
 
 export type ProductConfigurationPriceArgs = {
   options?: InputMaybe<Array<ProductConfigurationPriceInput>>;
 };
 
-
 export type ProductHistoryArgs = {
   days?: InputMaybe<Scalars['Int']>;
 };
-
 
 export type ProductImagesArgs = {
   includeVariantImages?: InputMaybe<Scalars['Boolean']>;
   limit?: InputMaybe<Scalars['Int']>;
 };
 
-
 export type ProductPackageArgs = {
   articleNumbers?: InputMaybe<Array<InputMaybe<PackagePriceInput>>>;
 };
-
 
 export type ProductWarehouseStockArgs = {
   includeInactive?: InputMaybe<Scalars['Boolean']>;
@@ -1576,7 +1552,7 @@ export enum ProductBadgeLocation {
   BottomRight = 'BOTTOM_RIGHT',
   Custom = 'CUSTOM',
   TopLeft = 'TOP_LEFT',
-  TopRight = 'TOP_RIGHT'
+  TopRight = 'TOP_RIGHT',
 }
 
 export type ProductComment = {
@@ -1637,7 +1613,7 @@ export enum ProductCustomFieldType {
   Html = 'HTML',
   List = 'LIST',
   MultiLevelList = 'MULTI_LEVEL_LIST',
-  String = 'STRING'
+  String = 'STRING',
 }
 
 export type ProductHistory = {
@@ -1668,7 +1644,7 @@ export enum ProductOrderOptions {
   Name = 'NAME',
   Price = 'PRICE',
   PublishDate = 'PUBLISH_DATE',
-  SubHeading = 'SUB_HEADING'
+  SubHeading = 'SUB_HEADING',
 }
 
 export type ProductPreOrder = {
@@ -1721,11 +1697,9 @@ export type ProductVariant = {
   warehouseStock?: Maybe<Array<Maybe<Warehouse>>>;
 };
 
-
 export type ProductVariantHistoryArgs = {
   days?: InputMaybe<Scalars['Int']>;
 };
-
 
 export type ProductVariantWarehouseStockArgs = {
   includeInactive?: InputMaybe<Scalars['Boolean']>;
@@ -1792,11 +1766,9 @@ export type Query = {
   stores: Array<Maybe<Store>>;
 };
 
-
 export type QueryCartArgs = {
   id?: InputMaybe<Scalars['String']>;
 };
-
 
 export type QueryCategoriesArgs = {
   includeHidden?: InputMaybe<Scalars['Boolean']>;
@@ -1804,48 +1776,39 @@ export type QueryCategoriesArgs = {
   root?: InputMaybe<Scalars['Int']>;
 };
 
-
 export type QueryCategoryArgs = {
   id: Scalars['ID'];
 };
-
 
 export type QueryChannelArgs = {
   id?: InputMaybe<Scalars['String']>;
 };
 
-
 export type QueryContentArgs = {
   ids: Array<InputMaybe<Scalars['String']>>;
 };
-
 
 export type QueryCustomerProductListArgs = {
   id?: InputMaybe<Scalars['ID']>;
   shareToken?: InputMaybe<Scalars['String']>;
 };
 
-
 export type QueryExternalCustomerLookupArgs = {
   key?: InputMaybe<Scalars['String']>;
 };
-
 
 export type QueryOrderArgs = {
   id?: InputMaybe<Scalars['Int']>;
   orderId?: InputMaybe<Scalars['ID']>;
 };
 
-
 export type QueryPageArgs = {
   id: Scalars['Int'];
 };
 
-
 export type QueryPersonLookupArgs = {
   key: Scalars['String'];
 };
-
 
 export type QueryProductArgs = {
   articleNumber?: InputMaybe<Scalars['String']>;
@@ -1853,38 +1816,31 @@ export type QueryProductArgs = {
   id?: InputMaybe<Scalars['Int']>;
 };
 
-
 export type QueryProductsArgs = {
   articleNumbers?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   barcodes?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
   ids?: InputMaybe<Array<InputMaybe<Scalars['Int']>>>;
 };
 
-
 export type QueryRouteArgs = {
   path: Scalars['String'];
 };
-
 
 export type QuerySearchArgs = {
   term: Scalars['String'];
 };
 
-
 export type QuerySearchAutoCompleteArgs = {
   term: Scalars['String'];
 };
-
 
 export type QueryStartPageArgs = {
   id?: InputMaybe<Scalars['Int']>;
 };
 
-
 export type QueryStoreArgs = {
   id: Scalars['Int'];
 };
-
 
 export type QueryStoresArgs = {
   includeInactive?: Scalars['Boolean'];
@@ -1905,16 +1861,13 @@ export type RecommendedProducts = {
   viewed?: Maybe<Array<Maybe<Product>>>;
 };
 
-
 export type RecommendedProductsBoughtArgs = {
   count?: InputMaybe<Scalars['Int']>;
 };
 
-
 export type RecommendedProductsShuffledToplistArgs = {
   count?: InputMaybe<Scalars['Int']>;
 };
-
 
 export type RecommendedProductsViewedArgs = {
   count?: InputMaybe<Scalars['Int']>;
@@ -1963,7 +1916,6 @@ export type SearchAutoCompleteResult = {
   products?: Maybe<ProductAutoCompleteResult>;
 };
 
-
 export type SearchAutoCompleteResultCategoriesArgs = {
   first?: InputMaybe<Scalars['Paging']>;
 };
@@ -1974,11 +1926,9 @@ export type SearchResult = {
   products?: Maybe<ProductSearchResult>;
 };
 
-
 export type SearchResultCategoriesArgs = {
   paging?: InputMaybe<PagingInput>;
 };
-
 
 export type SearchResultProductsArgs = {
   filters?: InputMaybe<FilterInput>;
@@ -2095,7 +2045,7 @@ export type SignUpResponse = {
 
 export enum SortDirection {
   Ascending = 'ASCENDING',
-  Descending = 'DESCENDING'
+  Descending = 'DESCENDING',
 }
 
 export type StartPage = Document & {
@@ -2250,67 +2200,1596 @@ export type PaymentType = {
   name: Scalars['String'];
 };
 
-export type ContentFragmentFragment = { id: string, items?: Array<{ type: string, children?: Array<{ type: string, properties?: Array<{ name: string, type: string, valueType?: ContentPropertyValueType | null, value?: { boolValue?: boolean | null } | { name: string, images?: Array<{ url?: any | null } | null> | null, primaryRoute?: { path: string } | null } | { value?: string | null, focalPointX?: number | null, focalPointY?: number | null } | { id: number, articleNumber: string, name: string, subName: string, shortDescription: string, description: string, mainHeader: string, primaryRoute?: { id: string, path: string, slug: string, breadcrumbs?: Array<string | null> | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | { value?: string | null } | null } | null> | null } | null> | null, properties?: Array<{ name: string, type: string, valueType?: ContentPropertyValueType | null, value?: { boolValue?: boolean | null } | { name: string, images?: Array<{ url?: any | null } | null> | null, primaryRoute?: { path: string } | null } | { value?: string | null, focalPointX?: number | null, focalPointY?: number | null } | { id: number, articleNumber: string, name: string, subName: string, shortDescription: string, description: string, mainHeader: string, primaryRoute?: { id: string, path: string, slug: string, breadcrumbs?: Array<string | null> | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | { value?: string | null } | null } | null> | null } | null> | null };
+export type ContentFragmentFragment = {
+  id: string;
+  items?: Array<{
+    type: string;
+    children?: Array<{
+      type: string;
+      properties?: Array<{
+        name: string;
+        type: string;
+        valueType?: ContentPropertyValueType | null;
+        value?:
+          | { boolValue?: boolean | null }
+          | {
+              name: string;
+              images?: Array<{ url?: any | null } | null> | null;
+              primaryRoute?: { path: string } | null;
+            }
+          | {
+              value?: string | null;
+              focalPointX?: number | null;
+              focalPointY?: number | null;
+            }
+          | {
+              id: number;
+              articleNumber: string;
+              name: string;
+              subName: string;
+              shortDescription: string;
+              description: string;
+              mainHeader: string;
+              primaryRoute?: {
+                id: string;
+                path: string;
+                slug: string;
+                breadcrumbs?: Array<string | null> | null;
+              } | null;
+              images?: Array<{
+                modifiedDate?: string | null;
+                alt?: string | null;
+                title?: string | null;
+                url?: any | null;
+              } | null> | null;
+              badges?: Array<{
+                name?: string | null;
+                url?: any | null;
+                location?: ProductBadgeLocation | null;
+                style?: string | null;
+                text?: string | null;
+              } | null> | null;
+              customFields?: Array<
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                    stringValue: string;
+                  }
+                | null
+              > | null;
+              price?: { incVat: any; exVat: any; vat: any } | null;
+              previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+            }
+          | { value?: string | null }
+          | null;
+      } | null> | null;
+    } | null> | null;
+    properties?: Array<{
+      name: string;
+      type: string;
+      valueType?: ContentPropertyValueType | null;
+      value?:
+        | { boolValue?: boolean | null }
+        | {
+            name: string;
+            images?: Array<{ url?: any | null } | null> | null;
+            primaryRoute?: { path: string } | null;
+          }
+        | {
+            value?: string | null;
+            focalPointX?: number | null;
+            focalPointY?: number | null;
+          }
+        | {
+            id: number;
+            articleNumber: string;
+            name: string;
+            subName: string;
+            shortDescription: string;
+            description: string;
+            mainHeader: string;
+            primaryRoute?: {
+              id: string;
+              path: string;
+              slug: string;
+              breadcrumbs?: Array<string | null> | null;
+            } | null;
+            images?: Array<{
+              modifiedDate?: string | null;
+              alt?: string | null;
+              title?: string | null;
+              url?: any | null;
+            } | null> | null;
+            badges?: Array<{
+              name?: string | null;
+              url?: any | null;
+              location?: ProductBadgeLocation | null;
+              style?: string | null;
+              text?: string | null;
+            } | null> | null;
+            customFields?: Array<
+              | {
+                  key?: string | null;
+                  type?: ProductCustomFieldType | null;
+                  title?: string | null;
+                }
+              | {
+                  key?: string | null;
+                  type?: ProductCustomFieldType | null;
+                  title?: string | null;
+                }
+              | {
+                  key?: string | null;
+                  type?: ProductCustomFieldType | null;
+                  title?: string | null;
+                }
+              | {
+                  key?: string | null;
+                  type?: ProductCustomFieldType | null;
+                  title?: string | null;
+                }
+              | {
+                  key?: string | null;
+                  type?: ProductCustomFieldType | null;
+                  title?: string | null;
+                  stringValue: string;
+                }
+              | null
+            > | null;
+            price?: { incVat: any; exVat: any; vat: any } | null;
+            previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+          }
+        | { value?: string | null }
+        | null;
+    } | null> | null;
+  } | null> | null;
+};
 
-export type CategoryPageFragment = { id: number, name: string, mainHeader?: string | null, content?: string | null, breadcrumbText?: string | null, isDynamic: boolean, images?: Array<{ width?: number | null, url?: any | null } | null> | null, data?: { id: string, items?: Array<{ type: string, children?: Array<{ type: string, properties?: Array<{ name: string, type: string, valueType?: ContentPropertyValueType | null, value?: { boolValue?: boolean | null } | { name: string, images?: Array<{ url?: any | null } | null> | null, primaryRoute?: { path: string } | null } | { value?: string | null, focalPointX?: number | null, focalPointY?: number | null } | { id: number, articleNumber: string, name: string, subName: string, shortDescription: string, description: string, mainHeader: string, primaryRoute?: { id: string, path: string, slug: string, breadcrumbs?: Array<string | null> | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | { value?: string | null } | null } | null> | null } | null> | null, properties?: Array<{ name: string, type: string, valueType?: ContentPropertyValueType | null, value?: { boolValue?: boolean | null } | { name: string, images?: Array<{ url?: any | null } | null> | null, primaryRoute?: { path: string } | null } | { value?: string | null, focalPointX?: number | null, focalPointY?: number | null } | { id: number, articleNumber: string, name: string, subName: string, shortDescription: string, description: string, mainHeader: string, primaryRoute?: { id: string, path: string, slug: string, breadcrumbs?: Array<string | null> | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | { value?: string | null } | null } | null> | null } | null> | null } | null, products?: { totalResults?: number | null, sortOrders?: Array<{ text: string, defaultDirection: SortDirection, value: ProductOrderOptions } | null> | null, filters?: Array<{ __typename: 'BooleanFilter', default?: boolean | null, id: string, name: string } | { __typename: 'ListFilter', id: string, name: string, items: Array<{ id: string, text: string, value: string, resultCount?: number | null } | null> } | { __typename: 'MultiListFilter', id: string, name: string, lists: Array<{ id: string, name: string, items: Array<{ id: string, value: string, text: string, resultCount?: number | null } | null> } | null> } | { __typename: 'NumericRangeFilter', id: string, min: any, max: any, name: string } | null> | null, result: Array<{ id: number, articleNumber: string, name: string, subName: string, isPackage?: boolean | null, primaryRoute?: { id: string, path: string, slug: string } | null, images?: Array<{ alt?: string | null, title?: string | null, url?: any | null, modifiedDate?: string | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, canonicalCategory?: { primaryRoute?: { path: string } | null } | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null> } | null };
+export type CategoryPageFragment = {
+  id: number;
+  name: string;
+  mainHeader?: string | null;
+  content?: string | null;
+  breadcrumbText?: string | null;
+  isDynamic: boolean;
+  images?: Array<{ width?: number | null; url?: any | null } | null> | null;
+  data?: {
+    id: string;
+    items?: Array<{
+      type: string;
+      children?: Array<{
+        type: string;
+        properties?: Array<{
+          name: string;
+          type: string;
+          valueType?: ContentPropertyValueType | null;
+          value?:
+            | { boolValue?: boolean | null }
+            | {
+                name: string;
+                images?: Array<{ url?: any | null } | null> | null;
+                primaryRoute?: { path: string } | null;
+              }
+            | {
+                value?: string | null;
+                focalPointX?: number | null;
+                focalPointY?: number | null;
+              }
+            | {
+                id: number;
+                articleNumber: string;
+                name: string;
+                subName: string;
+                shortDescription: string;
+                description: string;
+                mainHeader: string;
+                primaryRoute?: {
+                  id: string;
+                  path: string;
+                  slug: string;
+                  breadcrumbs?: Array<string | null> | null;
+                } | null;
+                images?: Array<{
+                  modifiedDate?: string | null;
+                  alt?: string | null;
+                  title?: string | null;
+                  url?: any | null;
+                } | null> | null;
+                badges?: Array<{
+                  name?: string | null;
+                  url?: any | null;
+                  location?: ProductBadgeLocation | null;
+                  style?: string | null;
+                  text?: string | null;
+                } | null> | null;
+                customFields?: Array<
+                  | {
+                      key?: string | null;
+                      type?: ProductCustomFieldType | null;
+                      title?: string | null;
+                    }
+                  | {
+                      key?: string | null;
+                      type?: ProductCustomFieldType | null;
+                      title?: string | null;
+                    }
+                  | {
+                      key?: string | null;
+                      type?: ProductCustomFieldType | null;
+                      title?: string | null;
+                    }
+                  | {
+                      key?: string | null;
+                      type?: ProductCustomFieldType | null;
+                      title?: string | null;
+                    }
+                  | {
+                      key?: string | null;
+                      type?: ProductCustomFieldType | null;
+                      title?: string | null;
+                      stringValue: string;
+                    }
+                  | null
+                > | null;
+                price?: { incVat: any; exVat: any; vat: any } | null;
+                previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+              }
+            | { value?: string | null }
+            | null;
+        } | null> | null;
+      } | null> | null;
+      properties?: Array<{
+        name: string;
+        type: string;
+        valueType?: ContentPropertyValueType | null;
+        value?:
+          | { boolValue?: boolean | null }
+          | {
+              name: string;
+              images?: Array<{ url?: any | null } | null> | null;
+              primaryRoute?: { path: string } | null;
+            }
+          | {
+              value?: string | null;
+              focalPointX?: number | null;
+              focalPointY?: number | null;
+            }
+          | {
+              id: number;
+              articleNumber: string;
+              name: string;
+              subName: string;
+              shortDescription: string;
+              description: string;
+              mainHeader: string;
+              primaryRoute?: {
+                id: string;
+                path: string;
+                slug: string;
+                breadcrumbs?: Array<string | null> | null;
+              } | null;
+              images?: Array<{
+                modifiedDate?: string | null;
+                alt?: string | null;
+                title?: string | null;
+                url?: any | null;
+              } | null> | null;
+              badges?: Array<{
+                name?: string | null;
+                url?: any | null;
+                location?: ProductBadgeLocation | null;
+                style?: string | null;
+                text?: string | null;
+              } | null> | null;
+              customFields?: Array<
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                    stringValue: string;
+                  }
+                | null
+              > | null;
+              price?: { incVat: any; exVat: any; vat: any } | null;
+              previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+            }
+          | { value?: string | null }
+          | null;
+      } | null> | null;
+    } | null> | null;
+  } | null;
+  products?: {
+    totalResults?: number | null;
+    sortOrders?: Array<{
+      text: string;
+      defaultDirection: SortDirection;
+      value: ProductOrderOptions;
+    } | null> | null;
+    filters?: Array<
+      | {
+          __typename: 'BooleanFilter';
+          default?: boolean | null;
+          id: string;
+          name: string;
+        }
+      | {
+          __typename: 'ListFilter';
+          id: string;
+          name: string;
+          items: Array<{
+            id: string;
+            text: string;
+            value: string;
+            resultCount?: number | null;
+          } | null>;
+        }
+      | {
+          __typename: 'MultiListFilter';
+          id: string;
+          name: string;
+          lists: Array<{
+            id: string;
+            name: string;
+            items: Array<{
+              id: string;
+              value: string;
+              text: string;
+              resultCount?: number | null;
+            } | null>;
+          } | null>;
+        }
+      | {
+          __typename: 'NumericRangeFilter';
+          id: string;
+          min: any;
+          max: any;
+          name: string;
+        }
+      | null
+    > | null;
+    result: Array<{
+      id: number;
+      articleNumber: string;
+      name: string;
+      subName: string;
+      isPackage?: boolean | null;
+      primaryRoute?: { id: string; path: string; slug: string } | null;
+      images?: Array<{
+        alt?: string | null;
+        title?: string | null;
+        url?: any | null;
+        modifiedDate?: string | null;
+      } | null> | null;
+      badges?: Array<{
+        name?: string | null;
+        url?: any | null;
+        location?: ProductBadgeLocation | null;
+        style?: string | null;
+        text?: string | null;
+      } | null> | null;
+      canonicalCategory?: { primaryRoute?: { path: string } | null } | null;
+      customFields?: Array<
+        | {
+            key?: string | null;
+            type?: ProductCustomFieldType | null;
+            title?: string | null;
+          }
+        | {
+            key?: string | null;
+            type?: ProductCustomFieldType | null;
+            title?: string | null;
+          }
+        | {
+            key?: string | null;
+            type?: ProductCustomFieldType | null;
+            title?: string | null;
+          }
+        | {
+            key?: string | null;
+            type?: ProductCustomFieldType | null;
+            title?: string | null;
+          }
+        | {
+            key?: string | null;
+            type?: ProductCustomFieldType | null;
+            title?: string | null;
+            stringValue: string;
+          }
+        | null
+      > | null;
+      price?: { incVat: any; exVat: any; vat: any } | null;
+      previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+    } | null>;
+  } | null;
+};
 
-export type ContentItemFragmentFragment = { type: string, properties?: Array<{ name: string, type: string, valueType?: ContentPropertyValueType | null, value?: { boolValue?: boolean | null } | { name: string, images?: Array<{ url?: any | null } | null> | null, primaryRoute?: { path: string } | null } | { value?: string | null, focalPointX?: number | null, focalPointY?: number | null } | { id: number, articleNumber: string, name: string, subName: string, shortDescription: string, description: string, mainHeader: string, primaryRoute?: { id: string, path: string, slug: string, breadcrumbs?: Array<string | null> | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | { value?: string | null } | null } | null> | null };
+export type ContentItemFragmentFragment = {
+  type: string;
+  properties?: Array<{
+    name: string;
+    type: string;
+    valueType?: ContentPropertyValueType | null;
+    value?:
+      | { boolValue?: boolean | null }
+      | {
+          name: string;
+          images?: Array<{ url?: any | null } | null> | null;
+          primaryRoute?: { path: string } | null;
+        }
+      | {
+          value?: string | null;
+          focalPointX?: number | null;
+          focalPointY?: number | null;
+        }
+      | {
+          id: number;
+          articleNumber: string;
+          name: string;
+          subName: string;
+          shortDescription: string;
+          description: string;
+          mainHeader: string;
+          primaryRoute?: {
+            id: string;
+            path: string;
+            slug: string;
+            breadcrumbs?: Array<string | null> | null;
+          } | null;
+          images?: Array<{
+            modifiedDate?: string | null;
+            alt?: string | null;
+            title?: string | null;
+            url?: any | null;
+          } | null> | null;
+          badges?: Array<{
+            name?: string | null;
+            url?: any | null;
+            location?: ProductBadgeLocation | null;
+            style?: string | null;
+            text?: string | null;
+          } | null> | null;
+          customFields?: Array<
+            | {
+                key?: string | null;
+                type?: ProductCustomFieldType | null;
+                title?: string | null;
+              }
+            | {
+                key?: string | null;
+                type?: ProductCustomFieldType | null;
+                title?: string | null;
+              }
+            | {
+                key?: string | null;
+                type?: ProductCustomFieldType | null;
+                title?: string | null;
+              }
+            | {
+                key?: string | null;
+                type?: ProductCustomFieldType | null;
+                title?: string | null;
+              }
+            | {
+                key?: string | null;
+                type?: ProductCustomFieldType | null;
+                title?: string | null;
+                stringValue: string;
+              }
+            | null
+          > | null;
+          price?: { incVat: any; exVat: any; vat: any } | null;
+          previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+        }
+      | { value?: string | null }
+      | null;
+  } | null> | null;
+};
 
-export type StartPageCategoryGridFragment = { name: string, images?: Array<{ url?: any | null } | null> | null, primaryRoute?: { path: string } | null };
+export type StartPageCategoryGridFragment = {
+  name: string;
+  images?: Array<{ url?: any | null } | null> | null;
+  primaryRoute?: { path: string } | null;
+};
 
-export type StartPageProductGridFragment = { id: number, articleNumber: string, name: string, subName: string, shortDescription: string, description: string, mainHeader: string, primaryRoute?: { id: string, path: string, slug: string, breadcrumbs?: Array<string | null> | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null };
+export type StartPageProductGridFragment = {
+  id: number;
+  articleNumber: string;
+  name: string;
+  subName: string;
+  shortDescription: string;
+  description: string;
+  mainHeader: string;
+  primaryRoute?: {
+    id: string;
+    path: string;
+    slug: string;
+    breadcrumbs?: Array<string | null> | null;
+  } | null;
+  images?: Array<{
+    modifiedDate?: string | null;
+    alt?: string | null;
+    title?: string | null;
+    url?: any | null;
+  } | null> | null;
+  badges?: Array<{
+    name?: string | null;
+    url?: any | null;
+    location?: ProductBadgeLocation | null;
+    style?: string | null;
+    text?: string | null;
+  } | null> | null;
+  customFields?: Array<
+    | {
+        key?: string | null;
+        type?: ProductCustomFieldType | null;
+        title?: string | null;
+      }
+    | {
+        key?: string | null;
+        type?: ProductCustomFieldType | null;
+        title?: string | null;
+      }
+    | {
+        key?: string | null;
+        type?: ProductCustomFieldType | null;
+        title?: string | null;
+      }
+    | {
+        key?: string | null;
+        type?: ProductCustomFieldType | null;
+        title?: string | null;
+      }
+    | {
+        key?: string | null;
+        type?: ProductCustomFieldType | null;
+        title?: string | null;
+        stringValue: string;
+      }
+    | null
+  > | null;
+  price?: { incVat: any; exVat: any; vat: any } | null;
+  previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+};
 
-export type ContentPageFragment = { name: string, mainHeader?: string | null, content?: string | null, pageId: string, primaryRoute?: { id: string, path: string } | null, images?: Array<{ url?: any | null } | null> | null, data?: { id: string, items?: Array<{ type: string, children?: Array<{ type: string, properties?: Array<{ name: string, type: string, valueType?: ContentPropertyValueType | null, value?: { boolValue?: boolean | null } | { name: string, images?: Array<{ url?: any | null } | null> | null, primaryRoute?: { path: string } | null } | { value?: string | null, focalPointX?: number | null, focalPointY?: number | null } | { id: number, articleNumber: string, name: string, subName: string, shortDescription: string, description: string, mainHeader: string, primaryRoute?: { id: string, path: string, slug: string, breadcrumbs?: Array<string | null> | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | { value?: string | null } | null } | null> | null } | null> | null, properties?: Array<{ name: string, type: string, valueType?: ContentPropertyValueType | null, value?: { boolValue?: boolean | null } | { name: string, images?: Array<{ url?: any | null } | null> | null, primaryRoute?: { path: string } | null } | { value?: string | null, focalPointX?: number | null, focalPointY?: number | null } | { id: number, articleNumber: string, name: string, subName: string, shortDescription: string, description: string, mainHeader: string, primaryRoute?: { id: string, path: string, slug: string, breadcrumbs?: Array<string | null> | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | { value?: string | null } | null } | null> | null } | null> | null } | null, parent?: { id: string, name: string, primaryRoute?: { id: string, path: string } | null, subPages?: Array<{ id: string, name: string, primaryRoute?: { id: string, path: string } | null }> | null } | null, subPages?: Array<{ id: string, name: string, primaryRoute?: { id: string, path: string } | null }> | null };
+export type ContentPageFragment = {
+  name: string;
+  mainHeader?: string | null;
+  content?: string | null;
+  pageId: string;
+  primaryRoute?: { id: string; path: string } | null;
+  images?: Array<{ url?: any | null } | null> | null;
+  data?: {
+    id: string;
+    items?: Array<{
+      type: string;
+      children?: Array<{
+        type: string;
+        properties?: Array<{
+          name: string;
+          type: string;
+          valueType?: ContentPropertyValueType | null;
+          value?:
+            | { boolValue?: boolean | null }
+            | {
+                name: string;
+                images?: Array<{ url?: any | null } | null> | null;
+                primaryRoute?: { path: string } | null;
+              }
+            | {
+                value?: string | null;
+                focalPointX?: number | null;
+                focalPointY?: number | null;
+              }
+            | {
+                id: number;
+                articleNumber: string;
+                name: string;
+                subName: string;
+                shortDescription: string;
+                description: string;
+                mainHeader: string;
+                primaryRoute?: {
+                  id: string;
+                  path: string;
+                  slug: string;
+                  breadcrumbs?: Array<string | null> | null;
+                } | null;
+                images?: Array<{
+                  modifiedDate?: string | null;
+                  alt?: string | null;
+                  title?: string | null;
+                  url?: any | null;
+                } | null> | null;
+                badges?: Array<{
+                  name?: string | null;
+                  url?: any | null;
+                  location?: ProductBadgeLocation | null;
+                  style?: string | null;
+                  text?: string | null;
+                } | null> | null;
+                customFields?: Array<
+                  | {
+                      key?: string | null;
+                      type?: ProductCustomFieldType | null;
+                      title?: string | null;
+                    }
+                  | {
+                      key?: string | null;
+                      type?: ProductCustomFieldType | null;
+                      title?: string | null;
+                    }
+                  | {
+                      key?: string | null;
+                      type?: ProductCustomFieldType | null;
+                      title?: string | null;
+                    }
+                  | {
+                      key?: string | null;
+                      type?: ProductCustomFieldType | null;
+                      title?: string | null;
+                    }
+                  | {
+                      key?: string | null;
+                      type?: ProductCustomFieldType | null;
+                      title?: string | null;
+                      stringValue: string;
+                    }
+                  | null
+                > | null;
+                price?: { incVat: any; exVat: any; vat: any } | null;
+                previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+              }
+            | { value?: string | null }
+            | null;
+        } | null> | null;
+      } | null> | null;
+      properties?: Array<{
+        name: string;
+        type: string;
+        valueType?: ContentPropertyValueType | null;
+        value?:
+          | { boolValue?: boolean | null }
+          | {
+              name: string;
+              images?: Array<{ url?: any | null } | null> | null;
+              primaryRoute?: { path: string } | null;
+            }
+          | {
+              value?: string | null;
+              focalPointX?: number | null;
+              focalPointY?: number | null;
+            }
+          | {
+              id: number;
+              articleNumber: string;
+              name: string;
+              subName: string;
+              shortDescription: string;
+              description: string;
+              mainHeader: string;
+              primaryRoute?: {
+                id: string;
+                path: string;
+                slug: string;
+                breadcrumbs?: Array<string | null> | null;
+              } | null;
+              images?: Array<{
+                modifiedDate?: string | null;
+                alt?: string | null;
+                title?: string | null;
+                url?: any | null;
+              } | null> | null;
+              badges?: Array<{
+                name?: string | null;
+                url?: any | null;
+                location?: ProductBadgeLocation | null;
+                style?: string | null;
+                text?: string | null;
+              } | null> | null;
+              customFields?: Array<
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                    stringValue: string;
+                  }
+                | null
+              > | null;
+              price?: { incVat: any; exVat: any; vat: any } | null;
+              previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+            }
+          | { value?: string | null }
+          | null;
+      } | null> | null;
+    } | null> | null;
+  } | null;
+  parent?: {
+    id: string;
+    name: string;
+    primaryRoute?: { id: string; path: string } | null;
+    subPages?: Array<{
+      id: string;
+      name: string;
+      primaryRoute?: { id: string; path: string } | null;
+    }> | null;
+  } | null;
+  subPages?: Array<{
+    id: string;
+    name: string;
+    primaryRoute?: { id: string; path: string } | null;
+  }> | null;
+};
 
-export type SubPageFragment = { id: string, name: string, primaryRoute?: { id: string, path: string } | null };
+export type SubPageFragment = {
+  id: string;
+  name: string;
+  primaryRoute?: { id: string; path: string } | null;
+};
 
-export type InPackagesFragment = { inPackages?: Array<{ id: number, name: string, primaryRoute?: { id: string, path: string } | null }> | null };
+export type InPackagesFragment = {
+  inPackages?: Array<{
+    id: number;
+    name: string;
+    primaryRoute?: { id: string; path: string } | null;
+  }> | null;
+};
 
-export type PackageProductFragmentFragment = { isPackage?: boolean | null, package?: { price?: { incVat: any, exVat: any, vat: any } | null, discountValue?: { incVat: any, exVat: any, vat: any } | null, items: Array<{ minQuantity: number, product?: { id: number, name: string, articleNumber: string, hasVariants: boolean, hasConfigurations: boolean, subName: string, stockStatus?: { buyable: boolean, maxOrderQuantity?: number | null, stockDate?: any | null, stockNotificationEnabled?: boolean | null, text?: string | null } | null, primaryRoute?: { path: string, id: string } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, variants?: { options: Array<{ name?: string | null, values: Array<string | null> } | null>, values: Array<{ articleNumber: string, values: Array<string | null>, stockStatus?: { buyable: boolean, maxOrderQuantity?: number | null, stockDate?: any | null, stockNotificationEnabled?: boolean | null, text?: string | null } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null> } | null } | null, discount?: { percentage: any } | { valueExVat: any, valueIncVat: any, valueVat: any } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null }> } | null };
+export type PackageProductFragmentFragment = {
+  isPackage?: boolean | null;
+  package?: {
+    price?: { incVat: any; exVat: any; vat: any } | null;
+    discountValue?: { incVat: any; exVat: any; vat: any } | null;
+    items: Array<{
+      minQuantity: number;
+      product?: {
+        id: number;
+        name: string;
+        articleNumber: string;
+        hasVariants: boolean;
+        hasConfigurations: boolean;
+        subName: string;
+        stockStatus?: {
+          buyable: boolean;
+          maxOrderQuantity?: number | null;
+          stockDate?: any | null;
+          stockNotificationEnabled?: boolean | null;
+          text?: string | null;
+        } | null;
+        primaryRoute?: { path: string; id: string } | null;
+        images?: Array<{
+          modifiedDate?: string | null;
+          alt?: string | null;
+          title?: string | null;
+          url?: any | null;
+        } | null> | null;
+        variants?: {
+          options: Array<{
+            name?: string | null;
+            values: Array<string | null>;
+          } | null>;
+          values: Array<{
+            articleNumber: string;
+            values: Array<string | null>;
+            stockStatus?: {
+              buyable: boolean;
+              maxOrderQuantity?: number | null;
+              stockDate?: any | null;
+              stockNotificationEnabled?: boolean | null;
+              text?: string | null;
+            } | null;
+            price?: { incVat: any; exVat: any; vat: any } | null;
+            previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+          } | null>;
+        } | null;
+      } | null;
+      discount?:
+        | { percentage: any }
+        | { valueExVat: any; valueIncVat: any; valueVat: any }
+        | null;
+      price?: { incVat: any; exVat: any; vat: any } | null;
+      previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+    }>;
+  } | null;
+};
 
-export type ProductGridFragment = { id: number, articleNumber: string, name: string, subName: string, isPackage?: boolean | null, primaryRoute?: { id: string, path: string, slug: string } | null, images?: Array<{ alt?: string | null, title?: string | null, url?: any | null, modifiedDate?: string | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, canonicalCategory?: { primaryRoute?: { path: string } | null } | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null };
+export type ProductGridFragment = {
+  id: number;
+  articleNumber: string;
+  name: string;
+  subName: string;
+  isPackage?: boolean | null;
+  primaryRoute?: { id: string; path: string; slug: string } | null;
+  images?: Array<{
+    alt?: string | null;
+    title?: string | null;
+    url?: any | null;
+    modifiedDate?: string | null;
+  } | null> | null;
+  badges?: Array<{
+    name?: string | null;
+    url?: any | null;
+    location?: ProductBadgeLocation | null;
+    style?: string | null;
+    text?: string | null;
+  } | null> | null;
+  canonicalCategory?: { primaryRoute?: { path: string } | null } | null;
+  customFields?: Array<
+    | {
+        key?: string | null;
+        type?: ProductCustomFieldType | null;
+        title?: string | null;
+      }
+    | {
+        key?: string | null;
+        type?: ProductCustomFieldType | null;
+        title?: string | null;
+      }
+    | {
+        key?: string | null;
+        type?: ProductCustomFieldType | null;
+        title?: string | null;
+      }
+    | {
+        key?: string | null;
+        type?: ProductCustomFieldType | null;
+        title?: string | null;
+      }
+    | {
+        key?: string | null;
+        type?: ProductCustomFieldType | null;
+        title?: string | null;
+        stringValue: string;
+      }
+    | null
+  > | null;
+  price?: { incVat: any; exVat: any; vat: any } | null;
+  previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+};
 
-export type ProductPageFragment = { id: number, articleNumber: string, name: string, subName: string, breadcrumbText?: string | null, shortDescription: string, description: string, hasVariants: boolean, isPackage?: boolean | null, hasConfigurations: boolean, canonicalCategory?: { primaryRoute?: { path: string } | null } | null, categories?: Array<{ primaryRoute?: { path: string } | null } | null> | null, primaryRoute?: { path: string, id: string, breadcrumbs?: Array<string | null> | null } | null, stockStatus?: { buyable: boolean, maxOrderQuantity?: number | null, stockDate?: any | null, stockNotificationEnabled?: boolean | null, text?: string | null } | null, warehouseStock?: Array<{ stockLevel?: number | null, location?: { id: number, name?: string | null } | null } | null> | null, variants?: { options: Array<{ name?: string | null, values: Array<string | null> } | null>, values: Array<{ values: Array<string | null>, articleNumber: string, warehouseStock?: Array<{ stockLevel?: number | null, location?: { id: number, name?: string | null } | null } | null> | null, images?: Array<{ url?: any | null, modifiedDate?: string | null } | null> | null, stockStatus?: { buyable: boolean, maxOrderQuantity?: number | null, stockDate?: any | null, stockNotificationEnabled?: boolean | null, text?: string | null } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null> } | null, images?: Array<{ alt?: string | null, title?: string | null, url?: any | null, modifiedDate?: string | null } | null> | null, relatedProducts?: Array<{ id: number, articleNumber: string, name: string, subName: string, isPackage?: boolean | null, primaryRoute?: { id: string, path: string, slug: string } | null, images?: Array<{ alt?: string | null, title?: string | null, url?: any | null, modifiedDate?: string | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, canonicalCategory?: { primaryRoute?: { path: string } | null } | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, boolValue: boolean } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, htmlValue: string } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, listValues?: Array<string | null> | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, items?: Array<{ id: number, parentId?: number | null, title: string, value: string } | null> | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, preOrder?: { fromDate?: any | null, toDate?: any | null } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null, customerComments?: Array<{ name: string, required: boolean } | null> | null, inPackages?: Array<{ id: number, name: string, primaryRoute?: { id: string, path: string } | null }> | null, configurations?: Array<{ name?: string | null, options: Array<{ id: string, name?: string | null, price?: { exVat: any, incVat: any, vat: any } | null, priceCalculation?: { formula?: string | null, id: string, name?: string | null, variables?: Array<{ id: string, name?: string | null } | null> | null } | null } | null> } | null> | null, campaigns?: Array<{ id: number, name: string, primaryRoute?: { id: string, path: string } | null } | null> | null, package?: { price?: { incVat: any, exVat: any, vat: any } | null, discountValue?: { incVat: any, exVat: any, vat: any } | null, items: Array<{ minQuantity: number, product?: { id: number, name: string, articleNumber: string, hasVariants: boolean, hasConfigurations: boolean, subName: string, stockStatus?: { buyable: boolean, maxOrderQuantity?: number | null, stockDate?: any | null, stockNotificationEnabled?: boolean | null, text?: string | null } | null, primaryRoute?: { path: string, id: string } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, variants?: { options: Array<{ name?: string | null, values: Array<string | null> } | null>, values: Array<{ articleNumber: string, values: Array<string | null>, stockStatus?: { buyable: boolean, maxOrderQuantity?: number | null, stockDate?: any | null, stockNotificationEnabled?: boolean | null, text?: string | null } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null> } | null } | null, discount?: { percentage: any } | { valueExVat: any, valueIncVat: any, valueVat: any } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null }> } | null };
+export type ProductPageFragment = {
+  id: number;
+  articleNumber: string;
+  name: string;
+  subName: string;
+  breadcrumbText?: string | null;
+  shortDescription: string;
+  description: string;
+  hasVariants: boolean;
+  isPackage?: boolean | null;
+  hasConfigurations: boolean;
+  canonicalCategory?: { primaryRoute?: { path: string } | null } | null;
+  categories?: Array<{ primaryRoute?: { path: string } | null } | null> | null;
+  primaryRoute?: {
+    path: string;
+    id: string;
+    breadcrumbs?: Array<string | null> | null;
+  } | null;
+  stockStatus?: {
+    buyable: boolean;
+    maxOrderQuantity?: number | null;
+    stockDate?: any | null;
+    stockNotificationEnabled?: boolean | null;
+    text?: string | null;
+  } | null;
+  warehouseStock?: Array<{
+    stockLevel?: number | null;
+    location?: { id: number; name?: string | null } | null;
+  } | null> | null;
+  variants?: {
+    options: Array<{
+      name?: string | null;
+      values: Array<string | null>;
+    } | null>;
+    values: Array<{
+      values: Array<string | null>;
+      articleNumber: string;
+      warehouseStock?: Array<{
+        stockLevel?: number | null;
+        location?: { id: number; name?: string | null } | null;
+      } | null> | null;
+      images?: Array<{
+        url?: any | null;
+        modifiedDate?: string | null;
+      } | null> | null;
+      stockStatus?: {
+        buyable: boolean;
+        maxOrderQuantity?: number | null;
+        stockDate?: any | null;
+        stockNotificationEnabled?: boolean | null;
+        text?: string | null;
+      } | null;
+      price?: { incVat: any; exVat: any; vat: any } | null;
+      previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+    } | null>;
+  } | null;
+  images?: Array<{
+    alt?: string | null;
+    title?: string | null;
+    url?: any | null;
+    modifiedDate?: string | null;
+  } | null> | null;
+  relatedProducts?: Array<{
+    id: number;
+    articleNumber: string;
+    name: string;
+    subName: string;
+    isPackage?: boolean | null;
+    primaryRoute?: { id: string; path: string; slug: string } | null;
+    images?: Array<{
+      alt?: string | null;
+      title?: string | null;
+      url?: any | null;
+      modifiedDate?: string | null;
+    } | null> | null;
+    badges?: Array<{
+      name?: string | null;
+      url?: any | null;
+      location?: ProductBadgeLocation | null;
+      style?: string | null;
+      text?: string | null;
+    } | null> | null;
+    canonicalCategory?: { primaryRoute?: { path: string } | null } | null;
+    customFields?: Array<
+      | {
+          key?: string | null;
+          type?: ProductCustomFieldType | null;
+          title?: string | null;
+        }
+      | {
+          key?: string | null;
+          type?: ProductCustomFieldType | null;
+          title?: string | null;
+        }
+      | {
+          key?: string | null;
+          type?: ProductCustomFieldType | null;
+          title?: string | null;
+        }
+      | {
+          key?: string | null;
+          type?: ProductCustomFieldType | null;
+          title?: string | null;
+        }
+      | {
+          key?: string | null;
+          type?: ProductCustomFieldType | null;
+          title?: string | null;
+          stringValue: string;
+        }
+      | null
+    > | null;
+    price?: { incVat: any; exVat: any; vat: any } | null;
+    previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+  } | null> | null;
+  customFields?: Array<
+    | {
+        key?: string | null;
+        type?: ProductCustomFieldType | null;
+        title?: string | null;
+        boolValue: boolean;
+      }
+    | {
+        key?: string | null;
+        type?: ProductCustomFieldType | null;
+        title?: string | null;
+        htmlValue: string;
+      }
+    | {
+        key?: string | null;
+        type?: ProductCustomFieldType | null;
+        title?: string | null;
+        listValues?: Array<string | null> | null;
+      }
+    | {
+        key?: string | null;
+        type?: ProductCustomFieldType | null;
+        title?: string | null;
+        items?: Array<{
+          id: number;
+          parentId?: number | null;
+          title: string;
+          value: string;
+        } | null> | null;
+      }
+    | {
+        key?: string | null;
+        type?: ProductCustomFieldType | null;
+        title?: string | null;
+        stringValue: string;
+      }
+    | null
+  > | null;
+  badges?: Array<{
+    name?: string | null;
+    url?: any | null;
+    location?: ProductBadgeLocation | null;
+    style?: string | null;
+    text?: string | null;
+  } | null> | null;
+  preOrder?: { fromDate?: any | null; toDate?: any | null } | null;
+  price?: { incVat: any; exVat: any; vat: any } | null;
+  previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+  customerComments?: Array<{ name: string; required: boolean } | null> | null;
+  inPackages?: Array<{
+    id: number;
+    name: string;
+    primaryRoute?: { id: string; path: string } | null;
+  }> | null;
+  configurations?: Array<{
+    name?: string | null;
+    options: Array<{
+      id: string;
+      name?: string | null;
+      price?: { exVat: any; incVat: any; vat: any } | null;
+      priceCalculation?: {
+        formula?: string | null;
+        id: string;
+        name?: string | null;
+        variables?: Array<{ id: string; name?: string | null } | null> | null;
+      } | null;
+    } | null>;
+  } | null> | null;
+  campaigns?: Array<{
+    id: number;
+    name: string;
+    primaryRoute?: { id: string; path: string } | null;
+  } | null> | null;
+  package?: {
+    price?: { incVat: any; exVat: any; vat: any } | null;
+    discountValue?: { incVat: any; exVat: any; vat: any } | null;
+    items: Array<{
+      minQuantity: number;
+      product?: {
+        id: number;
+        name: string;
+        articleNumber: string;
+        hasVariants: boolean;
+        hasConfigurations: boolean;
+        subName: string;
+        stockStatus?: {
+          buyable: boolean;
+          maxOrderQuantity?: number | null;
+          stockDate?: any | null;
+          stockNotificationEnabled?: boolean | null;
+          text?: string | null;
+        } | null;
+        primaryRoute?: { path: string; id: string } | null;
+        images?: Array<{
+          modifiedDate?: string | null;
+          alt?: string | null;
+          title?: string | null;
+          url?: any | null;
+        } | null> | null;
+        variants?: {
+          options: Array<{
+            name?: string | null;
+            values: Array<string | null>;
+          } | null>;
+          values: Array<{
+            articleNumber: string;
+            values: Array<string | null>;
+            stockStatus?: {
+              buyable: boolean;
+              maxOrderQuantity?: number | null;
+              stockDate?: any | null;
+              stockNotificationEnabled?: boolean | null;
+              text?: string | null;
+            } | null;
+            price?: { incVat: any; exVat: any; vat: any } | null;
+            previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+          } | null>;
+        } | null;
+      } | null;
+      discount?:
+        | { percentage: any }
+        | { valueExVat: any; valueIncVat: any; valueVat: any }
+        | null;
+      price?: { incVat: any; exVat: any; vat: any } | null;
+      previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+    }>;
+  } | null;
+};
 
-export type StartPageFragment = { isActive?: boolean | null, breadcrumbText?: string | null, name: string, content?: string | null, head?: { title?: string | null, metaTags?: Array<{ name?: string | null, content?: string | null } | null> | null } | null, primaryRoute?: { canonicalPath?: string | null, alternateRoutes?: Array<{ channelId?: number | null, culture?: string | null, route?: string | null, alias?: string | null } | null> | null } | null, images?: Array<{ url?: any | null, width?: number | null, title?: string | null, height?: number | null } | null> | null, data?: { id: string, items?: Array<{ type: string, children?: Array<{ type: string, properties?: Array<{ name: string, type: string, valueType?: ContentPropertyValueType | null, value?: { boolValue?: boolean | null } | { name: string, images?: Array<{ url?: any | null } | null> | null, primaryRoute?: { path: string } | null } | { value?: string | null, focalPointX?: number | null, focalPointY?: number | null } | { id: number, articleNumber: string, name: string, subName: string, shortDescription: string, description: string, mainHeader: string, primaryRoute?: { id: string, path: string, slug: string, breadcrumbs?: Array<string | null> | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | { value?: string | null } | null } | null> | null } | null> | null, properties?: Array<{ name: string, type: string, valueType?: ContentPropertyValueType | null, value?: { boolValue?: boolean | null } | { name: string, images?: Array<{ url?: any | null } | null> | null, primaryRoute?: { path: string } | null } | { value?: string | null, focalPointX?: number | null, focalPointY?: number | null } | { id: number, articleNumber: string, name: string, subName: string, shortDescription: string, description: string, mainHeader: string, primaryRoute?: { id: string, path: string, slug: string, breadcrumbs?: Array<string | null> | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | { value?: string | null } | null } | null> | null } | null> | null } | null };
+export type StartPageFragment = {
+  isActive?: boolean | null;
+  breadcrumbText?: string | null;
+  name: string;
+  content?: string | null;
+  head?: {
+    title?: string | null;
+    metaTags?: Array<{
+      name?: string | null;
+      content?: string | null;
+    } | null> | null;
+  } | null;
+  primaryRoute?: {
+    canonicalPath?: string | null;
+    alternateRoutes?: Array<{
+      channelId?: number | null;
+      culture?: string | null;
+      route?: string | null;
+      alias?: string | null;
+    } | null> | null;
+  } | null;
+  images?: Array<{
+    url?: any | null;
+    width?: number | null;
+    title?: string | null;
+    height?: number | null;
+  } | null> | null;
+  data?: {
+    id: string;
+    items?: Array<{
+      type: string;
+      children?: Array<{
+        type: string;
+        properties?: Array<{
+          name: string;
+          type: string;
+          valueType?: ContentPropertyValueType | null;
+          value?:
+            | { boolValue?: boolean | null }
+            | {
+                name: string;
+                images?: Array<{ url?: any | null } | null> | null;
+                primaryRoute?: { path: string } | null;
+              }
+            | {
+                value?: string | null;
+                focalPointX?: number | null;
+                focalPointY?: number | null;
+              }
+            | {
+                id: number;
+                articleNumber: string;
+                name: string;
+                subName: string;
+                shortDescription: string;
+                description: string;
+                mainHeader: string;
+                primaryRoute?: {
+                  id: string;
+                  path: string;
+                  slug: string;
+                  breadcrumbs?: Array<string | null> | null;
+                } | null;
+                images?: Array<{
+                  modifiedDate?: string | null;
+                  alt?: string | null;
+                  title?: string | null;
+                  url?: any | null;
+                } | null> | null;
+                badges?: Array<{
+                  name?: string | null;
+                  url?: any | null;
+                  location?: ProductBadgeLocation | null;
+                  style?: string | null;
+                  text?: string | null;
+                } | null> | null;
+                customFields?: Array<
+                  | {
+                      key?: string | null;
+                      type?: ProductCustomFieldType | null;
+                      title?: string | null;
+                    }
+                  | {
+                      key?: string | null;
+                      type?: ProductCustomFieldType | null;
+                      title?: string | null;
+                    }
+                  | {
+                      key?: string | null;
+                      type?: ProductCustomFieldType | null;
+                      title?: string | null;
+                    }
+                  | {
+                      key?: string | null;
+                      type?: ProductCustomFieldType | null;
+                      title?: string | null;
+                    }
+                  | {
+                      key?: string | null;
+                      type?: ProductCustomFieldType | null;
+                      title?: string | null;
+                      stringValue: string;
+                    }
+                  | null
+                > | null;
+                price?: { incVat: any; exVat: any; vat: any } | null;
+                previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+              }
+            | { value?: string | null }
+            | null;
+        } | null> | null;
+      } | null> | null;
+      properties?: Array<{
+        name: string;
+        type: string;
+        valueType?: ContentPropertyValueType | null;
+        value?:
+          | { boolValue?: boolean | null }
+          | {
+              name: string;
+              images?: Array<{ url?: any | null } | null> | null;
+              primaryRoute?: { path: string } | null;
+            }
+          | {
+              value?: string | null;
+              focalPointX?: number | null;
+              focalPointY?: number | null;
+            }
+          | {
+              id: number;
+              articleNumber: string;
+              name: string;
+              subName: string;
+              shortDescription: string;
+              description: string;
+              mainHeader: string;
+              primaryRoute?: {
+                id: string;
+                path: string;
+                slug: string;
+                breadcrumbs?: Array<string | null> | null;
+              } | null;
+              images?: Array<{
+                modifiedDate?: string | null;
+                alt?: string | null;
+                title?: string | null;
+                url?: any | null;
+              } | null> | null;
+              badges?: Array<{
+                name?: string | null;
+                url?: any | null;
+                location?: ProductBadgeLocation | null;
+                style?: string | null;
+                text?: string | null;
+              } | null> | null;
+              customFields?: Array<
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                    stringValue: string;
+                  }
+                | null
+              > | null;
+              price?: { incVat: any; exVat: any; vat: any } | null;
+              previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+            }
+          | { value?: string | null }
+          | null;
+      } | null> | null;
+    } | null> | null;
+  } | null;
+};
 
-export type WarehouseStockFragment = { stockLevel?: number | null, location?: { id: number, name?: string | null } | null };
+export type WarehouseStockFragment = {
+  stockLevel?: number | null;
+  location?: { id: number; name?: string | null } | null;
+};
 
 export type AddMultipleToCartMutationVariables = Exact<{
   cartId?: InputMaybe<Scalars['String']>;
-  items: Array<InputMaybe<AddMultipleToCartInput>> | InputMaybe<AddMultipleToCartInput>;
+  items:
+    | Array<InputMaybe<AddMultipleToCartInput>>
+    | InputMaybe<AddMultipleToCartInput>;
 }>;
 
-
-export type AddMultipleToCartMutation = { addMultipleToCart?: { cart?: { id?: string | null, externalCheckoutUrl?: any | null, totalQuantity?: number | null, productTotal?: { incVat: any, exVat: any, vat: any } | null, productPreviousTotal?: { incVat: any, exVat: any, vat: any } | null, discountTotal?: { incVat: any, exVat: any, vat: any } | null, aggregatedDiscounts?: Array<{ name?: string | null, description?: string | null, value?: { incVat: any, exVat: any, vat: any } | null, campaign?: { name: string } | null } | null> | null, items?: Array<{ id: string, quantity: number, articleNumber: string, subHeading?: string | null, variant?: { values: Array<string | null>, articleNumber: string, images?: Array<{ modifiedDate?: string | null, url?: any | null, alt?: string | null, title?: string | null } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null, configurations?: Array<{ name?: string | null, option: { id: string, name?: string | null } } | null> | null, discounts?: Array<{ name?: string | null, description?: string | null, value?: { incVat: any, exVat: any, vat: any } | null } | null> | null, discount?: { incVat: any, exVat: any, vat: any } | null, total: { incVat: any, exVat: any, vat: any }, previousTotal: { incVat: any, exVat: any, vat: any }, product?: { id: number, name: string, articleNumber: string, primaryRoute?: { id: string, path: string } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, canonicalCategory?: { primaryRoute?: { path: string } | null } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null } | null> | null } | null } | null };
+export type AddMultipleToCartMutation = {
+  addMultipleToCart?: {
+    cart?: {
+      id?: string | null;
+      externalCheckoutUrl?: any | null;
+      totalQuantity?: number | null;
+      productTotal?: { incVat: any; exVat: any; vat: any } | null;
+      productPreviousTotal?: { incVat: any; exVat: any; vat: any } | null;
+      discountTotal?: { incVat: any; exVat: any; vat: any } | null;
+      aggregatedDiscounts?: Array<{
+        name?: string | null;
+        description?: string | null;
+        value?: { incVat: any; exVat: any; vat: any } | null;
+        campaign?: { name: string } | null;
+      } | null> | null;
+      items?: Array<{
+        id: string;
+        quantity: number;
+        articleNumber: string;
+        subHeading?: string | null;
+        variant?: {
+          values: Array<string | null>;
+          articleNumber: string;
+          images?: Array<{
+            modifiedDate?: string | null;
+            url?: any | null;
+            alt?: string | null;
+            title?: string | null;
+          } | null> | null;
+          price?: { incVat: any; exVat: any; vat: any } | null;
+          previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+        } | null;
+        configurations?: Array<{
+          name?: string | null;
+          option: { id: string; name?: string | null };
+        } | null> | null;
+        discounts?: Array<{
+          name?: string | null;
+          description?: string | null;
+          value?: { incVat: any; exVat: any; vat: any } | null;
+        } | null> | null;
+        discount?: { incVat: any; exVat: any; vat: any } | null;
+        total: { incVat: any; exVat: any; vat: any };
+        previousTotal: { incVat: any; exVat: any; vat: any };
+        product?: {
+          id: number;
+          name: string;
+          articleNumber: string;
+          primaryRoute?: { id: string; path: string } | null;
+          images?: Array<{
+            modifiedDate?: string | null;
+            alt?: string | null;
+            title?: string | null;
+            url?: any | null;
+          } | null> | null;
+          canonicalCategory?: { primaryRoute?: { path: string } | null } | null;
+          price?: { incVat: any; exVat: any; vat: any } | null;
+          previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+        } | null;
+      } | null> | null;
+    } | null;
+  } | null;
+};
 
 export type AddToCartMutationVariables = Exact<{
   input: AddToCartInput;
 }>;
 
-
-export type AddToCartMutation = { addToCart?: { cart?: { id?: string | null, externalCheckoutUrl?: any | null, totalQuantity?: number | null, productTotal?: { incVat: any, exVat: any, vat: any } | null, productPreviousTotal?: { incVat: any, exVat: any, vat: any } | null, discountTotal?: { incVat: any, exVat: any, vat: any } | null, aggregatedDiscounts?: Array<{ name?: string | null, description?: string | null, value?: { incVat: any, exVat: any, vat: any } | null, campaign?: { name: string } | null } | null> | null, items?: Array<{ id: string, quantity: number, articleNumber: string, subHeading?: string | null, variant?: { values: Array<string | null>, articleNumber: string, images?: Array<{ modifiedDate?: string | null, url?: any | null, alt?: string | null, title?: string | null } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null, configurations?: Array<{ name?: string | null, option: { id: string, name?: string | null } } | null> | null, discounts?: Array<{ name?: string | null, description?: string | null, value?: { incVat: any, exVat: any, vat: any } | null } | null> | null, discount?: { incVat: any, exVat: any, vat: any } | null, total: { incVat: any, exVat: any, vat: any }, previousTotal: { incVat: any, exVat: any, vat: any }, product?: { id: number, name: string, articleNumber: string, primaryRoute?: { id: string, path: string } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, canonicalCategory?: { primaryRoute?: { path: string } | null } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null } | null> | null } | null } | null };
+export type AddToCartMutation = {
+  addToCart?: {
+    cart?: {
+      id?: string | null;
+      externalCheckoutUrl?: any | null;
+      totalQuantity?: number | null;
+      productTotal?: { incVat: any; exVat: any; vat: any } | null;
+      productPreviousTotal?: { incVat: any; exVat: any; vat: any } | null;
+      discountTotal?: { incVat: any; exVat: any; vat: any } | null;
+      aggregatedDiscounts?: Array<{
+        name?: string | null;
+        description?: string | null;
+        value?: { incVat: any; exVat: any; vat: any } | null;
+        campaign?: { name: string } | null;
+      } | null> | null;
+      items?: Array<{
+        id: string;
+        quantity: number;
+        articleNumber: string;
+        subHeading?: string | null;
+        variant?: {
+          values: Array<string | null>;
+          articleNumber: string;
+          images?: Array<{
+            modifiedDate?: string | null;
+            url?: any | null;
+            alt?: string | null;
+            title?: string | null;
+          } | null> | null;
+          price?: { incVat: any; exVat: any; vat: any } | null;
+          previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+        } | null;
+        configurations?: Array<{
+          name?: string | null;
+          option: { id: string; name?: string | null };
+        } | null> | null;
+        discounts?: Array<{
+          name?: string | null;
+          description?: string | null;
+          value?: { incVat: any; exVat: any; vat: any } | null;
+        } | null> | null;
+        discount?: { incVat: any; exVat: any; vat: any } | null;
+        total: { incVat: any; exVat: any; vat: any };
+        previousTotal: { incVat: any; exVat: any; vat: any };
+        product?: {
+          id: number;
+          name: string;
+          articleNumber: string;
+          primaryRoute?: { id: string; path: string } | null;
+          images?: Array<{
+            modifiedDate?: string | null;
+            alt?: string | null;
+            title?: string | null;
+            url?: any | null;
+          } | null> | null;
+          canonicalCategory?: { primaryRoute?: { path: string } | null } | null;
+          price?: { incVat: any; exVat: any; vat: any } | null;
+          previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+        } | null;
+      } | null> | null;
+    } | null;
+  } | null;
+};
 
 export type SubscribeToNewsletterMutationVariables = Exact<{
   email: Scalars['String'];
 }>;
 
-
-export type SubscribeToNewsletterMutation = { subscribeToNewsletter?: boolean | null };
+export type SubscribeToNewsletterMutation = {
+  subscribeToNewsletter?: boolean | null;
+};
 
 export type AutocompleteQueryVariables = Exact<{
   term: Scalars['String'];
 }>;
 
-
-export type AutocompleteQuery = { searchAutoComplete?: { categories?: { result?: Array<{ id: number, name: string, primaryRoute?: { id: string, slug: string, path: string, breadcrumbs?: Array<string | null> | null } | null } | null> | null } | null, products?: { result: Array<{ name: string, id: number, primaryRoute?: { id: string, slug: string, path: string } | null } | null> } | null } | null };
+export type AutocompleteQuery = {
+  searchAutoComplete?: {
+    categories?: {
+      result?: Array<{
+        id: number;
+        name: string;
+        primaryRoute?: {
+          id: string;
+          slug: string;
+          path: string;
+          breadcrumbs?: Array<string | null> | null;
+        } | null;
+      } | null> | null;
+    } | null;
+    products?: {
+      result: Array<{
+        name: string;
+        id: number;
+        primaryRoute?: { id: string; slug: string; path: string } | null;
+      } | null>;
+    } | null;
+  } | null;
+};
 
 export type CartQueryVariables = Exact<{
   cartId?: InputMaybe<Scalars['String']>;
 }>;
 
-
-export type CartQuery = { cart?: { id?: string | null, externalCheckoutUrl?: any | null, totalQuantity?: number | null, productTotal?: { incVat: any, exVat: any, vat: any } | null, productPreviousTotal?: { incVat: any, exVat: any, vat: any } | null, discountTotal?: { incVat: any, exVat: any, vat: any } | null, aggregatedDiscounts?: Array<{ name?: string | null, description?: string | null, value?: { incVat: any, exVat: any, vat: any } | null, campaign?: { name: string } | null } | null> | null, items?: Array<{ id: string, quantity: number, articleNumber: string, subHeading?: string | null, variant?: { values: Array<string | null>, articleNumber: string, images?: Array<{ modifiedDate?: string | null, url?: any | null, alt?: string | null, title?: string | null } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null, configurations?: Array<{ name?: string | null, option: { id: string, name?: string | null } } | null> | null, discounts?: Array<{ name?: string | null, description?: string | null, value?: { incVat: any, exVat: any, vat: any } | null } | null> | null, discount?: { incVat: any, exVat: any, vat: any } | null, total: { incVat: any, exVat: any, vat: any }, previousTotal: { incVat: any, exVat: any, vat: any }, product?: { id: number, name: string, articleNumber: string, primaryRoute?: { id: string, path: string } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, canonicalCategory?: { primaryRoute?: { path: string } | null } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null } | null> | null } | null };
+export type CartQuery = {
+  cart?: {
+    id?: string | null;
+    externalCheckoutUrl?: any | null;
+    totalQuantity?: number | null;
+    productTotal?: { incVat: any; exVat: any; vat: any } | null;
+    productPreviousTotal?: { incVat: any; exVat: any; vat: any } | null;
+    discountTotal?: { incVat: any; exVat: any; vat: any } | null;
+    aggregatedDiscounts?: Array<{
+      name?: string | null;
+      description?: string | null;
+      value?: { incVat: any; exVat: any; vat: any } | null;
+      campaign?: { name: string } | null;
+    } | null> | null;
+    items?: Array<{
+      id: string;
+      quantity: number;
+      articleNumber: string;
+      subHeading?: string | null;
+      variant?: {
+        values: Array<string | null>;
+        articleNumber: string;
+        images?: Array<{
+          modifiedDate?: string | null;
+          url?: any | null;
+          alt?: string | null;
+          title?: string | null;
+        } | null> | null;
+        price?: { incVat: any; exVat: any; vat: any } | null;
+        previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+      } | null;
+      configurations?: Array<{
+        name?: string | null;
+        option: { id: string; name?: string | null };
+      } | null> | null;
+      discounts?: Array<{
+        name?: string | null;
+        description?: string | null;
+        value?: { incVat: any; exVat: any; vat: any } | null;
+      } | null> | null;
+      discount?: { incVat: any; exVat: any; vat: any } | null;
+      total: { incVat: any; exVat: any; vat: any };
+      previousTotal: { incVat: any; exVat: any; vat: any };
+      product?: {
+        id: number;
+        name: string;
+        articleNumber: string;
+        primaryRoute?: { id: string; path: string } | null;
+        images?: Array<{
+          modifiedDate?: string | null;
+          alt?: string | null;
+          title?: string | null;
+          url?: any | null;
+        } | null> | null;
+        canonicalCategory?: { primaryRoute?: { path: string } | null } | null;
+        price?: { incVat: any; exVat: any; vat: any } | null;
+        previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+      } | null;
+    } | null> | null;
+  } | null;
+};
 
 export type NavTreeQueryVariables = Exact<{
   root?: InputMaybe<Scalars['Int']>;
@@ -2318,24 +3797,86 @@ export type NavTreeQueryVariables = Exact<{
   includeHidden?: InputMaybe<Scalars['Boolean']>;
 }>;
 
+export type NavTreeQuery = {
+  categories: Array<{
+    id: number;
+    name: string;
+    level: number;
+    parentId?: number | null;
+    hasSubcategories?: boolean | null;
+    subcategories?: Array<{
+      id: number;
+      name: string;
+      level: number;
+      parentId?: number | null;
+      hasSubcategories?: boolean | null;
+      primaryRoute?: { id: string; path: string } | null;
+    } | null> | null;
+    primaryRoute?: { id: string; path: string } | null;
+  } | null>;
+};
 
-export type NavTreeQuery = { categories: Array<{ id: number, name: string, level: number, parentId?: number | null, hasSubcategories?: boolean | null, subcategories?: Array<{ id: number, name: string, level: number, parentId?: number | null, hasSubcategories?: boolean | null, primaryRoute?: { id: string, path: string } | null } | null> | null, primaryRoute?: { id: string, path: string } | null } | null> };
+export type CategoriesWithSubcategoriesFragment = {
+  id: number;
+  name: string;
+  level: number;
+  parentId?: number | null;
+  hasSubcategories?: boolean | null;
+  subcategories?: Array<{
+    id: number;
+    name: string;
+    level: number;
+    parentId?: number | null;
+    hasSubcategories?: boolean | null;
+    primaryRoute?: { id: string; path: string } | null;
+  } | null> | null;
+  primaryRoute?: { id: string; path: string } | null;
+};
 
-export type CategoriesWithSubcategoriesFragment = { id: number, name: string, level: number, parentId?: number | null, hasSubcategories?: boolean | null, subcategories?: Array<{ id: number, name: string, level: number, parentId?: number | null, hasSubcategories?: boolean | null, primaryRoute?: { id: string, path: string } | null } | null> | null, primaryRoute?: { id: string, path: string } | null };
+export type CategoryDetailFragment = {
+  id: number;
+  name: string;
+  level: number;
+  parentId?: number | null;
+  hasSubcategories?: boolean | null;
+  primaryRoute?: { id: string; path: string } | null;
+};
 
-export type CategoryDetailFragment = { id: number, name: string, level: number, parentId?: number | null, hasSubcategories?: boolean | null, primaryRoute?: { id: string, path: string } | null };
+export type PagesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type PagesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type PagesQuery = { pages: Array<{ name: string, id: string, primaryRoute?: { id: string, path: string } | null, subPages?: Array<{ id: string, name: string, primaryRoute?: { id: string, path: string } | null }> | null } | null> };
+export type PagesQuery = {
+  pages: Array<{
+    name: string;
+    id: string;
+    primaryRoute?: { id: string; path: string } | null;
+    subPages?: Array<{
+      id: string;
+      name: string;
+      primaryRoute?: { id: string; path: string } | null;
+    }> | null;
+  } | null>;
+};
 
 export type ProductVariantsQueryVariables = Exact<{
   articleNumber: Scalars['String'];
 }>;
 
-
-export type ProductVariantsQuery = { product?: { id: number, articleNumber: string, variants?: { options: Array<{ name?: string | null, values: Array<string | null> } | null>, values: Array<{ articleNumber: string, values: Array<string | null> } | null> } | null } | null };
+export type ProductVariantsQuery = {
+  product?: {
+    id: number;
+    articleNumber: string;
+    variants?: {
+      options: Array<{
+        name?: string | null;
+        values: Array<string | null>;
+      } | null>;
+      values: Array<{
+        articleNumber: string;
+        values: Array<string | null>;
+      } | null>;
+    } | null;
+  } | null;
+};
 
 export type RouteQueryVariables = Exact<{
   path: Scalars['String'];
@@ -2346,8 +3887,993 @@ export type RouteQueryVariables = Exact<{
   filters?: InputMaybe<FilterInput>;
 }>;
 
-
-export type RouteQuery = { route?: { id: string, path: string, slug: string, canonicalPath?: string | null, breadcrumbs?: Array<string | null> | null, object?: { __typename: 'Category', id: number, name: string, mainHeader?: string | null, content?: string | null, breadcrumbText?: string | null, isDynamic: boolean, head?: { title?: string | null, metaTags?: Array<{ name?: string | null, content?: string | null } | null> | null } | null, images?: Array<{ width?: number | null, url?: any | null } | null> | null, data?: { id: string, items?: Array<{ type: string, children?: Array<{ type: string, properties?: Array<{ name: string, type: string, valueType?: ContentPropertyValueType | null, value?: { boolValue?: boolean | null } | { name: string, images?: Array<{ url?: any | null } | null> | null, primaryRoute?: { path: string } | null } | { value?: string | null, focalPointX?: number | null, focalPointY?: number | null } | { id: number, articleNumber: string, name: string, subName: string, shortDescription: string, description: string, mainHeader: string, primaryRoute?: { id: string, path: string, slug: string, breadcrumbs?: Array<string | null> | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | { value?: string | null } | null } | null> | null } | null> | null, properties?: Array<{ name: string, type: string, valueType?: ContentPropertyValueType | null, value?: { boolValue?: boolean | null } | { name: string, images?: Array<{ url?: any | null } | null> | null, primaryRoute?: { path: string } | null } | { value?: string | null, focalPointX?: number | null, focalPointY?: number | null } | { id: number, articleNumber: string, name: string, subName: string, shortDescription: string, description: string, mainHeader: string, primaryRoute?: { id: string, path: string, slug: string, breadcrumbs?: Array<string | null> | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | { value?: string | null } | null } | null> | null } | null> | null } | null, products?: { totalResults?: number | null, sortOrders?: Array<{ text: string, defaultDirection: SortDirection, value: ProductOrderOptions } | null> | null, filters?: Array<{ __typename: 'BooleanFilter', default?: boolean | null, id: string, name: string } | { __typename: 'ListFilter', id: string, name: string, items: Array<{ id: string, text: string, value: string, resultCount?: number | null } | null> } | { __typename: 'MultiListFilter', id: string, name: string, lists: Array<{ id: string, name: string, items: Array<{ id: string, value: string, text: string, resultCount?: number | null } | null> } | null> } | { __typename: 'NumericRangeFilter', id: string, min: any, max: any, name: string } | null> | null, result: Array<{ id: number, articleNumber: string, name: string, subName: string, isPackage?: boolean | null, primaryRoute?: { id: string, path: string, slug: string } | null, images?: Array<{ alt?: string | null, title?: string | null, url?: any | null, modifiedDate?: string | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, canonicalCategory?: { primaryRoute?: { path: string } | null } | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null> } | null } | { __typename: 'Page', name: string, mainHeader?: string | null, content?: string | null, pageId: string, head?: { title?: string | null, metaTags?: Array<{ name?: string | null, content?: string | null } | null> | null } | null, primaryRoute?: { id: string, path: string } | null, images?: Array<{ url?: any | null } | null> | null, data?: { id: string, items?: Array<{ type: string, children?: Array<{ type: string, properties?: Array<{ name: string, type: string, valueType?: ContentPropertyValueType | null, value?: { boolValue?: boolean | null } | { name: string, images?: Array<{ url?: any | null } | null> | null, primaryRoute?: { path: string } | null } | { value?: string | null, focalPointX?: number | null, focalPointY?: number | null } | { id: number, articleNumber: string, name: string, subName: string, shortDescription: string, description: string, mainHeader: string, primaryRoute?: { id: string, path: string, slug: string, breadcrumbs?: Array<string | null> | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | { value?: string | null } | null } | null> | null } | null> | null, properties?: Array<{ name: string, type: string, valueType?: ContentPropertyValueType | null, value?: { boolValue?: boolean | null } | { name: string, images?: Array<{ url?: any | null } | null> | null, primaryRoute?: { path: string } | null } | { value?: string | null, focalPointX?: number | null, focalPointY?: number | null } | { id: number, articleNumber: string, name: string, subName: string, shortDescription: string, description: string, mainHeader: string, primaryRoute?: { id: string, path: string, slug: string, breadcrumbs?: Array<string | null> | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | { value?: string | null } | null } | null> | null } | null> | null } | null, parent?: { id: string, name: string, primaryRoute?: { id: string, path: string } | null, subPages?: Array<{ id: string, name: string, primaryRoute?: { id: string, path: string } | null }> | null } | null, subPages?: Array<{ id: string, name: string, primaryRoute?: { id: string, path: string } | null }> | null } | { __typename: 'Product', id: number, articleNumber: string, name: string, subName: string, breadcrumbText?: string | null, shortDescription: string, description: string, hasVariants: boolean, isPackage?: boolean | null, hasConfigurations: boolean, head?: { title?: string | null, metaTags?: Array<{ name?: string | null, content?: string | null } | null> | null } | null, canonicalCategory?: { primaryRoute?: { path: string } | null } | null, categories?: Array<{ primaryRoute?: { path: string } | null } | null> | null, primaryRoute?: { path: string, id: string, breadcrumbs?: Array<string | null> | null } | null, stockStatus?: { buyable: boolean, maxOrderQuantity?: number | null, stockDate?: any | null, stockNotificationEnabled?: boolean | null, text?: string | null } | null, warehouseStock?: Array<{ stockLevel?: number | null, location?: { id: number, name?: string | null } | null } | null> | null, variants?: { options: Array<{ name?: string | null, values: Array<string | null> } | null>, values: Array<{ values: Array<string | null>, articleNumber: string, warehouseStock?: Array<{ stockLevel?: number | null, location?: { id: number, name?: string | null } | null } | null> | null, images?: Array<{ url?: any | null, modifiedDate?: string | null } | null> | null, stockStatus?: { buyable: boolean, maxOrderQuantity?: number | null, stockDate?: any | null, stockNotificationEnabled?: boolean | null, text?: string | null } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null> } | null, images?: Array<{ alt?: string | null, title?: string | null, url?: any | null, modifiedDate?: string | null } | null> | null, relatedProducts?: Array<{ id: number, articleNumber: string, name: string, subName: string, isPackage?: boolean | null, primaryRoute?: { id: string, path: string, slug: string } | null, images?: Array<{ alt?: string | null, title?: string | null, url?: any | null, modifiedDate?: string | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, canonicalCategory?: { primaryRoute?: { path: string } | null } | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, boolValue: boolean } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, htmlValue: string } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, listValues?: Array<string | null> | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, items?: Array<{ id: number, parentId?: number | null, title: string, value: string } | null> | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, preOrder?: { fromDate?: any | null, toDate?: any | null } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null, customerComments?: Array<{ name: string, required: boolean } | null> | null, inPackages?: Array<{ id: number, name: string, primaryRoute?: { id: string, path: string } | null }> | null, configurations?: Array<{ name?: string | null, options: Array<{ id: string, name?: string | null, price?: { exVat: any, incVat: any, vat: any } | null, priceCalculation?: { formula?: string | null, id: string, name?: string | null, variables?: Array<{ id: string, name?: string | null } | null> | null } | null } | null> } | null> | null, campaigns?: Array<{ id: number, name: string, primaryRoute?: { id: string, path: string } | null } | null> | null, package?: { price?: { incVat: any, exVat: any, vat: any } | null, discountValue?: { incVat: any, exVat: any, vat: any } | null, items: Array<{ minQuantity: number, product?: { id: number, name: string, articleNumber: string, hasVariants: boolean, hasConfigurations: boolean, subName: string, stockStatus?: { buyable: boolean, maxOrderQuantity?: number | null, stockDate?: any | null, stockNotificationEnabled?: boolean | null, text?: string | null } | null, primaryRoute?: { path: string, id: string } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, variants?: { options: Array<{ name?: string | null, values: Array<string | null> } | null>, values: Array<{ articleNumber: string, values: Array<string | null>, stockStatus?: { buyable: boolean, maxOrderQuantity?: number | null, stockDate?: any | null, stockNotificationEnabled?: boolean | null, text?: string | null } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null> } | null } | null, discount?: { percentage: any } | { valueExVat: any, valueIncVat: any, valueVat: any } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null }> } | null } | { __typename: 'StartPage', isActive?: boolean | null, breadcrumbText?: string | null, name: string, content?: string | null, head?: { title?: string | null, metaTags?: Array<{ name?: string | null, content?: string | null } | null> | null } | null, primaryRoute?: { canonicalPath?: string | null, alternateRoutes?: Array<{ channelId?: number | null, culture?: string | null, route?: string | null, alias?: string | null } | null> | null } | null, images?: Array<{ url?: any | null, width?: number | null, title?: string | null, height?: number | null } | null> | null, data?: { id: string, items?: Array<{ type: string, children?: Array<{ type: string, properties?: Array<{ name: string, type: string, valueType?: ContentPropertyValueType | null, value?: { boolValue?: boolean | null } | { name: string, images?: Array<{ url?: any | null } | null> | null, primaryRoute?: { path: string } | null } | { value?: string | null, focalPointX?: number | null, focalPointY?: number | null } | { id: number, articleNumber: string, name: string, subName: string, shortDescription: string, description: string, mainHeader: string, primaryRoute?: { id: string, path: string, slug: string, breadcrumbs?: Array<string | null> | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | { value?: string | null } | null } | null> | null } | null> | null, properties?: Array<{ name: string, type: string, valueType?: ContentPropertyValueType | null, value?: { boolValue?: boolean | null } | { name: string, images?: Array<{ url?: any | null } | null> | null, primaryRoute?: { path: string } | null } | { value?: string | null, focalPointX?: number | null, focalPointY?: number | null } | { id: number, articleNumber: string, name: string, subName: string, shortDescription: string, description: string, mainHeader: string, primaryRoute?: { id: string, path: string, slug: string, breadcrumbs?: Array<string | null> | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | { value?: string | null } | null } | null> | null } | null> | null } | null } | null, parents?: Array<{ id: string, path: string, slug: string } | null> | null, alternateRoutes?: Array<{ channelId?: number | null, culture?: string | null, route?: string | null, alias?: string | null } | null> | null } | null };
+export type RouteQuery = {
+  route?: {
+    id: string;
+    path: string;
+    slug: string;
+    canonicalPath?: string | null;
+    breadcrumbs?: Array<string | null> | null;
+    object?:
+      | {
+          __typename: 'Category';
+          id: number;
+          name: string;
+          mainHeader?: string | null;
+          content?: string | null;
+          breadcrumbText?: string | null;
+          isDynamic: boolean;
+          head?: {
+            title?: string | null;
+            metaTags?: Array<{
+              name?: string | null;
+              content?: string | null;
+            } | null> | null;
+          } | null;
+          images?: Array<{
+            width?: number | null;
+            url?: any | null;
+          } | null> | null;
+          data?: {
+            id: string;
+            items?: Array<{
+              type: string;
+              children?: Array<{
+                type: string;
+                properties?: Array<{
+                  name: string;
+                  type: string;
+                  valueType?: ContentPropertyValueType | null;
+                  value?:
+                    | { boolValue?: boolean | null }
+                    | {
+                        name: string;
+                        images?: Array<{ url?: any | null } | null> | null;
+                        primaryRoute?: { path: string } | null;
+                      }
+                    | {
+                        value?: string | null;
+                        focalPointX?: number | null;
+                        focalPointY?: number | null;
+                      }
+                    | {
+                        id: number;
+                        articleNumber: string;
+                        name: string;
+                        subName: string;
+                        shortDescription: string;
+                        description: string;
+                        mainHeader: string;
+                        primaryRoute?: {
+                          id: string;
+                          path: string;
+                          slug: string;
+                          breadcrumbs?: Array<string | null> | null;
+                        } | null;
+                        images?: Array<{
+                          modifiedDate?: string | null;
+                          alt?: string | null;
+                          title?: string | null;
+                          url?: any | null;
+                        } | null> | null;
+                        badges?: Array<{
+                          name?: string | null;
+                          url?: any | null;
+                          location?: ProductBadgeLocation | null;
+                          style?: string | null;
+                          text?: string | null;
+                        } | null> | null;
+                        customFields?: Array<
+                          | {
+                              key?: string | null;
+                              type?: ProductCustomFieldType | null;
+                              title?: string | null;
+                            }
+                          | {
+                              key?: string | null;
+                              type?: ProductCustomFieldType | null;
+                              title?: string | null;
+                            }
+                          | {
+                              key?: string | null;
+                              type?: ProductCustomFieldType | null;
+                              title?: string | null;
+                            }
+                          | {
+                              key?: string | null;
+                              type?: ProductCustomFieldType | null;
+                              title?: string | null;
+                            }
+                          | {
+                              key?: string | null;
+                              type?: ProductCustomFieldType | null;
+                              title?: string | null;
+                              stringValue: string;
+                            }
+                          | null
+                        > | null;
+                        price?: { incVat: any; exVat: any; vat: any } | null;
+                        previousPrice?: {
+                          incVat: any;
+                          exVat: any;
+                          vat: any;
+                        } | null;
+                      }
+                    | { value?: string | null }
+                    | null;
+                } | null> | null;
+              } | null> | null;
+              properties?: Array<{
+                name: string;
+                type: string;
+                valueType?: ContentPropertyValueType | null;
+                value?:
+                  | { boolValue?: boolean | null }
+                  | {
+                      name: string;
+                      images?: Array<{ url?: any | null } | null> | null;
+                      primaryRoute?: { path: string } | null;
+                    }
+                  | {
+                      value?: string | null;
+                      focalPointX?: number | null;
+                      focalPointY?: number | null;
+                    }
+                  | {
+                      id: number;
+                      articleNumber: string;
+                      name: string;
+                      subName: string;
+                      shortDescription: string;
+                      description: string;
+                      mainHeader: string;
+                      primaryRoute?: {
+                        id: string;
+                        path: string;
+                        slug: string;
+                        breadcrumbs?: Array<string | null> | null;
+                      } | null;
+                      images?: Array<{
+                        modifiedDate?: string | null;
+                        alt?: string | null;
+                        title?: string | null;
+                        url?: any | null;
+                      } | null> | null;
+                      badges?: Array<{
+                        name?: string | null;
+                        url?: any | null;
+                        location?: ProductBadgeLocation | null;
+                        style?: string | null;
+                        text?: string | null;
+                      } | null> | null;
+                      customFields?: Array<
+                        | {
+                            key?: string | null;
+                            type?: ProductCustomFieldType | null;
+                            title?: string | null;
+                          }
+                        | {
+                            key?: string | null;
+                            type?: ProductCustomFieldType | null;
+                            title?: string | null;
+                          }
+                        | {
+                            key?: string | null;
+                            type?: ProductCustomFieldType | null;
+                            title?: string | null;
+                          }
+                        | {
+                            key?: string | null;
+                            type?: ProductCustomFieldType | null;
+                            title?: string | null;
+                          }
+                        | {
+                            key?: string | null;
+                            type?: ProductCustomFieldType | null;
+                            title?: string | null;
+                            stringValue: string;
+                          }
+                        | null
+                      > | null;
+                      price?: { incVat: any; exVat: any; vat: any } | null;
+                      previousPrice?: {
+                        incVat: any;
+                        exVat: any;
+                        vat: any;
+                      } | null;
+                    }
+                  | { value?: string | null }
+                  | null;
+              } | null> | null;
+            } | null> | null;
+          } | null;
+          products?: {
+            totalResults?: number | null;
+            sortOrders?: Array<{
+              text: string;
+              defaultDirection: SortDirection;
+              value: ProductOrderOptions;
+            } | null> | null;
+            filters?: Array<
+              | {
+                  __typename: 'BooleanFilter';
+                  default?: boolean | null;
+                  id: string;
+                  name: string;
+                }
+              | {
+                  __typename: 'ListFilter';
+                  id: string;
+                  name: string;
+                  items: Array<{
+                    id: string;
+                    text: string;
+                    value: string;
+                    resultCount?: number | null;
+                  } | null>;
+                }
+              | {
+                  __typename: 'MultiListFilter';
+                  id: string;
+                  name: string;
+                  lists: Array<{
+                    id: string;
+                    name: string;
+                    items: Array<{
+                      id: string;
+                      value: string;
+                      text: string;
+                      resultCount?: number | null;
+                    } | null>;
+                  } | null>;
+                }
+              | {
+                  __typename: 'NumericRangeFilter';
+                  id: string;
+                  min: any;
+                  max: any;
+                  name: string;
+                }
+              | null
+            > | null;
+            result: Array<{
+              id: number;
+              articleNumber: string;
+              name: string;
+              subName: string;
+              isPackage?: boolean | null;
+              primaryRoute?: { id: string; path: string; slug: string } | null;
+              images?: Array<{
+                alt?: string | null;
+                title?: string | null;
+                url?: any | null;
+                modifiedDate?: string | null;
+              } | null> | null;
+              badges?: Array<{
+                name?: string | null;
+                url?: any | null;
+                location?: ProductBadgeLocation | null;
+                style?: string | null;
+                text?: string | null;
+              } | null> | null;
+              canonicalCategory?: {
+                primaryRoute?: { path: string } | null;
+              } | null;
+              customFields?: Array<
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                  }
+                | {
+                    key?: string | null;
+                    type?: ProductCustomFieldType | null;
+                    title?: string | null;
+                    stringValue: string;
+                  }
+                | null
+              > | null;
+              price?: { incVat: any; exVat: any; vat: any } | null;
+              previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+            } | null>;
+          } | null;
+        }
+      | {
+          __typename: 'Page';
+          name: string;
+          mainHeader?: string | null;
+          content?: string | null;
+          pageId: string;
+          head?: {
+            title?: string | null;
+            metaTags?: Array<{
+              name?: string | null;
+              content?: string | null;
+            } | null> | null;
+          } | null;
+          primaryRoute?: { id: string; path: string } | null;
+          images?: Array<{ url?: any | null } | null> | null;
+          data?: {
+            id: string;
+            items?: Array<{
+              type: string;
+              children?: Array<{
+                type: string;
+                properties?: Array<{
+                  name: string;
+                  type: string;
+                  valueType?: ContentPropertyValueType | null;
+                  value?:
+                    | { boolValue?: boolean | null }
+                    | {
+                        name: string;
+                        images?: Array<{ url?: any | null } | null> | null;
+                        primaryRoute?: { path: string } | null;
+                      }
+                    | {
+                        value?: string | null;
+                        focalPointX?: number | null;
+                        focalPointY?: number | null;
+                      }
+                    | {
+                        id: number;
+                        articleNumber: string;
+                        name: string;
+                        subName: string;
+                        shortDescription: string;
+                        description: string;
+                        mainHeader: string;
+                        primaryRoute?: {
+                          id: string;
+                          path: string;
+                          slug: string;
+                          breadcrumbs?: Array<string | null> | null;
+                        } | null;
+                        images?: Array<{
+                          modifiedDate?: string | null;
+                          alt?: string | null;
+                          title?: string | null;
+                          url?: any | null;
+                        } | null> | null;
+                        badges?: Array<{
+                          name?: string | null;
+                          url?: any | null;
+                          location?: ProductBadgeLocation | null;
+                          style?: string | null;
+                          text?: string | null;
+                        } | null> | null;
+                        customFields?: Array<
+                          | {
+                              key?: string | null;
+                              type?: ProductCustomFieldType | null;
+                              title?: string | null;
+                            }
+                          | {
+                              key?: string | null;
+                              type?: ProductCustomFieldType | null;
+                              title?: string | null;
+                            }
+                          | {
+                              key?: string | null;
+                              type?: ProductCustomFieldType | null;
+                              title?: string | null;
+                            }
+                          | {
+                              key?: string | null;
+                              type?: ProductCustomFieldType | null;
+                              title?: string | null;
+                            }
+                          | {
+                              key?: string | null;
+                              type?: ProductCustomFieldType | null;
+                              title?: string | null;
+                              stringValue: string;
+                            }
+                          | null
+                        > | null;
+                        price?: { incVat: any; exVat: any; vat: any } | null;
+                        previousPrice?: {
+                          incVat: any;
+                          exVat: any;
+                          vat: any;
+                        } | null;
+                      }
+                    | { value?: string | null }
+                    | null;
+                } | null> | null;
+              } | null> | null;
+              properties?: Array<{
+                name: string;
+                type: string;
+                valueType?: ContentPropertyValueType | null;
+                value?:
+                  | { boolValue?: boolean | null }
+                  | {
+                      name: string;
+                      images?: Array<{ url?: any | null } | null> | null;
+                      primaryRoute?: { path: string } | null;
+                    }
+                  | {
+                      value?: string | null;
+                      focalPointX?: number | null;
+                      focalPointY?: number | null;
+                    }
+                  | {
+                      id: number;
+                      articleNumber: string;
+                      name: string;
+                      subName: string;
+                      shortDescription: string;
+                      description: string;
+                      mainHeader: string;
+                      primaryRoute?: {
+                        id: string;
+                        path: string;
+                        slug: string;
+                        breadcrumbs?: Array<string | null> | null;
+                      } | null;
+                      images?: Array<{
+                        modifiedDate?: string | null;
+                        alt?: string | null;
+                        title?: string | null;
+                        url?: any | null;
+                      } | null> | null;
+                      badges?: Array<{
+                        name?: string | null;
+                        url?: any | null;
+                        location?: ProductBadgeLocation | null;
+                        style?: string | null;
+                        text?: string | null;
+                      } | null> | null;
+                      customFields?: Array<
+                        | {
+                            key?: string | null;
+                            type?: ProductCustomFieldType | null;
+                            title?: string | null;
+                          }
+                        | {
+                            key?: string | null;
+                            type?: ProductCustomFieldType | null;
+                            title?: string | null;
+                          }
+                        | {
+                            key?: string | null;
+                            type?: ProductCustomFieldType | null;
+                            title?: string | null;
+                          }
+                        | {
+                            key?: string | null;
+                            type?: ProductCustomFieldType | null;
+                            title?: string | null;
+                          }
+                        | {
+                            key?: string | null;
+                            type?: ProductCustomFieldType | null;
+                            title?: string | null;
+                            stringValue: string;
+                          }
+                        | null
+                      > | null;
+                      price?: { incVat: any; exVat: any; vat: any } | null;
+                      previousPrice?: {
+                        incVat: any;
+                        exVat: any;
+                        vat: any;
+                      } | null;
+                    }
+                  | { value?: string | null }
+                  | null;
+              } | null> | null;
+            } | null> | null;
+          } | null;
+          parent?: {
+            id: string;
+            name: string;
+            primaryRoute?: { id: string; path: string } | null;
+            subPages?: Array<{
+              id: string;
+              name: string;
+              primaryRoute?: { id: string; path: string } | null;
+            }> | null;
+          } | null;
+          subPages?: Array<{
+            id: string;
+            name: string;
+            primaryRoute?: { id: string; path: string } | null;
+          }> | null;
+        }
+      | {
+          __typename: 'Product';
+          id: number;
+          articleNumber: string;
+          name: string;
+          subName: string;
+          breadcrumbText?: string | null;
+          shortDescription: string;
+          description: string;
+          hasVariants: boolean;
+          isPackage?: boolean | null;
+          hasConfigurations: boolean;
+          head?: {
+            title?: string | null;
+            metaTags?: Array<{
+              name?: string | null;
+              content?: string | null;
+            } | null> | null;
+          } | null;
+          canonicalCategory?: { primaryRoute?: { path: string } | null } | null;
+          categories?: Array<{
+            primaryRoute?: { path: string } | null;
+          } | null> | null;
+          primaryRoute?: {
+            path: string;
+            id: string;
+            breadcrumbs?: Array<string | null> | null;
+          } | null;
+          stockStatus?: {
+            buyable: boolean;
+            maxOrderQuantity?: number | null;
+            stockDate?: any | null;
+            stockNotificationEnabled?: boolean | null;
+            text?: string | null;
+          } | null;
+          warehouseStock?: Array<{
+            stockLevel?: number | null;
+            location?: { id: number; name?: string | null } | null;
+          } | null> | null;
+          variants?: {
+            options: Array<{
+              name?: string | null;
+              values: Array<string | null>;
+            } | null>;
+            values: Array<{
+              values: Array<string | null>;
+              articleNumber: string;
+              warehouseStock?: Array<{
+                stockLevel?: number | null;
+                location?: { id: number; name?: string | null } | null;
+              } | null> | null;
+              images?: Array<{
+                url?: any | null;
+                modifiedDate?: string | null;
+              } | null> | null;
+              stockStatus?: {
+                buyable: boolean;
+                maxOrderQuantity?: number | null;
+                stockDate?: any | null;
+                stockNotificationEnabled?: boolean | null;
+                text?: string | null;
+              } | null;
+              price?: { incVat: any; exVat: any; vat: any } | null;
+              previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+            } | null>;
+          } | null;
+          images?: Array<{
+            alt?: string | null;
+            title?: string | null;
+            url?: any | null;
+            modifiedDate?: string | null;
+          } | null> | null;
+          relatedProducts?: Array<{
+            id: number;
+            articleNumber: string;
+            name: string;
+            subName: string;
+            isPackage?: boolean | null;
+            primaryRoute?: { id: string; path: string; slug: string } | null;
+            images?: Array<{
+              alt?: string | null;
+              title?: string | null;
+              url?: any | null;
+              modifiedDate?: string | null;
+            } | null> | null;
+            badges?: Array<{
+              name?: string | null;
+              url?: any | null;
+              location?: ProductBadgeLocation | null;
+              style?: string | null;
+              text?: string | null;
+            } | null> | null;
+            canonicalCategory?: {
+              primaryRoute?: { path: string } | null;
+            } | null;
+            customFields?: Array<
+              | {
+                  key?: string | null;
+                  type?: ProductCustomFieldType | null;
+                  title?: string | null;
+                }
+              | {
+                  key?: string | null;
+                  type?: ProductCustomFieldType | null;
+                  title?: string | null;
+                }
+              | {
+                  key?: string | null;
+                  type?: ProductCustomFieldType | null;
+                  title?: string | null;
+                }
+              | {
+                  key?: string | null;
+                  type?: ProductCustomFieldType | null;
+                  title?: string | null;
+                }
+              | {
+                  key?: string | null;
+                  type?: ProductCustomFieldType | null;
+                  title?: string | null;
+                  stringValue: string;
+                }
+              | null
+            > | null;
+            price?: { incVat: any; exVat: any; vat: any } | null;
+            previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+          } | null> | null;
+          customFields?: Array<
+            | {
+                key?: string | null;
+                type?: ProductCustomFieldType | null;
+                title?: string | null;
+                boolValue: boolean;
+              }
+            | {
+                key?: string | null;
+                type?: ProductCustomFieldType | null;
+                title?: string | null;
+                htmlValue: string;
+              }
+            | {
+                key?: string | null;
+                type?: ProductCustomFieldType | null;
+                title?: string | null;
+                listValues?: Array<string | null> | null;
+              }
+            | {
+                key?: string | null;
+                type?: ProductCustomFieldType | null;
+                title?: string | null;
+                items?: Array<{
+                  id: number;
+                  parentId?: number | null;
+                  title: string;
+                  value: string;
+                } | null> | null;
+              }
+            | {
+                key?: string | null;
+                type?: ProductCustomFieldType | null;
+                title?: string | null;
+                stringValue: string;
+              }
+            | null
+          > | null;
+          badges?: Array<{
+            name?: string | null;
+            url?: any | null;
+            location?: ProductBadgeLocation | null;
+            style?: string | null;
+            text?: string | null;
+          } | null> | null;
+          preOrder?: { fromDate?: any | null; toDate?: any | null } | null;
+          price?: { incVat: any; exVat: any; vat: any } | null;
+          previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+          customerComments?: Array<{
+            name: string;
+            required: boolean;
+          } | null> | null;
+          inPackages?: Array<{
+            id: number;
+            name: string;
+            primaryRoute?: { id: string; path: string } | null;
+          }> | null;
+          configurations?: Array<{
+            name?: string | null;
+            options: Array<{
+              id: string;
+              name?: string | null;
+              price?: { exVat: any; incVat: any; vat: any } | null;
+              priceCalculation?: {
+                formula?: string | null;
+                id: string;
+                name?: string | null;
+                variables?: Array<{
+                  id: string;
+                  name?: string | null;
+                } | null> | null;
+              } | null;
+            } | null>;
+          } | null> | null;
+          campaigns?: Array<{
+            id: number;
+            name: string;
+            primaryRoute?: { id: string; path: string } | null;
+          } | null> | null;
+          package?: {
+            price?: { incVat: any; exVat: any; vat: any } | null;
+            discountValue?: { incVat: any; exVat: any; vat: any } | null;
+            items: Array<{
+              minQuantity: number;
+              product?: {
+                id: number;
+                name: string;
+                articleNumber: string;
+                hasVariants: boolean;
+                hasConfigurations: boolean;
+                subName: string;
+                stockStatus?: {
+                  buyable: boolean;
+                  maxOrderQuantity?: number | null;
+                  stockDate?: any | null;
+                  stockNotificationEnabled?: boolean | null;
+                  text?: string | null;
+                } | null;
+                primaryRoute?: { path: string; id: string } | null;
+                images?: Array<{
+                  modifiedDate?: string | null;
+                  alt?: string | null;
+                  title?: string | null;
+                  url?: any | null;
+                } | null> | null;
+                variants?: {
+                  options: Array<{
+                    name?: string | null;
+                    values: Array<string | null>;
+                  } | null>;
+                  values: Array<{
+                    articleNumber: string;
+                    values: Array<string | null>;
+                    stockStatus?: {
+                      buyable: boolean;
+                      maxOrderQuantity?: number | null;
+                      stockDate?: any | null;
+                      stockNotificationEnabled?: boolean | null;
+                      text?: string | null;
+                    } | null;
+                    price?: { incVat: any; exVat: any; vat: any } | null;
+                    previousPrice?: {
+                      incVat: any;
+                      exVat: any;
+                      vat: any;
+                    } | null;
+                  } | null>;
+                } | null;
+              } | null;
+              discount?:
+                | { percentage: any }
+                | { valueExVat: any; valueIncVat: any; valueVat: any }
+                | null;
+              price?: { incVat: any; exVat: any; vat: any } | null;
+              previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+            }>;
+          } | null;
+        }
+      | {
+          __typename: 'StartPage';
+          isActive?: boolean | null;
+          breadcrumbText?: string | null;
+          name: string;
+          content?: string | null;
+          head?: {
+            title?: string | null;
+            metaTags?: Array<{
+              name?: string | null;
+              content?: string | null;
+            } | null> | null;
+          } | null;
+          primaryRoute?: {
+            canonicalPath?: string | null;
+            alternateRoutes?: Array<{
+              channelId?: number | null;
+              culture?: string | null;
+              route?: string | null;
+              alias?: string | null;
+            } | null> | null;
+          } | null;
+          images?: Array<{
+            url?: any | null;
+            width?: number | null;
+            title?: string | null;
+            height?: number | null;
+          } | null> | null;
+          data?: {
+            id: string;
+            items?: Array<{
+              type: string;
+              children?: Array<{
+                type: string;
+                properties?: Array<{
+                  name: string;
+                  type: string;
+                  valueType?: ContentPropertyValueType | null;
+                  value?:
+                    | { boolValue?: boolean | null }
+                    | {
+                        name: string;
+                        images?: Array<{ url?: any | null } | null> | null;
+                        primaryRoute?: { path: string } | null;
+                      }
+                    | {
+                        value?: string | null;
+                        focalPointX?: number | null;
+                        focalPointY?: number | null;
+                      }
+                    | {
+                        id: number;
+                        articleNumber: string;
+                        name: string;
+                        subName: string;
+                        shortDescription: string;
+                        description: string;
+                        mainHeader: string;
+                        primaryRoute?: {
+                          id: string;
+                          path: string;
+                          slug: string;
+                          breadcrumbs?: Array<string | null> | null;
+                        } | null;
+                        images?: Array<{
+                          modifiedDate?: string | null;
+                          alt?: string | null;
+                          title?: string | null;
+                          url?: any | null;
+                        } | null> | null;
+                        badges?: Array<{
+                          name?: string | null;
+                          url?: any | null;
+                          location?: ProductBadgeLocation | null;
+                          style?: string | null;
+                          text?: string | null;
+                        } | null> | null;
+                        customFields?: Array<
+                          | {
+                              key?: string | null;
+                              type?: ProductCustomFieldType | null;
+                              title?: string | null;
+                            }
+                          | {
+                              key?: string | null;
+                              type?: ProductCustomFieldType | null;
+                              title?: string | null;
+                            }
+                          | {
+                              key?: string | null;
+                              type?: ProductCustomFieldType | null;
+                              title?: string | null;
+                            }
+                          | {
+                              key?: string | null;
+                              type?: ProductCustomFieldType | null;
+                              title?: string | null;
+                            }
+                          | {
+                              key?: string | null;
+                              type?: ProductCustomFieldType | null;
+                              title?: string | null;
+                              stringValue: string;
+                            }
+                          | null
+                        > | null;
+                        price?: { incVat: any; exVat: any; vat: any } | null;
+                        previousPrice?: {
+                          incVat: any;
+                          exVat: any;
+                          vat: any;
+                        } | null;
+                      }
+                    | { value?: string | null }
+                    | null;
+                } | null> | null;
+              } | null> | null;
+              properties?: Array<{
+                name: string;
+                type: string;
+                valueType?: ContentPropertyValueType | null;
+                value?:
+                  | { boolValue?: boolean | null }
+                  | {
+                      name: string;
+                      images?: Array<{ url?: any | null } | null> | null;
+                      primaryRoute?: { path: string } | null;
+                    }
+                  | {
+                      value?: string | null;
+                      focalPointX?: number | null;
+                      focalPointY?: number | null;
+                    }
+                  | {
+                      id: number;
+                      articleNumber: string;
+                      name: string;
+                      subName: string;
+                      shortDescription: string;
+                      description: string;
+                      mainHeader: string;
+                      primaryRoute?: {
+                        id: string;
+                        path: string;
+                        slug: string;
+                        breadcrumbs?: Array<string | null> | null;
+                      } | null;
+                      images?: Array<{
+                        modifiedDate?: string | null;
+                        alt?: string | null;
+                        title?: string | null;
+                        url?: any | null;
+                      } | null> | null;
+                      badges?: Array<{
+                        name?: string | null;
+                        url?: any | null;
+                        location?: ProductBadgeLocation | null;
+                        style?: string | null;
+                        text?: string | null;
+                      } | null> | null;
+                      customFields?: Array<
+                        | {
+                            key?: string | null;
+                            type?: ProductCustomFieldType | null;
+                            title?: string | null;
+                          }
+                        | {
+                            key?: string | null;
+                            type?: ProductCustomFieldType | null;
+                            title?: string | null;
+                          }
+                        | {
+                            key?: string | null;
+                            type?: ProductCustomFieldType | null;
+                            title?: string | null;
+                          }
+                        | {
+                            key?: string | null;
+                            type?: ProductCustomFieldType | null;
+                            title?: string | null;
+                          }
+                        | {
+                            key?: string | null;
+                            type?: ProductCustomFieldType | null;
+                            title?: string | null;
+                            stringValue: string;
+                          }
+                        | null
+                      > | null;
+                      price?: { incVat: any; exVat: any; vat: any } | null;
+                      previousPrice?: {
+                        incVat: any;
+                        exVat: any;
+                        vat: any;
+                      } | null;
+                    }
+                  | { value?: string | null }
+                  | null;
+              } | null> | null;
+            } | null> | null;
+          } | null;
+        }
+      | null;
+    parents?: Array<{ id: string; path: string; slug: string } | null> | null;
+    alternateRoutes?: Array<{
+      channelId?: number | null;
+      culture?: string | null;
+      route?: string | null;
+      alias?: string | null;
+    } | null> | null;
+  } | null;
+};
 
 export type SearchQueryVariables = Exact<{
   term: Scalars['String'];
@@ -2356,99 +4882,4921 @@ export type SearchQueryVariables = Exact<{
   filters?: InputMaybe<FilterInput>;
 }>;
 
+export type SearchQuery = {
+  search?: {
+    products?: {
+      totalResults?: number | null;
+      filters?: Array<
+        | { default?: boolean | null; id: string; name: string }
+        | {
+            id: string;
+            name: string;
+            items: Array<{
+              id: string;
+              text: string;
+              value: string;
+              resultCount?: number | null;
+            } | null>;
+          }
+        | {
+            id: string;
+            name: string;
+            lists: Array<{
+              id: string;
+              name: string;
+              items: Array<{
+                id: string;
+                value: string;
+                text: string;
+                resultCount?: number | null;
+              } | null>;
+            } | null>;
+          }
+        | { id: string; min: any; max: any; name: string }
+        | null
+      > | null;
+      result: Array<{
+        id: number;
+        articleNumber: string;
+        name: string;
+        subName: string;
+        isPackage?: boolean | null;
+        primaryRoute?: { id: string; path: string; slug: string } | null;
+        images?: Array<{
+          alt?: string | null;
+          title?: string | null;
+          url?: any | null;
+          modifiedDate?: string | null;
+        } | null> | null;
+        badges?: Array<{
+          name?: string | null;
+          url?: any | null;
+          location?: ProductBadgeLocation | null;
+          style?: string | null;
+          text?: string | null;
+        } | null> | null;
+        canonicalCategory?: { primaryRoute?: { path: string } | null } | null;
+        customFields?: Array<
+          | {
+              key?: string | null;
+              type?: ProductCustomFieldType | null;
+              title?: string | null;
+            }
+          | {
+              key?: string | null;
+              type?: ProductCustomFieldType | null;
+              title?: string | null;
+            }
+          | {
+              key?: string | null;
+              type?: ProductCustomFieldType | null;
+              title?: string | null;
+            }
+          | {
+              key?: string | null;
+              type?: ProductCustomFieldType | null;
+              title?: string | null;
+            }
+          | {
+              key?: string | null;
+              type?: ProductCustomFieldType | null;
+              title?: string | null;
+              stringValue: string;
+            }
+          | null
+        > | null;
+        price?: { incVat: any; exVat: any; vat: any } | null;
+        previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+      } | null>;
+    } | null;
+  } | null;
+};
 
-export type SearchQuery = { search?: { products?: { totalResults?: number | null, filters?: Array<{ default?: boolean | null, id: string, name: string } | { id: string, name: string, items: Array<{ id: string, text: string, value: string, resultCount?: number | null } | null> } | { id: string, name: string, lists: Array<{ id: string, name: string, items: Array<{ id: string, value: string, text: string, resultCount?: number | null } | null> } | null> } | { id: string, min: any, max: any, name: string } | null> | null, result: Array<{ id: number, articleNumber: string, name: string, subName: string, isPackage?: boolean | null, primaryRoute?: { id: string, path: string, slug: string } | null, images?: Array<{ alt?: string | null, title?: string | null, url?: any | null, modifiedDate?: string | null } | null> | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, canonicalCategory?: { primaryRoute?: { path: string } | null } | null, customFields?: Array<{ key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null } | { key?: string | null, type?: ProductCustomFieldType | null, title?: string | null, stringValue: string } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null> } | null } | null };
+export type BadgeFragment = {
+  name?: string | null;
+  url?: any | null;
+  location?: ProductBadgeLocation | null;
+  style?: string | null;
+  text?: string | null;
+};
 
-export type BadgeFragment = { name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null };
+export type CartCoreFragmentFragment = {
+  id?: string | null;
+  externalCheckoutUrl?: any | null;
+  totalQuantity?: number | null;
+  productTotal?: { incVat: any; exVat: any; vat: any } | null;
+  productPreviousTotal?: { incVat: any; exVat: any; vat: any } | null;
+  discountTotal?: { incVat: any; exVat: any; vat: any } | null;
+  aggregatedDiscounts?: Array<{
+    name?: string | null;
+    description?: string | null;
+    value?: { incVat: any; exVat: any; vat: any } | null;
+    campaign?: { name: string } | null;
+  } | null> | null;
+  items?: Array<{
+    id: string;
+    quantity: number;
+    articleNumber: string;
+    subHeading?: string | null;
+    variant?: {
+      values: Array<string | null>;
+      articleNumber: string;
+      images?: Array<{
+        modifiedDate?: string | null;
+        url?: any | null;
+        alt?: string | null;
+        title?: string | null;
+      } | null> | null;
+      price?: { incVat: any; exVat: any; vat: any } | null;
+      previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+    } | null;
+    configurations?: Array<{
+      name?: string | null;
+      option: { id: string; name?: string | null };
+    } | null> | null;
+    discounts?: Array<{
+      name?: string | null;
+      description?: string | null;
+      value?: { incVat: any; exVat: any; vat: any } | null;
+    } | null> | null;
+    discount?: { incVat: any; exVat: any; vat: any } | null;
+    total: { incVat: any; exVat: any; vat: any };
+    previousTotal: { incVat: any; exVat: any; vat: any };
+    product?: {
+      id: number;
+      name: string;
+      articleNumber: string;
+      primaryRoute?: { id: string; path: string } | null;
+      images?: Array<{
+        modifiedDate?: string | null;
+        alt?: string | null;
+        title?: string | null;
+        url?: any | null;
+      } | null> | null;
+      canonicalCategory?: { primaryRoute?: { path: string } | null } | null;
+      price?: { incVat: any; exVat: any; vat: any } | null;
+      previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+    } | null;
+  } | null> | null;
+};
 
-export type CartCoreFragmentFragment = { id?: string | null, externalCheckoutUrl?: any | null, totalQuantity?: number | null, productTotal?: { incVat: any, exVat: any, vat: any } | null, productPreviousTotal?: { incVat: any, exVat: any, vat: any } | null, discountTotal?: { incVat: any, exVat: any, vat: any } | null, aggregatedDiscounts?: Array<{ name?: string | null, description?: string | null, value?: { incVat: any, exVat: any, vat: any } | null, campaign?: { name: string } | null } | null> | null, items?: Array<{ id: string, quantity: number, articleNumber: string, subHeading?: string | null, variant?: { values: Array<string | null>, articleNumber: string, images?: Array<{ modifiedDate?: string | null, url?: any | null, alt?: string | null, title?: string | null } | null> | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null, configurations?: Array<{ name?: string | null, option: { id: string, name?: string | null } } | null> | null, discounts?: Array<{ name?: string | null, description?: string | null, value?: { incVat: any, exVat: any, vat: any } | null } | null> | null, discount?: { incVat: any, exVat: any, vat: any } | null, total: { incVat: any, exVat: any, vat: any }, previousTotal: { incVat: any, exVat: any, vat: any }, product?: { id: number, name: string, articleNumber: string, primaryRoute?: { id: string, path: string } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, canonicalCategory?: { primaryRoute?: { path: string } | null } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null } | null> | null };
+export type CurrencyFragmentFragment = {
+  id: string;
+  name?: string | null;
+  isDefault?: boolean | null;
+  format?: { code: string; decimals: number } | null;
+};
 
-export type CurrencyFragmentFragment = { id: string, name?: string | null, isDefault?: boolean | null, format?: { code: string, decimals: number } | null };
+export type ChannelsFragmentFragment = {
+  id: number;
+  name?: string | null;
+  url?: any | null;
+  isDefault?: boolean | null;
+  displayName?: string | null;
+  imageUrl?: string | null;
+  requiresAuth?: boolean | null;
+  countries?: Array<{
+    name?: string | null;
+    code?: string | null;
+    isDefault?: boolean | null;
+  } | null> | null;
+  languages?: Array<{
+    culture: string;
+    name: string;
+    isDefault?: boolean | null;
+  } | null> | null;
+  currencies?: Array<{
+    id: string;
+    name?: string | null;
+    isDefault?: boolean | null;
+    format?: { code: string; decimals: number } | null;
+  } | null> | null;
+  defaultCurrency?: {
+    id: string;
+    name?: string | null;
+    isDefault?: boolean | null;
+    format?: { code: string; decimals: number } | null;
+  } | null;
+  defaultLanguage?: {
+    culture: string;
+    name: string;
+    isDefault?: boolean | null;
+  } | null;
+  settings?: {
+    nostoAccountId?: string | null;
+    pricesIncVat?: boolean | null;
+    tracking?: {
+      ga?: {
+        trackingId?: string | null;
+        useArticleNumberAsId?: boolean | null;
+      } | null;
+      gtm?: { containerId?: string | null } | null;
+      fca?: { accessToken?: string | null; pixelId?: string | null } | null;
+    } | null;
+  } | null;
+};
 
-export type ChannelsFragmentFragment = { id: number, name?: string | null, url?: any | null, isDefault?: boolean | null, displayName?: string | null, imageUrl?: string | null, requiresAuth?: boolean | null, countries?: Array<{ name?: string | null, code?: string | null, isDefault?: boolean | null } | null> | null, languages?: Array<{ culture: string, name: string, isDefault?: boolean | null } | null> | null, currencies?: Array<{ id: string, name?: string | null, isDefault?: boolean | null, format?: { code: string, decimals: number } | null } | null> | null, defaultCurrency?: { id: string, name?: string | null, isDefault?: boolean | null, format?: { code: string, decimals: number } | null } | null, defaultLanguage?: { culture: string, name: string, isDefault?: boolean | null } | null, settings?: { nostoAccountId?: string | null, pricesIncVat?: boolean | null, tracking?: { ga?: { trackingId?: string | null, useArticleNumberAsId?: boolean | null } | null, gtm?: { containerId?: string | null } | null, fca?: { accessToken?: string | null, pixelId?: string | null } | null } | null } | null };
+export type CommentsFragmentFragment = {
+  customerComments?: Array<{ name: string; required: boolean } | null> | null;
+};
 
-export type CommentsFragmentFragment = { customerComments?: Array<{ name: string, required: boolean } | null> | null };
+type Head_Category_Fragment = {
+  head?: {
+    title?: string | null;
+    metaTags?: Array<{
+      name?: string | null;
+      content?: string | null;
+    } | null> | null;
+  } | null;
+};
 
-type Head_Category_Fragment = { head?: { title?: string | null, metaTags?: Array<{ name?: string | null, content?: string | null } | null> | null } | null };
+type Head_Page_Fragment = {
+  head?: {
+    title?: string | null;
+    metaTags?: Array<{
+      name?: string | null;
+      content?: string | null;
+    } | null> | null;
+  } | null;
+};
 
-type Head_Page_Fragment = { head?: { title?: string | null, metaTags?: Array<{ name?: string | null, content?: string | null } | null> | null } | null };
+type Head_Product_Fragment = {
+  head?: {
+    title?: string | null;
+    metaTags?: Array<{
+      name?: string | null;
+      content?: string | null;
+    } | null> | null;
+  } | null;
+};
 
-type Head_Product_Fragment = { head?: { title?: string | null, metaTags?: Array<{ name?: string | null, content?: string | null } | null> | null } | null };
+type Head_StartPage_Fragment = {
+  head?: {
+    title?: string | null;
+    metaTags?: Array<{
+      name?: string | null;
+      content?: string | null;
+    } | null> | null;
+  } | null;
+};
 
-type Head_StartPage_Fragment = { head?: { title?: string | null, metaTags?: Array<{ name?: string | null, content?: string | null } | null> | null } | null };
+export type HeadFragment =
+  | Head_Category_Fragment
+  | Head_Page_Fragment
+  | Head_Product_Fragment
+  | Head_StartPage_Fragment;
 
-export type HeadFragment = Head_Category_Fragment | Head_Page_Fragment | Head_Product_Fragment | Head_StartPage_Fragment;
+export type PriceFragment = { incVat: any; exVat: any; vat: any };
 
-export type PriceFragment = { incVat: any, exVat: any, vat: any };
+export type ProductCampaignFragment = {
+  campaigns?: Array<{
+    id: number;
+    name: string;
+    primaryRoute?: { id: string; path: string } | null;
+  } | null> | null;
+};
 
-export type ProductCampaignFragment = { campaigns?: Array<{ id: number, name: string, primaryRoute?: { id: string, path: string } | null } | null> | null };
+export type ProductConfigurationsFragment = {
+  hasConfigurations: boolean;
+  configurations?: Array<{
+    name?: string | null;
+    options: Array<{
+      id: string;
+      name?: string | null;
+      price?: { exVat: any; incVat: any; vat: any } | null;
+      priceCalculation?: {
+        formula?: string | null;
+        id: string;
+        name?: string | null;
+        variables?: Array<{ id: string; name?: string | null } | null> | null;
+      } | null;
+    } | null>;
+  } | null> | null;
+};
 
-export type ProductConfigurationsFragment = { hasConfigurations: boolean, configurations?: Array<{ name?: string | null, options: Array<{ id: string, name?: string | null, price?: { exVat: any, incVat: any, vat: any } | null, priceCalculation?: { formula?: string | null, id: string, name?: string | null, variables?: Array<{ id: string, name?: string | null } | null> | null } | null } | null> } | null> | null };
+export type MinimalProductListDetailFragment = {
+  id: string;
+  name?: string | null;
+  items?: Array<{
+    variant?: { articleNumber: string } | null;
+    product?: { articleNumber: string } | null;
+  } | null> | null;
+};
 
-export type MinimalProductListDetailFragment = { id: string, name?: string | null, items?: Array<{ variant?: { articleNumber: string } | null, product?: { articleNumber: string } | null } | null> | null };
+export type VariantDetailFragment = {
+  id: string;
+  articleNumber: string;
+  values: Array<string | null>;
+  stockStatus?: { buyable: boolean; text?: string | null } | null;
+  images?: Array<{
+    modifiedDate?: string | null;
+    alt?: string | null;
+    title?: string | null;
+    url?: any | null;
+  } | null> | null;
+};
 
-export type VariantDetailFragment = { id: string, articleNumber: string, values: Array<string | null>, stockStatus?: { buyable: boolean, text?: string | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null };
+export type VariantsDetailFragment = {
+  options: Array<{ name?: string | null; values: Array<string | null> } | null>;
+  values: Array<{
+    id: string;
+    articleNumber: string;
+    values: Array<string | null>;
+    stockStatus?: { buyable: boolean; text?: string | null } | null;
+    images?: Array<{
+      modifiedDate?: string | null;
+      alt?: string | null;
+      title?: string | null;
+      url?: any | null;
+    } | null> | null;
+  } | null>;
+};
 
-export type VariantsDetailFragment = { options: Array<{ name?: string | null, values: Array<string | null> } | null>, values: Array<{ id: string, articleNumber: string, values: Array<string | null>, stockStatus?: { buyable: boolean, text?: string | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null } | null> };
+export type ProductDetailFragment = {
+  id: number;
+  articleNumber: string;
+  name: string;
+  subName: string;
+  hasConfigurations: boolean;
+  hasVariants: boolean;
+  isPreOrder?: boolean | null;
+  isPackage?: boolean | null;
+  stockStatus?: { buyable: boolean; text?: string | null } | null;
+  primaryRoute?: { id: string; path: string; slug: string } | null;
+  badges?: Array<{
+    name?: string | null;
+    url?: any | null;
+    location?: ProductBadgeLocation | null;
+    style?: string | null;
+    text?: string | null;
+  } | null> | null;
+  images?: Array<{
+    modifiedDate?: string | null;
+    alt?: string | null;
+    title?: string | null;
+    url?: any | null;
+  } | null> | null;
+  variants?: {
+    options: Array<{
+      name?: string | null;
+      values: Array<string | null>;
+    } | null>;
+    values: Array<{
+      id: string;
+      articleNumber: string;
+      values: Array<string | null>;
+      stockStatus?: { buyable: boolean; text?: string | null } | null;
+      images?: Array<{
+        modifiedDate?: string | null;
+        alt?: string | null;
+        title?: string | null;
+        url?: any | null;
+      } | null> | null;
+    } | null>;
+  } | null;
+  price?: { incVat: any; exVat: any; vat: any } | null;
+  previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+};
 
-export type ProductDetailFragment = { id: number, articleNumber: string, name: string, subName: string, hasConfigurations: boolean, hasVariants: boolean, isPreOrder?: boolean | null, isPackage?: boolean | null, stockStatus?: { buyable: boolean, text?: string | null } | null, primaryRoute?: { id: string, path: string, slug: string } | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, variants?: { options: Array<{ name?: string | null, values: Array<string | null> } | null>, values: Array<{ id: string, articleNumber: string, values: Array<string | null>, stockStatus?: { buyable: boolean, text?: string | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null } | null> } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null };
+export type ProductListFragmentFragment = {
+  id: string;
+  description?: string | null;
+  name?: string | null;
+  shareToken?: string | null;
+  items?: Array<{
+    quantity?: number | null;
+    description?: string | null;
+    product?: {
+      id: number;
+      articleNumber: string;
+      name: string;
+      subName: string;
+      hasConfigurations: boolean;
+      hasVariants: boolean;
+      isPreOrder?: boolean | null;
+      isPackage?: boolean | null;
+      stockStatus?: { buyable: boolean; text?: string | null } | null;
+      primaryRoute?: { id: string; path: string; slug: string } | null;
+      badges?: Array<{
+        name?: string | null;
+        url?: any | null;
+        location?: ProductBadgeLocation | null;
+        style?: string | null;
+        text?: string | null;
+      } | null> | null;
+      images?: Array<{
+        modifiedDate?: string | null;
+        alt?: string | null;
+        title?: string | null;
+        url?: any | null;
+      } | null> | null;
+      variants?: {
+        options: Array<{
+          name?: string | null;
+          values: Array<string | null>;
+        } | null>;
+        values: Array<{
+          id: string;
+          articleNumber: string;
+          values: Array<string | null>;
+          stockStatus?: { buyable: boolean; text?: string | null } | null;
+          images?: Array<{
+            modifiedDate?: string | null;
+            alt?: string | null;
+            title?: string | null;
+            url?: any | null;
+          } | null> | null;
+        } | null>;
+      } | null;
+      price?: { incVat: any; exVat: any; vat: any } | null;
+      previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+    } | null;
+    variant?: {
+      id: string;
+      articleNumber: string;
+      values: Array<string | null>;
+      stockStatus?: { buyable: boolean; text?: string | null } | null;
+      images?: Array<{
+        modifiedDate?: string | null;
+        alt?: string | null;
+        title?: string | null;
+        url?: any | null;
+      } | null> | null;
+    } | null;
+  } | null> | null;
+};
 
-export type ProductListFragmentFragment = { id: string, description?: string | null, name?: string | null, shareToken?: string | null, items?: Array<{ quantity?: number | null, description?: string | null, product?: { id: number, articleNumber: string, name: string, subName: string, hasConfigurations: boolean, hasVariants: boolean, isPreOrder?: boolean | null, isPackage?: boolean | null, stockStatus?: { buyable: boolean, text?: string | null } | null, primaryRoute?: { id: string, path: string, slug: string } | null, badges?: Array<{ name?: string | null, url?: any | null, location?: ProductBadgeLocation | null, style?: string | null, text?: string | null } | null> | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, variants?: { options: Array<{ name?: string | null, values: Array<string | null> } | null>, values: Array<{ id: string, articleNumber: string, values: Array<string | null>, stockStatus?: { buyable: boolean, text?: string | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null } | null> } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null } | null, variant?: { id: string, articleNumber: string, values: Array<string | null>, stockStatus?: { buyable: boolean, text?: string | null } | null, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null } | null } | null> | null };
+export type ProductMetadataFragment = {
+  name: string;
+  articleNumber: string;
+  description: string;
+  images?: Array<{
+    modifiedDate?: string | null;
+    alt?: string | null;
+    title?: string | null;
+    url?: any | null;
+  } | null> | null;
+  primaryRoute?: { id: string; path: string } | null;
+  canonicalCategory?: { name: string } | null;
+  price?: { incVat: any; exVat: any; vat: any } | null;
+  previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+};
 
-export type ProductMetadataFragment = { name: string, articleNumber: string, description: string, images?: Array<{ modifiedDate?: string | null, alt?: string | null, title?: string | null, url?: any | null } | null> | null, primaryRoute?: { id: string, path: string } | null, canonicalCategory?: { name: string } | null, price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null };
+export type ProductPriceFragment = {
+  price?: { incVat: any; exVat: any; vat: any } | null;
+  previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+};
 
-export type ProductPriceFragment = { price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null };
+export type ProductVariantPriceFragment = {
+  price?: { incVat: any; exVat: any; vat: any } | null;
+  previousPrice?: { incVat: any; exVat: any; vat: any } | null;
+};
 
-export type ProductVariantPriceFragment = { price?: { incVat: any, exVat: any, vat: any } | null, previousPrice?: { incVat: any, exVat: any, vat: any } | null };
+export type RouteCrumbFragment = {
+  id: string;
+  path: string;
+  slug: string;
+  canonicalPath?: string | null;
+  parents?: Array<{
+    id: string;
+    path: string;
+    slug: string;
+    object?:
+      | { breadcrumbText?: string | null }
+      | { breadcrumbText?: string | null }
+      | { breadcrumbText?: string | null }
+      | { breadcrumbText?: string | null }
+      | null;
+  } | null> | null;
+  alternateRoutes?: Array<{
+    channelId?: number | null;
+    culture?: string | null;
+    route?: string | null;
+    alias?: string | null;
+  } | null> | null;
+};
 
-export type RouteCrumbFragment = { id: string, path: string, slug: string, canonicalPath?: string | null, parents?: Array<{ id: string, path: string, slug: string, object?: { breadcrumbText?: string | null } | { breadcrumbText?: string | null } | { breadcrumbText?: string | null } | { breadcrumbText?: string | null } | null } | null> | null, alternateRoutes?: Array<{ channelId?: number | null, culture?: string | null, route?: string | null, alias?: string | null } | null> | null };
+export type RouteMetaFragment = {
+  id: string;
+  path: string;
+  slug: string;
+  canonicalPath?: string | null;
+  breadcrumbs?: Array<string | null> | null;
+  parents?: Array<{ id: string; path: string; slug: string } | null> | null;
+  alternateRoutes?: Array<{
+    channelId?: number | null;
+    culture?: string | null;
+    route?: string | null;
+    alias?: string | null;
+  } | null> | null;
+};
 
-export type RouteMetaFragment = { id: string, path: string, slug: string, canonicalPath?: string | null, breadcrumbs?: Array<string | null> | null, parents?: Array<{ id: string, path: string, slug: string } | null> | null, alternateRoutes?: Array<{ channelId?: number | null, culture?: string | null, route?: string | null, alias?: string | null } | null> | null };
+export type StockStatusFragment = {
+  buyable: boolean;
+  maxOrderQuantity?: number | null;
+  stockDate?: any | null;
+  stockNotificationEnabled?: boolean | null;
+  text?: string | null;
+};
 
-export type StockStatusFragment = { buyable: boolean, maxOrderQuantity?: number | null, stockDate?: any | null, stockNotificationEnabled?: boolean | null, text?: string | null };
-
-export const PriceFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Price"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Price"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"incVat"}},{"kind":"Field","name":{"kind":"Name","value":"exVat"}},{"kind":"Field","name":{"kind":"Name","value":"vat"}}]}}]} as unknown as DocumentNode<PriceFragment, unknown>;
-export const ProductPriceFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProductPrice"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Price"}}]}},{"kind":"Field","name":{"kind":"Name","value":"previousPrice"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Price"}}]}}]}},...PriceFragmentDoc.definitions]} as unknown as DocumentNode<ProductPriceFragment, unknown>;
-export const BadgeFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Badge"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ProductBadge"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"location"}},{"kind":"Field","name":{"kind":"Name","value":"style"}},{"kind":"Field","name":{"kind":"Name","value":"text"}}]}}]} as unknown as DocumentNode<BadgeFragment, unknown>;
-export const StartPageProductGridFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StartPageProductGrid"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"articleNumber"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"subName"}},{"kind":"Field","name":{"kind":"Name","value":"shortDescription"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"mainHeader"}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"breadcrumbs"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductPrice"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"modifiedDate"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"badges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Badge"}}]}},{"kind":"Field","name":{"kind":"Name","value":"customFields"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomStringField"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stringValue"},"name":{"kind":"Name","value":"value"}}]}}]}}]}},...ProductPriceFragmentDoc.definitions,...BadgeFragmentDoc.definitions]} as unknown as DocumentNode<StartPageProductGridFragment, unknown>;
-export const StartPageCategoryGridFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StartPageCategoryGrid"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Category"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"path"}}]}}]}}]} as unknown as DocumentNode<StartPageCategoryGridFragment, unknown>;
-export const ContentItemFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentItemFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ContentItem"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"properties"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"getImageAsImageValue"},"value":{"kind":"BooleanValue","value":true}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"valueType"}},{"kind":"Field","name":{"kind":"Name","value":"value"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ImageValue"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"focalPointX"}},{"kind":"Field","name":{"kind":"Name","value":"focalPointY"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StartPageProductGrid"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Category"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StartPageCategoryGrid"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StringValue"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BoolValue"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"boolValue"},"name":{"kind":"Name","value":"value"}}]}}]}}]}}]}},...StartPageProductGridFragmentDoc.definitions,...StartPageCategoryGridFragmentDoc.definitions]} as unknown as DocumentNode<ContentItemFragmentFragment, unknown>;
-export const ContentFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Content"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentItemFragment"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentItemFragment"}}]}}]}}]}},...ContentItemFragmentFragmentDoc.definitions]} as unknown as DocumentNode<ContentFragmentFragment, unknown>;
-export const ProductGridFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProductGrid"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"articleNumber"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"subName"}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isPackage"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductPrice"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"IntValue","value":"1"}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"modifiedDate"}}]}},{"kind":"Field","name":{"kind":"Name","value":"badges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Badge"}}]}},{"kind":"Field","name":{"kind":"Name","value":"canonicalCategory"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"path"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"customFields"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomStringField"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stringValue"},"name":{"kind":"Name","value":"value"}}]}}]}}]}},...ProductPriceFragmentDoc.definitions,...BadgeFragmentDoc.definitions]} as unknown as DocumentNode<ProductGridFragment, unknown>;
-export const CategoryPageFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CategoryPage"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Category"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"mainHeader"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"breadcrumbText"}},{"kind":"Field","name":{"kind":"Name","value":"isDynamic"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"products"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"offset"},"value":{"kind":"Variable","name":{"kind":"Name","value":"offset"}}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderBy"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}}},{"kind":"Argument","name":{"kind":"Name","value":"orderByDirection"},"value":{"kind":"Variable","name":{"kind":"Name","value":"orderByDirection"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"sortOrders"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"text"}},{"kind":"Field","name":{"kind":"Name","value":"defaultDirection"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}},{"kind":"Field","name":{"kind":"Name","value":"filters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ListFilter"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"resultCount"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"NumericRangeFilter"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"min"}},{"kind":"Field","name":{"kind":"Name","value":"max"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BooleanFilter"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"default"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MultiListFilter"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lists"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"text"}},{"kind":"Field","name":{"kind":"Name","value":"resultCount"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"totalResults"}},{"kind":"Field","name":{"kind":"Name","value":"result"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductGrid"}}]}}]}}]}},...ContentFragmentFragmentDoc.definitions,...ProductGridFragmentDoc.definitions]} as unknown as DocumentNode<CategoryPageFragment, unknown>;
-export const SubPageFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"SubPage"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Page"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}}]}}]}}]} as unknown as DocumentNode<SubPageFragment, unknown>;
-export const ContentPageFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ContentPage"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Page"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}}]}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"mainHeader"}},{"kind":"Field","alias":{"kind":"Name","value":"pageId"},"name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentItemFragment"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentItemFragment"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"parent"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}}]}},{"kind":"Field","name":{"kind":"Name","value":"subPages"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"includeHidden"},"value":{"kind":"BooleanValue","value":false}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SubPage"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"subPages"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"includeHidden"},"value":{"kind":"BooleanValue","value":false}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"SubPage"}}]}}]}},...ContentItemFragmentFragmentDoc.definitions,...SubPageFragmentDoc.definitions]} as unknown as DocumentNode<ContentPageFragment, unknown>;
-export const StockStatusFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StockStatus"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StockStatus"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"buyable"}},{"kind":"Field","name":{"kind":"Name","value":"maxOrderQuantity"}},{"kind":"Field","name":{"kind":"Name","value":"stockDate"}},{"kind":"Field","name":{"kind":"Name","value":"stockNotificationEnabled"}},{"kind":"Field","name":{"kind":"Name","value":"text"}}]}}]} as unknown as DocumentNode<StockStatusFragment, unknown>;
-export const WarehouseStockFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"WarehouseStock"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Warehouse"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"location"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"stockLevel"}}]}}]} as unknown as DocumentNode<WarehouseStockFragment, unknown>;
-export const CommentsFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CommentsFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customerComments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"required"}}]}}]}}]} as unknown as DocumentNode<CommentsFragmentFragment, unknown>;
-export const ProductVariantPriceFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProductVariantPrice"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ProductVariant"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Price"}}]}},{"kind":"Field","name":{"kind":"Name","value":"previousPrice"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Price"}}]}}]}},...PriceFragmentDoc.definitions]} as unknown as DocumentNode<ProductVariantPriceFragment, unknown>;
-export const InPackagesFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"InPackages"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"inPackages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}}]}}]}}]}}]} as unknown as DocumentNode<InPackagesFragment, unknown>;
-export const ProductConfigurationsFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProductConfigurations"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasConfigurations"}},{"kind":"Field","name":{"kind":"Name","value":"configurations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"options"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"exVat"}},{"kind":"Field","name":{"kind":"Name","value":"incVat"}},{"kind":"Field","name":{"kind":"Name","value":"vat"}}]}},{"kind":"Field","name":{"kind":"Name","value":"priceCalculation"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"formula"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"variables"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<ProductConfigurationsFragment, unknown>;
-export const ProductCampaignFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProductCampaign"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"campaigns"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}}]}}]}}]}}]} as unknown as DocumentNode<ProductCampaignFragment, unknown>;
-export const PackageProductFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PackageProductFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"isPackage"}},{"kind":"Field","name":{"kind":"Name","value":"package"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Price"}}]}},{"kind":"Field","name":{"kind":"Name","value":"discountValue"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Price"}}]}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"articleNumber"}},{"kind":"Field","name":{"kind":"Name","value":"hasVariants"}},{"kind":"Field","name":{"kind":"Name","value":"hasConfigurations"}},{"kind":"Field","name":{"kind":"Name","value":"stockStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StockStatus"}}]}},{"kind":"Field","name":{"kind":"Name","value":"subName"}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"path"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"modifiedDate"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"variants"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"options"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"values"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"articleNumber"}},{"kind":"Field","name":{"kind":"Name","value":"values"}},{"kind":"Field","name":{"kind":"Name","value":"stockStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StockStatus"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductVariantPrice"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"minQuantity"}},{"kind":"Field","name":{"kind":"Name","value":"discount"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PackageDiscountPercentage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"percentage"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"PackageDiscountValue"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"valueExVat"}},{"kind":"Field","name":{"kind":"Name","value":"valueIncVat"}},{"kind":"Field","name":{"kind":"Name","value":"valueVat"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"price"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Price"}}]}},{"kind":"Field","name":{"kind":"Name","value":"previousPrice"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Price"}}]}}]}}]}}]}},...PriceFragmentDoc.definitions,...StockStatusFragmentDoc.definitions,...ProductVariantPriceFragmentDoc.definitions]} as unknown as DocumentNode<PackageProductFragmentFragment, unknown>;
-export const ProductPageFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProductPage"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"articleNumber"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"subName"}},{"kind":"Field","name":{"kind":"Name","value":"breadcrumbText"}},{"kind":"Field","name":{"kind":"Name","value":"shortDescription"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"hasVariants"}},{"kind":"Field","name":{"kind":"Name","value":"isPackage"}},{"kind":"Field","name":{"kind":"Name","value":"canonicalCategory"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"path"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"path"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"path"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"breadcrumbs"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductPrice"}},{"kind":"Field","name":{"kind":"Name","value":"stockStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StockStatus"}}]}},{"kind":"Field","name":{"kind":"Name","value":"warehouseStock"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"WarehouseStock"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"CommentsFragment"}},{"kind":"Field","name":{"kind":"Name","value":"variants"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"options"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"values"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"warehouseStock"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"WarehouseStock"}}]}},{"kind":"Field","name":{"kind":"Name","value":"values"}},{"kind":"Field","name":{"kind":"Name","value":"articleNumber"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"modifiedDate"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductVariantPrice"}},{"kind":"Field","name":{"kind":"Name","value":"stockStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"StockStatus"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"modifiedDate"}}]}},{"kind":"Field","name":{"kind":"Name","value":"relatedProducts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductGrid"}}]}},{"kind":"Field","name":{"kind":"Name","value":"customFields"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomBoolField"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"boolValue"},"name":{"kind":"Name","value":"value"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomStringField"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"stringValue"},"name":{"kind":"Name","value":"value"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomHtmlField"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"htmlValue"},"name":{"kind":"Name","value":"value"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomListField"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","alias":{"kind":"Name","value":"listValues"},"name":{"kind":"Name","value":"value"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomMultiLevelListField"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"parentId"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"badges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Badge"}}]}},{"kind":"Field","name":{"kind":"Name","value":"preOrder"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"fromDate"}},{"kind":"Field","name":{"kind":"Name","value":"toDate"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"InPackages"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductConfigurations"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductCampaign"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"PackageProductFragment"}}]}},...ProductPriceFragmentDoc.definitions,...StockStatusFragmentDoc.definitions,...WarehouseStockFragmentDoc.definitions,...CommentsFragmentFragmentDoc.definitions,...ProductVariantPriceFragmentDoc.definitions,...ProductGridFragmentDoc.definitions,...BadgeFragmentDoc.definitions,...InPackagesFragmentDoc.definitions,...ProductConfigurationsFragmentDoc.definitions,...ProductCampaignFragmentDoc.definitions,...PackageProductFragmentFragmentDoc.definitions]} as unknown as DocumentNode<ProductPageFragment, unknown>;
-export const StartPageFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"StartPage"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"StartPage"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"head"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"metaTags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"canonicalPath"}},{"kind":"Field","name":{"kind":"Name","value":"alternateRoutes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"channelId"}},{"kind":"Field","name":{"kind":"Name","value":"culture"}},{"kind":"Field","name":{"kind":"Name","value":"route"}},{"kind":"Field","name":{"kind":"Name","value":"alias"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"isActive"}},{"kind":"Field","name":{"kind":"Name","value":"breadcrumbText"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"width"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"height"}}]}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentItemFragment"}},{"kind":"Field","name":{"kind":"Name","value":"children"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentItemFragment"}}]}}]}}]}}]}},...ContentItemFragmentFragmentDoc.definitions]} as unknown as DocumentNode<StartPageFragment, unknown>;
-export const CategoryDetailFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CategoryDetail"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Category"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"level"}},{"kind":"Field","name":{"kind":"Name","value":"parentId"}},{"kind":"Field","name":{"kind":"Name","value":"hasSubcategories"}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}}]}}]}}]} as unknown as DocumentNode<CategoryDetailFragment, unknown>;
-export const CategoriesWithSubcategoriesFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"categoriesWithSubcategories"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Category"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CategoryDetail"}},{"kind":"Field","name":{"kind":"Name","value":"subcategories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CategoryDetail"}}]}}]}},...CategoryDetailFragmentDoc.definitions]} as unknown as DocumentNode<CategoriesWithSubcategoriesFragment, unknown>;
-export const CartCoreFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CartCoreFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Cart"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"externalCheckoutUrl"}},{"kind":"Field","name":{"kind":"Name","value":"totalQuantity"}},{"kind":"Field","name":{"kind":"Name","value":"productTotal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Price"}}]}},{"kind":"Field","name":{"kind":"Name","value":"productPreviousTotal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Price"}}]}},{"kind":"Field","name":{"kind":"Name","value":"discountTotal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Price"}}]}},{"kind":"Field","name":{"kind":"Name","value":"aggregatedDiscounts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"value"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Price"}}]}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"campaign"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"quantity"}},{"kind":"Field","name":{"kind":"Name","value":"articleNumber"}},{"kind":"Field","name":{"kind":"Name","value":"subHeading"}},{"kind":"Field","name":{"kind":"Name","value":"variant"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"values"}},{"kind":"Field","name":{"kind":"Name","value":"articleNumber"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductVariantPrice"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"modifiedDate"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"configurations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"option"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"discounts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"value"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Price"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"discount"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Price"}}]}},{"kind":"Field","name":{"kind":"Name","value":"total"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Price"}}]}},{"kind":"Field","name":{"kind":"Name","value":"previousTotal"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Price"}}]}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"articleNumber"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductPrice"}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}}]}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"modifiedDate"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"canonicalCategory"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"path"}}]}}]}}]}}]}}]}},...PriceFragmentDoc.definitions,...ProductVariantPriceFragmentDoc.definitions,...ProductPriceFragmentDoc.definitions]} as unknown as DocumentNode<CartCoreFragmentFragment, unknown>;
-export const CurrencyFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CurrencyFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Currency"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"isDefault"}},{"kind":"Field","name":{"kind":"Name","value":"format"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"decimals"}}]}}]}}]} as unknown as DocumentNode<CurrencyFragmentFragment, unknown>;
-export const ChannelsFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ChannelsFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Channel"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"isDefault"}},{"kind":"Field","name":{"kind":"Name","value":"displayName"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"imageUrl"}},{"kind":"Field","name":{"kind":"Name","value":"requiresAuth"}},{"kind":"Field","name":{"kind":"Name","value":"countries"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"isDefault"}}]}},{"kind":"Field","name":{"kind":"Name","value":"languages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"culture"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"isDefault"}}]}},{"kind":"Field","name":{"kind":"Name","value":"currencies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CurrencyFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"defaultCurrency"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CurrencyFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"defaultLanguage"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"culture"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"isDefault"}}]}},{"kind":"Field","name":{"kind":"Name","value":"settings"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"nostoAccountId"}},{"kind":"Field","name":{"kind":"Name","value":"tracking"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ga"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"trackingId"}},{"kind":"Field","name":{"kind":"Name","value":"useArticleNumberAsId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"gtm"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"containerId"}}]}},{"kind":"Field","name":{"kind":"Name","value":"fca"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"accessToken"}},{"kind":"Field","name":{"kind":"Name","value":"pixelId"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pricesIncVat"}}]}}]}},...CurrencyFragmentFragmentDoc.definitions]} as unknown as DocumentNode<ChannelsFragmentFragment, unknown>;
-export const HeadFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Head"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Document"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"head"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"metaTags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"content"}}]}}]}}]}}]} as unknown as DocumentNode<HeadFragment, unknown>;
-export const MinimalProductListDetailFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MinimalProductListDetail"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomerProductList"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"variant"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"articleNumber"}}]}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"articleNumber"}}]}}]}}]}}]} as unknown as DocumentNode<MinimalProductListDetailFragment, unknown>;
-export const VariantDetailFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VariantDetail"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ProductVariant"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"articleNumber"}},{"kind":"Field","name":{"kind":"Name","value":"values"}},{"kind":"Field","name":{"kind":"Name","value":"stockStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"buyable"}},{"kind":"Field","name":{"kind":"Name","value":"text"}}]}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"modifiedDate"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]} as unknown as DocumentNode<VariantDetailFragment, unknown>;
-export const VariantsDetailFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"VariantsDetail"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ProductVariants"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"options"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"values"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VariantDetail"}}]}}]}},...VariantDetailFragmentDoc.definitions]} as unknown as DocumentNode<VariantsDetailFragment, unknown>;
-export const ProductDetailFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProductDetail"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"articleNumber"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"subName"}},{"kind":"Field","name":{"kind":"Name","value":"hasConfigurations"}},{"kind":"Field","name":{"kind":"Name","value":"hasVariants"}},{"kind":"Field","name":{"kind":"Name","value":"isPreOrder"}},{"kind":"Field","name":{"kind":"Name","value":"isPackage"}},{"kind":"Field","name":{"kind":"Name","value":"stockStatus"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"buyable"}},{"kind":"Field","name":{"kind":"Name","value":"text"}}]}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductPrice"}},{"kind":"Field","name":{"kind":"Name","value":"badges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Badge"}}]}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"modifiedDate"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"variants"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VariantsDetail"}}]}}]}},...ProductPriceFragmentDoc.definitions,...BadgeFragmentDoc.definitions,...VariantsDetailFragmentDoc.definitions]} as unknown as DocumentNode<ProductDetailFragment, unknown>;
-export const ProductListFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProductListFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CustomerProductList"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"shareToken"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"quantity"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"product"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductDetail"}}]}},{"kind":"Field","name":{"kind":"Name","value":"variant"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"VariantDetail"}}]}}]}}]}},...ProductDetailFragmentDoc.definitions,...VariantDetailFragmentDoc.definitions]} as unknown as DocumentNode<ProductListFragmentFragment, unknown>;
-export const ProductMetadataFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ProductMetadata"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Product"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"articleNumber"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductPrice"}},{"kind":"Field","name":{"kind":"Name","value":"images"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"modifiedDate"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}}]}},{"kind":"Field","name":{"kind":"Name","value":"canonicalCategory"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},...ProductPriceFragmentDoc.definitions]} as unknown as DocumentNode<ProductMetadataFragment, unknown>;
-export const RouteCrumbFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteCrumb"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"parents"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"object"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"breadcrumbText"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"canonicalPath"}},{"kind":"Field","name":{"kind":"Name","value":"alternateRoutes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"channelId"}},{"kind":"Field","name":{"kind":"Name","value":"culture"}},{"kind":"Field","name":{"kind":"Name","value":"route"}},{"kind":"Field","name":{"kind":"Name","value":"alias"}}]}}]}}]} as unknown as DocumentNode<RouteCrumbFragment, unknown>;
-export const RouteMetaFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"RouteMeta"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Route"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"parents"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}}]}},{"kind":"Field","name":{"kind":"Name","value":"canonicalPath"}},{"kind":"Field","name":{"kind":"Name","value":"alternateRoutes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"channelId"}},{"kind":"Field","name":{"kind":"Name","value":"culture"}},{"kind":"Field","name":{"kind":"Name","value":"route"}},{"kind":"Field","name":{"kind":"Name","value":"alias"}}]}},{"kind":"Field","name":{"kind":"Name","value":"breadcrumbs"}}]}}]} as unknown as DocumentNode<RouteMetaFragment, unknown>;
-export const AddMultipleToCartDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"addMultipleToCart"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cartId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"items"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddMultipleToCartInput"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addMultipleToCart"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"cartId"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cartId"}}},{"kind":"Argument","name":{"kind":"Name","value":"items"},"value":{"kind":"Variable","name":{"kind":"Name","value":"items"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cart"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CartCoreFragment"}}]}}]}}]}},...CartCoreFragmentFragmentDoc.definitions]} as unknown as DocumentNode<AddMultipleToCartMutation, AddMultipleToCartMutationVariables>;
-export const AddToCartDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"addToCart"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"AddToCartInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"addToCart"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cart"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CartCoreFragment"}}]}}]}}]}},...CartCoreFragmentFragmentDoc.definitions]} as unknown as DocumentNode<AddToCartMutation, AddToCartMutationVariables>;
-export const SubscribeToNewsletterDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"SubscribeToNewsletter"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"email"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"subscribeToNewsletter"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"email"},"value":{"kind":"Variable","name":{"kind":"Name","value":"email"}}}]}]}}]} as unknown as DocumentNode<SubscribeToNewsletterMutation, SubscribeToNewsletterMutationVariables>;
-export const AutocompleteDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Autocomplete"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"term"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"searchAutoComplete"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"term"},"value":{"kind":"Variable","name":{"kind":"Name","value":"term"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"result"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"path"}},{"kind":"Field","name":{"kind":"Name","value":"breadcrumbs"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"products"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"result"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"slug"}},{"kind":"Field","name":{"kind":"Name","value":"path"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<AutocompleteQuery, AutocompleteQueryVariables>;
-export const CartDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Cart"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"cartId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cart"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"cartId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CartCoreFragment"}}]}}]}},...CartCoreFragmentFragmentDoc.definitions]} as unknown as DocumentNode<CartQuery, CartQueryVariables>;
-export const NavTreeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"NavTree"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"root"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"levels"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"includeHidden"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"categories"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"root"},"value":{"kind":"Variable","name":{"kind":"Name","value":"root"}}},{"kind":"Argument","name":{"kind":"Name","value":"levels"},"value":{"kind":"Variable","name":{"kind":"Name","value":"levels"}}},{"kind":"Argument","name":{"kind":"Name","value":"includeHidden"},"value":{"kind":"Variable","name":{"kind":"Name","value":"includeHidden"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"categoriesWithSubcategories"}}]}}]}},...CategoriesWithSubcategoriesFragmentDoc.definitions]} as unknown as DocumentNode<NavTreeQuery, NavTreeQueryVariables>;
-export const PagesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Pages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"pages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}}]}},{"kind":"Field","name":{"kind":"Name","value":"subPages"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"primaryRoute"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"path"}}]}}]}}]}}]}}]} as unknown as DocumentNode<PagesQuery, PagesQueryVariables>;
-export const ProductVariantsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ProductVariants"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"articleNumber"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"product"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"articleNumber"},"value":{"kind":"Variable","name":{"kind":"Name","value":"articleNumber"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"articleNumber"}},{"kind":"Field","name":{"kind":"Name","value":"variants"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"options"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}},{"kind":"Field","name":{"kind":"Name","value":"values"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"articleNumber"}},{"kind":"Field","name":{"kind":"Name","value":"values"}}]}}]}}]}}]}}]} as unknown as DocumentNode<ProductVariantsQuery, ProductVariantsQueryVariables>;
-export const RouteDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Route"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"path"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Paging"}},"defaultValue":{"kind":"IntValue","value":"16"}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"offset"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}},"defaultValue":{"kind":"IntValue","value":"0"}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderBy"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ProductOrderOptions"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"orderByDirection"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"SortDirection"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"FilterInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"route"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"path"},"value":{"kind":"Variable","name":{"kind":"Name","value":"path"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"RouteMeta"}},{"kind":"Field","name":{"kind":"Name","value":"object"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"Head"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"CategoryPage"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductPage"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"ContentPage"}},{"kind":"FragmentSpread","name":{"kind":"Name","value":"StartPage"}}]}}]}}]}},...RouteMetaFragmentDoc.definitions,...HeadFragmentDoc.definitions,...CategoryPageFragmentDoc.definitions,...ProductPageFragmentDoc.definitions,...ContentPageFragmentDoc.definitions,...StartPageFragmentDoc.definitions]} as unknown as DocumentNode<RouteQuery, RouteQueryVariables>;
-export const SearchDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Search"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"term"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Paging"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"offset"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"filters"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"FilterInput"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"search"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"term"},"value":{"kind":"Variable","name":{"kind":"Name","value":"term"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"products"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"paging"},"value":{"kind":"ObjectValue","fields":[{"kind":"ObjectField","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"ObjectField","name":{"kind":"Name","value":"offset"},"value":{"kind":"Variable","name":{"kind":"Name","value":"offset"}}}]}},{"kind":"Argument","name":{"kind":"Name","value":"filters"},"value":{"kind":"Variable","name":{"kind":"Name","value":"filters"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"filters"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"ListFilter"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"text"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"resultCount"}}]}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"NumericRangeFilter"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"min"}},{"kind":"Field","name":{"kind":"Name","value":"max"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"BooleanFilter"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"default"}}]}},{"kind":"InlineFragment","typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MultiListFilter"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"lists"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"items"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"value"}},{"kind":"Field","name":{"kind":"Name","value":"text"}},{"kind":"Field","name":{"kind":"Name","value":"resultCount"}}]}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"totalResults"}},{"kind":"Field","name":{"kind":"Name","value":"result"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ProductGrid"}}]}}]}}]}}]}},...ProductGridFragmentDoc.definitions]} as unknown as DocumentNode<SearchQuery, SearchQueryVariables>;
+export const PriceFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Price' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Price' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'incVat' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'exVat' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'vat' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PriceFragment, unknown>;
+export const ProductPriceFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ProductPrice' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Product' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'price' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Price' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'previousPrice' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Price' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...PriceFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<ProductPriceFragment, unknown>;
+export const BadgeFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Badge' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ProductBadge' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'location' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'style' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<BadgeFragment, unknown>;
+export const StartPageProductGridFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'StartPageProductGrid' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Product' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'articleNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'subName' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'shortDescription' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'mainHeader' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'primaryRoute' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'breadcrumbs' } },
+              ],
+            },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'ProductPrice' },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'images' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'modifiedDate' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'badges' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Badge' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'customFields' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'key' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'CustomStringField' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'stringValue' },
+                        name: { kind: 'Name', value: 'value' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...ProductPriceFragmentDoc.definitions,
+    ...BadgeFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<StartPageProductGridFragment, unknown>;
+export const StartPageCategoryGridFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'StartPageCategoryGrid' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Category' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'images' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'primaryRoute' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<StartPageCategoryGridFragment, unknown>;
+export const ContentItemFragmentFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ContentItemFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ContentItem' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'properties' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'getImageAsImageValue' },
+                value: { kind: 'BooleanValue', value: true },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'valueType' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'value' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'ImageValue' },
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'value' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'focalPointX' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'focalPointY' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'Product' },
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: {
+                                kind: 'Name',
+                                value: 'StartPageProductGrid',
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'Category' },
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: {
+                                kind: 'Name',
+                                value: 'StartPageCategoryGrid',
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'StringValue' },
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'value' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'BoolValue' },
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              alias: { kind: 'Name', value: 'boolValue' },
+                              name: { kind: 'Name', value: 'value' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...StartPageProductGridFragmentDoc.definitions,
+    ...StartPageCategoryGridFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<ContentItemFragmentFragment, unknown>;
+export const ContentFragmentFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ContentFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Content' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'items' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'ContentItemFragment' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'children' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'ContentItemFragment' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...ContentItemFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<ContentFragmentFragment, unknown>;
+export const ProductGridFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ProductGrid' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Product' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'articleNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'subName' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'primaryRoute' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'isPackage' } },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'ProductPrice' },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'images' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'limit' },
+                value: { kind: 'IntValue', value: '1' },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'modifiedDate' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'badges' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Badge' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'canonicalCategory' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'primaryRoute' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'customFields' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'key' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'CustomStringField' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'stringValue' },
+                        name: { kind: 'Name', value: 'value' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...ProductPriceFragmentDoc.definitions,
+    ...BadgeFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<ProductGridFragment, unknown>;
+export const CategoryPageFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CategoryPage' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Category' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'mainHeader' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'content' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'breadcrumbText' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isDynamic' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'images' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'width' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'data' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'ContentFragment' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'products' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'first' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'first' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'offset' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'offset' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'filters' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'filters' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'orderBy' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'orderBy' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'orderByDirection' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'orderByDirection' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'sortOrders' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'defaultDirection' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'value' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'filters' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: '__typename' },
+                      },
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'ListFilter' },
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'items' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'id' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'text' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'value' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'resultCount',
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'NumericRangeFilter' },
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'min' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'max' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'name' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'BooleanFilter' },
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'default' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'InlineFragment',
+                        typeCondition: {
+                          kind: 'NamedType',
+                          name: { kind: 'Name', value: 'MultiListFilter' },
+                        },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'lists' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'id' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'name' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'items' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'id' },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'value',
+                                          },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'text' },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'resultCount',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'totalResults' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'result' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'ProductGrid' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...ContentFragmentFragmentDoc.definitions,
+    ...ProductGridFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<CategoryPageFragment, unknown>;
+export const SubPageFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'SubPage' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Page' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'primaryRoute' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<SubPageFragment, unknown>;
+export const ContentPageFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ContentPage' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Page' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'primaryRoute' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'mainHeader' } },
+          {
+            kind: 'Field',
+            alias: { kind: 'Name', value: 'pageId' },
+            name: { kind: 'Name', value: 'id' },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'content' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'images' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'data' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'items' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'ContentItemFragment' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'children' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: {
+                                kind: 'Name',
+                                value: 'ContentItemFragment',
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'parent' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'primaryRoute' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'subPages' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'includeHidden' },
+                      value: { kind: 'BooleanValue', value: false },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'SubPage' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'subPages' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'includeHidden' },
+                value: { kind: 'BooleanValue', value: false },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'SubPage' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...ContentItemFragmentFragmentDoc.definitions,
+    ...SubPageFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<ContentPageFragment, unknown>;
+export const StockStatusFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'StockStatus' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'StockStatus' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'buyable' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'maxOrderQuantity' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'stockDate' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'stockNotificationEnabled' },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<StockStatusFragment, unknown>;
+export const WarehouseStockFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'WarehouseStock' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Warehouse' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'location' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'stockLevel' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<WarehouseStockFragment, unknown>;
+export const CommentsFragmentFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CommentsFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Product' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'customerComments' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'required' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CommentsFragmentFragment, unknown>;
+export const ProductVariantPriceFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ProductVariantPrice' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ProductVariant' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'price' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Price' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'previousPrice' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Price' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...PriceFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<ProductVariantPriceFragment, unknown>;
+export const InPackagesFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'InPackages' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Product' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'inPackages' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'primaryRoute' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<InPackagesFragment, unknown>;
+export const ProductConfigurationsFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ProductConfigurations' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Product' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'hasConfigurations' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'configurations' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'options' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'price' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'exVat' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'incVat' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'vat' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'priceCalculation' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'formula' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'name' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'variables' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'id' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'name' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ProductConfigurationsFragment, unknown>;
+export const ProductCampaignFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ProductCampaign' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Product' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'campaigns' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'primaryRoute' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<ProductCampaignFragment, unknown>;
+export const PackageProductFragmentFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'PackageProductFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Product' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'isPackage' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'package' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'price' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'Price' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'discountValue' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'Price' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'items' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'product' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'name' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'articleNumber' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'hasVariants' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: {
+                                kind: 'Name',
+                                value: 'hasConfigurations',
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'stockStatus' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'FragmentSpread',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'StockStatus',
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'subName' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'primaryRoute' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'path' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'id' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'images' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'modifiedDate',
+                                    },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'alt' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'title' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'url' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'variants' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'options' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'name' },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'values',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'values' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'articleNumber',
+                                          },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'values',
+                                          },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'stockStatus',
+                                          },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              {
+                                                kind: 'FragmentSpread',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'StockStatus',
+                                                },
+                                              },
+                                            ],
+                                          },
+                                        },
+                                        {
+                                          kind: 'FragmentSpread',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'ProductVariantPrice',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'minQuantity' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'discount' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'InlineFragment',
+                              typeCondition: {
+                                kind: 'NamedType',
+                                name: {
+                                  kind: 'Name',
+                                  value: 'PackageDiscountPercentage',
+                                },
+                              },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'percentage' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'InlineFragment',
+                              typeCondition: {
+                                kind: 'NamedType',
+                                name: {
+                                  kind: 'Name',
+                                  value: 'PackageDiscountValue',
+                                },
+                              },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'valueExVat' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'valueIncVat',
+                                    },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'valueVat' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'price' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'Price' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'previousPrice' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'Price' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...PriceFragmentDoc.definitions,
+    ...StockStatusFragmentDoc.definitions,
+    ...ProductVariantPriceFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<PackageProductFragmentFragment, unknown>;
+export const ProductPageFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ProductPage' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Product' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'articleNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'subName' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'breadcrumbText' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'shortDescription' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasVariants' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isPackage' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'canonicalCategory' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'primaryRoute' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'categories' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'primaryRoute' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'primaryRoute' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'breadcrumbs' } },
+              ],
+            },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'ProductPrice' },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'stockStatus' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'StockStatus' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'warehouseStock' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'WarehouseStock' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'CommentsFragment' },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'variants' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'options' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'values' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'values' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'warehouseStock' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'WarehouseStock' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'values' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'articleNumber' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'images' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'url' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'modifiedDate' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'ProductVariantPrice' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'stockStatus' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'StockStatus' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'images' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'modifiedDate' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'relatedProducts' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'ProductGrid' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'customFields' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'key' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'type' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'CustomBoolField' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'boolValue' },
+                        name: { kind: 'Name', value: 'value' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'CustomStringField' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'stringValue' },
+                        name: { kind: 'Name', value: 'value' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'CustomHtmlField' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'htmlValue' },
+                        name: { kind: 'Name', value: 'value' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'CustomListField' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        alias: { kind: 'Name', value: 'listValues' },
+                        name: { kind: 'Name', value: 'value' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'InlineFragment',
+                  typeCondition: {
+                    kind: 'NamedType',
+                    name: { kind: 'Name', value: 'CustomMultiLevelListField' },
+                  },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'items' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'parentId' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'title' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'value' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'badges' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Badge' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'preOrder' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'fromDate' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'toDate' } },
+              ],
+            },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'InPackages' },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'ProductConfigurations' },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'ProductCampaign' },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'PackageProductFragment' },
+          },
+        ],
+      },
+    },
+    ...ProductPriceFragmentDoc.definitions,
+    ...StockStatusFragmentDoc.definitions,
+    ...WarehouseStockFragmentDoc.definitions,
+    ...CommentsFragmentFragmentDoc.definitions,
+    ...ProductVariantPriceFragmentDoc.definitions,
+    ...ProductGridFragmentDoc.definitions,
+    ...BadgeFragmentDoc.definitions,
+    ...InPackagesFragmentDoc.definitions,
+    ...ProductConfigurationsFragmentDoc.definitions,
+    ...ProductCampaignFragmentDoc.definitions,
+    ...PackageProductFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<ProductPageFragment, unknown>;
+export const StartPageFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'StartPage' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'StartPage' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'head' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'metaTags' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'content' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'primaryRoute' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'canonicalPath' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'alternateRoutes' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'channelId' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'culture' },
+                      },
+                      { kind: 'Field', name: { kind: 'Name', value: 'route' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'alias' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'isActive' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'breadcrumbText' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'content' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'images' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'width' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'height' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'data' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'items' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'ContentItemFragment' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'children' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: {
+                                kind: 'Name',
+                                value: 'ContentItemFragment',
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...ContentItemFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<StartPageFragment, unknown>;
+export const CategoryDetailFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CategoryDetail' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Category' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'level' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'parentId' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasSubcategories' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'primaryRoute' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CategoryDetailFragment, unknown>;
+export const CategoriesWithSubcategoriesFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'categoriesWithSubcategories' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Category' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'CategoryDetail' },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'subcategories' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CategoryDetail' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...CategoryDetailFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<CategoriesWithSubcategoriesFragment, unknown>;
+export const CartCoreFragmentFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CartCoreFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Cart' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'externalCheckoutUrl' },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'totalQuantity' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'productTotal' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Price' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'productPreviousTotal' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Price' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'discountTotal' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Price' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'aggregatedDiscounts' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'value' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'Price' },
+                      },
+                    ],
+                  },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'campaign' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'items' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'quantity' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'articleNumber' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'subHeading' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'variant' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'values' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'articleNumber' },
+                      },
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'ProductVariantPrice' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'images' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'modifiedDate' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'url' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'alt' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'title' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'configurations' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'option' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'name' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'discounts' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'description' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'value' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'Price' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'discount' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'Price' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'total' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'Price' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'previousTotal' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'Price' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'product' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'articleNumber' },
+                      },
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'ProductPrice' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'primaryRoute' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'path' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'images' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'modifiedDate' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'alt' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'title' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'url' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'canonicalCategory' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'primaryRoute' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'path' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...PriceFragmentDoc.definitions,
+    ...ProductVariantPriceFragmentDoc.definitions,
+    ...ProductPriceFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<CartCoreFragmentFragment, unknown>;
+export const CurrencyFragmentFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'CurrencyFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Currency' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isDefault' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'format' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'code' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'decimals' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<CurrencyFragmentFragment, unknown>;
+export const ChannelsFragmentFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ChannelsFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Channel' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isDefault' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'displayName' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'imageUrl' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'requiresAuth' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'countries' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'code' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'isDefault' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'languages' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'culture' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'isDefault' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'currencies' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CurrencyFragment' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'defaultCurrency' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CurrencyFragment' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'defaultLanguage' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'culture' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'isDefault' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'settings' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'nostoAccountId' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'tracking' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'ga' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'trackingId' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: {
+                                kind: 'Name',
+                                value: 'useArticleNumberAsId',
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'gtm' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'containerId' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'fca' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'accessToken' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'pixelId' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'pricesIncVat' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...CurrencyFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<ChannelsFragmentFragment, unknown>;
+export const HeadFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'Head' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Document' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'head' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'metaTags' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'content' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<HeadFragment, unknown>;
+export const MinimalProductListDetailFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'MinimalProductListDetail' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'CustomerProductList' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'items' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'variant' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'articleNumber' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'product' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'articleNumber' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<MinimalProductListDetailFragment, unknown>;
+export const VariantDetailFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'VariantDetail' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ProductVariant' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'articleNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'values' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'stockStatus' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'buyable' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'images' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'modifiedDate' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<VariantDetailFragment, unknown>;
+export const VariantsDetailFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'VariantsDetail' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'ProductVariants' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'options' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'values' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'values' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'VariantDetail' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...VariantDetailFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<VariantsDetailFragment, unknown>;
+export const ProductDetailFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ProductDetail' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Product' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'articleNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'subName' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasConfigurations' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'hasVariants' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isPreOrder' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'isPackage' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'stockStatus' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'buyable' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'text' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'primaryRoute' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+              ],
+            },
+          },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'ProductPrice' },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'badges' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'Badge' },
+                },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'images' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'modifiedDate' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'variants' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'VariantsDetail' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...ProductPriceFragmentDoc.definitions,
+    ...BadgeFragmentDoc.definitions,
+    ...VariantsDetailFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<ProductDetailFragment, unknown>;
+export const ProductListFragmentFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ProductListFragment' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'CustomerProductList' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'shareToken' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'items' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'quantity' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'product' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'ProductDetail' },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'variant' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'VariantDetail' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...ProductDetailFragmentDoc.definitions,
+    ...VariantDetailFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<ProductListFragmentFragment, unknown>;
+export const ProductMetadataFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'ProductMetadata' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Product' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'articleNumber' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'description' } },
+          {
+            kind: 'FragmentSpread',
+            name: { kind: 'Name', value: 'ProductPrice' },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'images' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'modifiedDate' },
+                },
+                { kind: 'Field', name: { kind: 'Name', value: 'alt' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'title' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'url' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'primaryRoute' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+              ],
+            },
+          },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'canonicalCategory' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...ProductPriceFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<ProductMetadataFragment, unknown>;
+export const RouteCrumbFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'RouteCrumb' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Route' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'parents' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'object' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'breadcrumbText' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'canonicalPath' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'alternateRoutes' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'channelId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'culture' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'route' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'alias' } },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<RouteCrumbFragment, unknown>;
+export const RouteMetaFragmentDoc = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'FragmentDefinition',
+      name: { kind: 'Name', value: 'RouteMeta' },
+      typeCondition: {
+        kind: 'NamedType',
+        name: { kind: 'Name', value: 'Route' },
+      },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+          { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'parents' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'slug' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'canonicalPath' } },
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'alternateRoutes' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'channelId' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'culture' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'route' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'alias' } },
+              ],
+            },
+          },
+          { kind: 'Field', name: { kind: 'Name', value: 'breadcrumbs' } },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<RouteMetaFragment, unknown>;
+export const AddMultipleToCartDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'addMultipleToCart' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'cartId' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'items' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'ListType',
+              type: {
+                kind: 'NamedType',
+                name: { kind: 'Name', value: 'AddMultipleToCartInput' },
+              },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'addMultipleToCart' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'cartId' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'cartId' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'items' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'items' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'cart' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'CartCoreFragment' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...CartCoreFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<
+  AddMultipleToCartMutation,
+  AddMultipleToCartMutationVariables
+>;
+export const AddToCartDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'addToCart' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'input' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'AddToCartInput' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'addToCart' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'input' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'input' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'cart' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'CartCoreFragment' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...CartCoreFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<AddToCartMutation, AddToCartMutationVariables>;
+export const SubscribeToNewsletterDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'mutation',
+      name: { kind: 'Name', value: 'SubscribeToNewsletter' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'email' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'subscribeToNewsletter' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'email' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'email' },
+                },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  SubscribeToNewsletterMutation,
+  SubscribeToNewsletterMutationVariables
+>;
+export const AutocompleteDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'Autocomplete' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'term' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'searchAutoComplete' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'term' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'term' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'categories' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'result' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'name' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'primaryRoute' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'id' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'slug' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'path' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: {
+                                      kind: 'Name',
+                                      value: 'breadcrumbs',
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'products' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'result' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'name' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'primaryRoute' },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'id' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'slug' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'path' },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<AutocompleteQuery, AutocompleteQueryVariables>;
+export const CartDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'Cart' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'cartId' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'String' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'cart' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'id' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'cartId' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'CartCoreFragment' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...CartCoreFragmentFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<CartQuery, CartQueryVariables>;
+export const NavTreeDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'NavTree' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'root' } },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'levels' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'includeHidden' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Boolean' } },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'categories' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'root' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'root' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'levels' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'levels' },
+                },
+              },
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'includeHidden' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'includeHidden' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'categoriesWithSubcategories' },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...CategoriesWithSubcategoriesFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<NavTreeQuery, NavTreeQueryVariables>;
+export const PagesDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'Pages' },
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'pages' },
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'primaryRoute' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'path' } },
+                    ],
+                  },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'subPages' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                      { kind: 'Field', name: { kind: 'Name', value: 'name' } },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'primaryRoute' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'path' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<PagesQuery, PagesQueryVariables>;
+export const ProductVariantsDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'ProductVariants' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'articleNumber' },
+          },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'product' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'articleNumber' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'articleNumber' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                { kind: 'Field', name: { kind: 'Name', value: 'id' } },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'articleNumber' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'variants' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'options' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'name' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'values' },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'values' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'articleNumber' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'values' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+  ],
+} as unknown as DocumentNode<
+  ProductVariantsQuery,
+  ProductVariantsQueryVariables
+>;
+export const RouteDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'Route' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'path' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'first' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Paging' } },
+          defaultValue: { kind: 'IntValue', value: '16' },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'offset' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+          defaultValue: { kind: 'IntValue', value: '0' },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'orderBy' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'ProductOrderOptions' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'orderByDirection' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'SortDirection' },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'filters' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'FilterInput' },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'route' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'path' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'path' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'FragmentSpread',
+                  name: { kind: 'Name', value: 'RouteMeta' },
+                },
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'object' },
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: '__typename' },
+                      },
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'Head' },
+                      },
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'CategoryPage' },
+                      },
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'ProductPage' },
+                      },
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'ContentPage' },
+                      },
+                      {
+                        kind: 'FragmentSpread',
+                        name: { kind: 'Name', value: 'StartPage' },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...RouteMetaFragmentDoc.definitions,
+    ...HeadFragmentDoc.definitions,
+    ...CategoryPageFragmentDoc.definitions,
+    ...ProductPageFragmentDoc.definitions,
+    ...ContentPageFragmentDoc.definitions,
+    ...StartPageFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<RouteQuery, RouteQueryVariables>;
+export const SearchDocument = {
+  kind: 'Document',
+  definitions: [
+    {
+      kind: 'OperationDefinition',
+      operation: 'query',
+      name: { kind: 'Name', value: 'Search' },
+      variableDefinitions: [
+        {
+          kind: 'VariableDefinition',
+          variable: { kind: 'Variable', name: { kind: 'Name', value: 'term' } },
+          type: {
+            kind: 'NonNullType',
+            type: {
+              kind: 'NamedType',
+              name: { kind: 'Name', value: 'String' },
+            },
+          },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'first' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Paging' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'offset' },
+          },
+          type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
+        },
+        {
+          kind: 'VariableDefinition',
+          variable: {
+            kind: 'Variable',
+            name: { kind: 'Name', value: 'filters' },
+          },
+          type: {
+            kind: 'NamedType',
+            name: { kind: 'Name', value: 'FilterInput' },
+          },
+        },
+      ],
+      selectionSet: {
+        kind: 'SelectionSet',
+        selections: [
+          {
+            kind: 'Field',
+            name: { kind: 'Name', value: 'search' },
+            arguments: [
+              {
+                kind: 'Argument',
+                name: { kind: 'Name', value: 'term' },
+                value: {
+                  kind: 'Variable',
+                  name: { kind: 'Name', value: 'term' },
+                },
+              },
+            ],
+            selectionSet: {
+              kind: 'SelectionSet',
+              selections: [
+                {
+                  kind: 'Field',
+                  name: { kind: 'Name', value: 'products' },
+                  arguments: [
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'paging' },
+                      value: {
+                        kind: 'ObjectValue',
+                        fields: [
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'first' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'first' },
+                            },
+                          },
+                          {
+                            kind: 'ObjectField',
+                            name: { kind: 'Name', value: 'offset' },
+                            value: {
+                              kind: 'Variable',
+                              name: { kind: 'Name', value: 'offset' },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                    {
+                      kind: 'Argument',
+                      name: { kind: 'Name', value: 'filters' },
+                      value: {
+                        kind: 'Variable',
+                        name: { kind: 'Name', value: 'filters' },
+                      },
+                    },
+                  ],
+                  selectionSet: {
+                    kind: 'SelectionSet',
+                    selections: [
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'filters' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'id' },
+                            },
+                            {
+                              kind: 'Field',
+                              name: { kind: 'Name', value: 'name' },
+                            },
+                            {
+                              kind: 'InlineFragment',
+                              typeCondition: {
+                                kind: 'NamedType',
+                                name: { kind: 'Name', value: 'ListFilter' },
+                              },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'items' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'id' },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'text' },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'value',
+                                          },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'resultCount',
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'InlineFragment',
+                              typeCondition: {
+                                kind: 'NamedType',
+                                name: {
+                                  kind: 'Name',
+                                  value: 'NumericRangeFilter',
+                                },
+                              },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'id' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'min' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'max' },
+                                  },
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'name' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'InlineFragment',
+                              typeCondition: {
+                                kind: 'NamedType',
+                                name: { kind: 'Name', value: 'BooleanFilter' },
+                              },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'default' },
+                                  },
+                                ],
+                              },
+                            },
+                            {
+                              kind: 'InlineFragment',
+                              typeCondition: {
+                                kind: 'NamedType',
+                                name: {
+                                  kind: 'Name',
+                                  value: 'MultiListFilter',
+                                },
+                              },
+                              selectionSet: {
+                                kind: 'SelectionSet',
+                                selections: [
+                                  {
+                                    kind: 'Field',
+                                    name: { kind: 'Name', value: 'lists' },
+                                    selectionSet: {
+                                      kind: 'SelectionSet',
+                                      selections: [
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'id' },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: { kind: 'Name', value: 'name' },
+                                        },
+                                        {
+                                          kind: 'Field',
+                                          name: {
+                                            kind: 'Name',
+                                            value: 'items',
+                                          },
+                                          selectionSet: {
+                                            kind: 'SelectionSet',
+                                            selections: [
+                                              {
+                                                kind: 'Field',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'id',
+                                                },
+                                              },
+                                              {
+                                                kind: 'Field',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'value',
+                                                },
+                                              },
+                                              {
+                                                kind: 'Field',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'text',
+                                                },
+                                              },
+                                              {
+                                                kind: 'Field',
+                                                name: {
+                                                  kind: 'Name',
+                                                  value: 'resultCount',
+                                                },
+                                              },
+                                            ],
+                                          },
+                                        },
+                                      ],
+                                    },
+                                  },
+                                ],
+                              },
+                            },
+                          ],
+                        },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'totalResults' },
+                      },
+                      {
+                        kind: 'Field',
+                        name: { kind: 'Name', value: 'result' },
+                        selectionSet: {
+                          kind: 'SelectionSet',
+                          selections: [
+                            {
+                              kind: 'FragmentSpread',
+                              name: { kind: 'Name', value: 'ProductGrid' },
+                            },
+                          ],
+                        },
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          },
+        ],
+      },
+    },
+    ...ProductGridFragmentDoc.definitions,
+  ],
+} as unknown as DocumentNode<SearchQuery, SearchQueryVariables>;

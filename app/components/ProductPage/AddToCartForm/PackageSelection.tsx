@@ -1,13 +1,13 @@
-import React from "react";
-import { Link } from "@remix-run/react";
-import type { RouteProduct } from "~/utils/types";
-import SelectionFactory from "./SelectionFactory";
-import { getProductType, ProductType } from "~/lib/utils/product";
-import { VariantOption } from "./VariantOption";
+import React from 'react';
+import { Link } from '@remix-run/react';
+import type { RouteProduct } from '~/utils/types';
+import SelectionFactory from './SelectionFactory';
+import { getProductType, ProductType } from '~/lib/utils/product';
+import { VariantOption } from './VariantOption';
 
 type PackageItemProps = {
   children?: React.ReactNode;
-  item: NonNullable<NonNullable<RouteProduct>["package"]>["items"][number];
+  item: NonNullable<NonNullable<RouteProduct>['package']>['items'][number];
 };
 const PackageItemWrapper = ({ children, item }: PackageItemProps) => {
   if (!item.product) return null;
@@ -15,22 +15,22 @@ const PackageItemWrapper = ({ children, item }: PackageItemProps) => {
   return (
     <div
       key={item?.product?.id}
-      className="flex py-4 border-b border-gray-100 last:border-none last:pb-0 first:pt-0"
+      className="flex border-b border-gray-100 py-4 first:pt-0 last:border-none last:pb-0"
     >
       <Link
-        to={item?.product.primaryRoute?.path || ""}
+        to={item?.product.primaryRoute?.path || ''}
         aria-disabled={!item?.product.primaryRoute?.path}
         className="mr-4 aria-disabled:pointer-events-none"
       >
         <img
           src={item?.product?.images?.[0]?.url}
           alt={item?.product.name}
-          className="inline-block object-contain w-20 h-20"
+          className="inline-block h-20 w-20 object-contain"
         />
       </Link>
       <div className="text-sm">
         <Link
-          to={item?.product.primaryRoute?.path || ""}
+          to={item?.product.primaryRoute?.path || ''}
           aria-disabled={!item?.product.primaryRoute?.path || undefined}
           className="aria-disabled:pointer-events-none"
         >
@@ -48,7 +48,7 @@ function PackageSelection({ product }: PackageSelectionProps) {
   return (
     <>
       <h1 className="my-4 text-lg font-bold">Included products</h1>
-      <div className="px-6 py-4 bg-white border border-gray-100 rounded-md">
+      <div className="rounded-md border border-gray-100 bg-white px-6 py-4">
         {product.package?.items.map((item) => {
           if (!item?.product) return null;
           const productType = getProductType(item.product);

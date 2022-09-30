@@ -1,4 +1,4 @@
-export const isDev = process.env.NODE_ENV === "development";
+export const isDev = process.env.NODE_ENV === 'development';
 
 /**
  * If you don't care about the order of the items

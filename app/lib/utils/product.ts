@@ -1,16 +1,16 @@
-import { useMemo } from "react";
-import type { RouteProduct } from "~/utils/types";
-import { useTransitionalParams } from "./useTransitionalParams";
+import { useMemo } from 'react';
+import type { RouteProduct } from '~/utils/types';
+import { useTransitionalParams } from './useTransitionalParams';
 
 export enum ProductType {
-  Basic = "Basic",
-  Variant = "Variant",
-  Package = "Package",
-  Configuration = "Configuration",
+  Basic = 'Basic',
+  Variant = 'Variant',
+  Package = 'Package',
+  Configuration = 'Configuration',
 }
 
 export const getProductType: (
-  product: Pick<RouteProduct, "hasVariants" | "isPackage" | "hasConfigurations">
+  product: Pick<RouteProduct, 'hasVariants' | 'isPackage' | 'hasConfigurations'>
 ) => ProductType = (product) => {
   if (product.hasVariants) return ProductType.Variant;
   if (product.isPackage) return ProductType.Package;

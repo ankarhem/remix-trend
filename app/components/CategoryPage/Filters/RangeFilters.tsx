@@ -37,34 +37,34 @@ function RangeFilter({
   return (
     <Popover key={filter.id}>
       {({ open }) => (
-        <div className='relative md:w-52'>
-          <Popover.Button className='relative w-full py-2 pl-3 pr-10 text-left bg-white rounded shadow-md cursor-default focus:outline-none focus:ring-2 focus:ring-blue-400 sm:text-sm'>
-            <span className='block truncate'>{filter.name}</span>
-            <span className='absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none'>
+        <div className="relative md:w-52">
+          <Popover.Button className="relative w-full cursor-default rounded bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 sm:text-sm">
+            <span className="block truncate">{filter.name}</span>
+            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <SelectorIcon
-                className='w-5 h-5 text-gray-400'
-                aria-hidden='true'
+                className="h-5 w-5 text-gray-400"
+                aria-hidden="true"
               />
             </span>
           </Popover.Button>
           <Transition
             show={open}
             as={Fragment}
-            leave='transition ease-in duration-100'
-            leaveFrom='opacity-100'
-            leaveTo='opacity-0'
+            leave="transition ease-in duration-100"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
           >
-            <Popover.Panel className='absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg focus:outline-none max-h-60 ring-1 ring-black ring-opacity-5 sm:text-sm'>
-              <div className='flex flex-col gap-4 p-4'>
+            <Popover.Panel className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+              <div className="flex flex-col gap-4 p-4">
                 <ReactSlider
-                  className='h-4 mt-6'
+                  className="mt-6 h-4"
                   value={values}
                   onChange={(v) => setValues(v)}
                   ariaLabel={['Lower thumb', 'Upper thumb']}
                   ariaValuetext={(state) => `Thumb value ${state.valueNow}`}
                   renderThumb={(props, state) => (
                     <div {...props}>
-                      <span className='inline-block w-4 h-4 bg-blue-400 rounded-full hover:bg-blue-500' />
+                      <span className="inline-block h-4 w-4 rounded-full bg-blue-400 hover:bg-blue-500" />
                       <span
                         className={`absolute -top-6 left-1/2 -translate-x-1/2`}
                       >
@@ -75,7 +75,7 @@ function RangeFilter({
                   renderTrack={(props, state) => (
                     <div
                       {...props}
-                      className={`${props.className} h-4 flex items-center`}
+                      className={`${props.className} flex h-4 items-center`}
                     >
                       <span
                         className={`h-0.5 w-full rounded ${
@@ -92,8 +92,8 @@ function RangeFilter({
                     id: filter.id,
                     value: `${values[0]}${VALUES_SEPERATOR}${values[1]}`,
                   })}
-                  className='block w-full py-2 text-center bg-blue-400 rounded hover:bg-blue-500 text-blue-50 focus:bg-blue-500'
-                  prefetch='intent'
+                  className="block w-full rounded bg-blue-400 py-2 text-center text-blue-50 hover:bg-blue-500 focus:bg-blue-500"
+                  prefetch="intent"
                 >
                   {urlMin !== values[0] || urlMax !== values[1]
                     ? 'Apply'

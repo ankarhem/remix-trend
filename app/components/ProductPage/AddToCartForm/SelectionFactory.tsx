@@ -1,10 +1,10 @@
-import React from "react";
-import { Link } from "@remix-run/react";
-import { getProductType, ProductType } from "~/lib/utils/product";
-import { type RouteProduct } from "~/utils/types";
-import { ConfigurationOption } from "./ConfigurationOption";
-import { VariantOption } from "./VariantOption";
-import PackageSelection from "./PackageSelection";
+import React from 'react';
+import { Link } from '@remix-run/react';
+import { getProductType, ProductType } from '~/lib/utils/product';
+import { type RouteProduct } from '~/utils/types';
+import { ConfigurationOption } from './ConfigurationOption';
+import { VariantOption } from './VariantOption';
+import PackageSelection from './PackageSelection';
 
 type Props = {
   product: RouteProduct;

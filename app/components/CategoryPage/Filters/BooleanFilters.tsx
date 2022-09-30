@@ -31,12 +31,12 @@ function BooleanFilters({
         return (
           <label
             key={filter.id}
-            className='flex items-center gap-4 text-sm hover:cursor-pointer'
+            className="flex items-center gap-4 text-sm hover:cursor-pointer"
           >
             {filter.name}
             <input
-              className='p-2.5 rounded text-blue-400 focus:ring-blue-400 hover:ring'
-              type='checkbox'
+              className="rounded p-2.5 text-blue-400 hover:ring focus:ring-blue-400"
+              type="checkbox"
               checked={value}
               onChange={(event) => {
                 const path = toggleFilterPath(filter.__typename, {

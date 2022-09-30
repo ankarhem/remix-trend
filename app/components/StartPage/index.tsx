@@ -24,7 +24,7 @@ const components: ContentComponents = {
 
 function StartPage({ startPage }: Props) {
   return (
-    <div className='grid gap-8'>
+    <div className="grid gap-8">
       <ContentRenderer
         items={startPage.data?.items || undefined}
         components={components}

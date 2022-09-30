@@ -19,25 +19,25 @@ function Hero({
   isAboveFold,
 }: z.infer<typeof HeroSchema>) {
   return (
-    <div className='relative w-full'>
+    <div className="relative w-full">
       <img
         src={imageSrc}
-        alt='hero'
-        className='object-cover w-full aspect-video'
+        alt="hero"
+        className="aspect-video w-full object-cover"
         loading={isAboveFold ? 'eager' : 'lazy'}
       />
 
-      <div className='absolute inset-0 flex flex-col items-start justify-center from-blue-700/90 to-transparent bg-gradient-to-br'>
-        <div className='p-4'>
-          <h2 className='mb-8 text-3xl font-bold text-white'>{header}</h2>
+      <div className="absolute inset-0 flex flex-col items-start justify-center bg-gradient-to-br from-blue-700/90 to-transparent">
+        <div className="p-4">
+          <h2 className="mb-8 text-3xl font-bold text-white">{header}</h2>
           {text && (
-            <p className='mb-8 text-lg font-medium text-gray-50'>{text}</p>
+            <p className="mb-8 text-lg font-medium text-gray-50">{text}</p>
           )}
           {buttonLink && buttonText && (
             <Link
               to={buttonLink}
-              className='px-4 py-2 font-bold text-white bg-blue-700 rounded hover:bg-blue-800'
-              role='button'
+              className="rounded bg-blue-700 px-4 py-2 font-bold text-white hover:bg-blue-800"
+              role="button"
             >
               {buttonText}
             </Link>

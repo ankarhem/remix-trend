@@ -1,8 +1,8 @@
-import { Listbox, Transition } from "@headlessui/react";
-import { SelectorIcon } from "@heroicons/react/outline";
-import { Fragment } from "react";
-import Price from "~/components/Price";
-import type { RouteProduct } from "~/utils/types";
+import { Listbox, Transition } from '@headlessui/react';
+import { SelectorIcon } from '@heroicons/react/outline';
+import { Fragment } from 'react';
+import Price from '~/components/Price';
+import type { RouteProduct } from '~/utils/types';
 
 export const ConfigurationOption = ({
   product,
@@ -10,7 +10,7 @@ export const ConfigurationOption = ({
 }: {
   product: RouteProduct;
   configuration: NonNullable<
-    NonNullable<RouteProduct["configurations"]>[number]
+    NonNullable<RouteProduct['configurations']>[number]
   >;
 }) => {
   if (!configuration?.name) return null;
@@ -23,10 +23,10 @@ export const ConfigurationOption = ({
 
   return (
     <div className="mb-4 w-72">
-      <Listbox name={"_configurationId"} defaultValue={defaultValue}>
+      <Listbox name={'_configurationId'} defaultValue={defaultValue}>
         <Listbox.Label>{configuration.name}</Listbox.Label>
         <div className="relative mt-1">
-          <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded shadow-md cursor-default focus:outline-none focus:ring-2 focus:ring-blue-400 sm:text-sm">
+          <Listbox.Button className="relative w-full cursor-default rounded bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 sm:text-sm">
             {({ value }) => {
               const selectedOption = getOptionFromId(value);
               return (
@@ -39,9 +39,9 @@ export const ConfigurationOption = ({
                       <Price price={selectedOption?.price} />
                     </span>
                   </div>
-                  <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                  <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <SelectorIcon
-                      className="w-5 h-5 text-gray-400"
+                      className="h-5 w-5 text-gray-400"
                       aria-hidden="true"
                     />
                   </span>
@@ -55,7 +55,7 @@ export const ConfigurationOption = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg focus:outline-none max-h-60 ring-1 ring-black ring-opacity-5 sm:text-sm">
+            <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
               {configuration.options.map((option) => {
                 if (!option) return null;
 
@@ -64,8 +64,8 @@ export const ConfigurationOption = ({
                     key={option.id}
                     value={option.id}
                     className={({ active }) =>
-                      `block relative text-gray-900 cursor-default select-none hover:text-blue-500 hover-bg-blue-50 py-2 pl-3 pr-4 ${
-                        active ? "bg-blue-50 text-blue-500" : ""
+                      `hover-bg-blue-50 relative block cursor-default select-none py-2 pl-3 pr-4 text-gray-900 hover:text-blue-500 ${
+                        active ? 'bg-blue-50 text-blue-500' : ''
                       }`
                     }
                   >

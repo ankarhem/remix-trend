@@ -23,21 +23,21 @@ export const SearchField = ({ className, ...inputProps }: Props) => {
   return (
     <>
       <Form
-        method='get'
-        className={`px-4 sm:px-8 max-w-md mx-auto`}
-        action='/search'
+        method="get"
+        className={`mx-auto max-w-md px-4 sm:px-8`}
+        action="/search"
       >
         <input
-          name='term'
+          name="term"
           value={term}
           onChange={(e) => setTerm(e.target.value)}
-          type='search'
-          className={`rounded-lg flex-1 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:ring-blue-400 focus:ring-1 focus:hover:ring-2 focus:border-blue-400 hover:ring ${
+          type="search"
+          className={`w-full flex-1 rounded-lg bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 shadow-sm hover:ring focus:border-blue-400 focus:ring-1 focus:ring-blue-400 focus:hover:ring-2 ${
             className ? className : ''
           }`}
-          placeholder='Search...'
+          placeholder="Search..."
           autoFocus
-          autoComplete='off'
+          autoComplete="off"
           {...inputProps}
         />
       </Form>

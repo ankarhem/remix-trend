@@ -1,5 +1,5 @@
-import { RadioGroup } from "@headlessui/react";
-import type { RouteProduct } from "~/utils/types";
+import { RadioGroup } from '@headlessui/react';
+import type { RouteProduct } from '~/utils/types';
 
 export const VariantOption = ({
   name,
@@ -8,7 +8,7 @@ export const VariantOption = ({
 }: {
   name: string;
   product: RouteProduct;
-  option: NonNullable<NonNullable<RouteProduct["variants"]>["options"][number]>;
+  option: NonNullable<NonNullable<RouteProduct['variants']>['options'][number]>;
 }) => {
   if (!option?.name) return null;
   const defaultValue = option.values[0];
@@ -33,9 +33,9 @@ export const VariantOption = ({
               key={value}
               value={value}
               className={({ active, checked }) =>
-                `${active ? "ring-2 ring-blue-200 " : ""}
-                ${checked ? "bg-blue-400 text-blue-50" : "bg-white"}
-                  relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none aria-disabled:bg-gray-100/80 aria-disabled:cursor-not-allowed`
+                `${active ? 'ring-2 ring-blue-200 ' : ''}
+                ${checked ? 'bg-blue-400 text-blue-50' : 'bg-white'}
+                  relative flex cursor-pointer rounded-lg px-5 py-4 shadow-md focus:outline-none aria-disabled:cursor-not-allowed aria-disabled:bg-gray-100/80`
               }
             >
               {value}

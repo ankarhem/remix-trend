@@ -30,7 +30,7 @@ function NewsletterSubscriptionForm() {
 
   return (
     <>
-      <h2 className="mb-4 font-bold text-gray-700 uppercase text-md md:text-right">
+      <h2 className="text-md mb-4 font-bold uppercase text-gray-700 md:text-right">
         Join our newsletter
       </h2>
 
@@ -39,12 +39,12 @@ function NewsletterSubscriptionForm() {
           <fieldset
             aria-disabled={state === 'submitting'}
             disabled={state === 'submitting'}
-            className="flex flex-col flex-wrap max-w-sm space-y-3 md:flex-row md:w-full md:space-x-3 md:space-y-0 "
+            className="flex max-w-sm flex-col flex-wrap space-y-3 md:w-full md:flex-row md:space-x-3 md:space-y-0 "
           >
             <input type="hidden" name="_subscriptionType" value="newsletter" />
             <input
               type="email"
-              className="flex-1 w-full px-4 py-2 text-base text-gray-700 placeholder-gray-400 bg-white rounded shadow-sm hover:ring-gray-500/50 focus:ring-gray-500 hover:ring focus:ring-1 focus:hover:ring focus:border-gray-500 aria-disabled:bg-gray-100/95 aria-disabled:cursor-not-allowed"
+              className="w-full flex-1 rounded bg-white px-4 py-2 text-base text-gray-700 placeholder-gray-400 shadow-sm hover:ring hover:ring-gray-500/50 focus:border-gray-500 focus:ring-1 focus:ring-gray-500 focus:hover:ring aria-disabled:cursor-not-allowed aria-disabled:bg-gray-100/95"
               placeholder="Email"
               name="email"
               aria-describedby="error-message"
@@ -53,12 +53,12 @@ function NewsletterSubscriptionForm() {
               ref={inputRef}
             />
             <button
-              className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-gray-500 rounded shadow-md hover:bg-gray-600 focus:outline-none focus:ring-1 focus:hover:ring focus:ring-gray-600 aria-disabled:bg-gray-100/95 aria-disabled:cursor-not-allowed"
+              className="flex-shrink-0 rounded bg-gray-500 px-4 py-2 text-base font-semibold text-white shadow-md hover:bg-gray-600 focus:outline-none focus:ring-1 focus:ring-gray-600 focus:hover:ring aria-disabled:cursor-not-allowed aria-disabled:bg-gray-100/95"
               type="submit"
             >
               Subscribe
             </button>
-            <div className="relative pt-1 min-w-[100%] w-100">
+            <div className="w-100 relative min-w-[100%] pt-1">
               <p
                 aria-hidden={data?.subscribed ? false : true}
                 className="absolute text-sm aria-hidden:invisible"
@@ -85,10 +85,10 @@ function NewsletterSubscriptionForm() {
 function Footer() {
   const { pages } = useLoaderData<LayoutQueries>();
   return (
-    <footer className="py-8 mt-6 bg-white">
-      <div className="container grid grid-cols-2 pb-20 mx-auto md:grid-cols-3 justify-items-center md:justify-items-start gap-y-6">
+    <footer className="mt-6 bg-white py-8">
+      <div className="container mx-auto grid grid-cols-2 justify-items-center gap-y-6 pb-20 md:grid-cols-3 md:justify-items-start">
         <section>
-          <h2 className="mb-4 font-bold text-gray-700 uppercase text-md">
+          <h2 className="text-md mb-4 font-bold uppercase text-gray-700">
             Remix Store
           </h2>
           <ul>
@@ -108,7 +108,7 @@ function Footer() {
           </ul>
         </section>
         <section>
-          <h2 className="mb-4 font-bold text-gray-700 uppercase text-md">
+          <h2 className="text-md mb-4 font-bold uppercase text-gray-700">
             Address
           </h2>
           <address className="text-gray-500">
@@ -117,11 +117,11 @@ function Footer() {
             <p>Sweden</p>
           </address>
         </section>
-        <section className="flex flex-col items-center w-full md:justify-self-end col-span-full md:col-span-1 md:items-end">
+        <section className="col-span-full flex w-full flex-col items-center md:col-span-1 md:items-end md:justify-self-end">
           <NewsletterSubscriptionForm />
         </section>
       </div>
-      <div className="flex items-center justify-center max-w-xs gap-6 pt-8 mx-auto border-t border-gray-200">
+      <div className="mx-auto flex max-w-xs items-center justify-center gap-6 border-t border-gray-200 pt-8">
         <button aria-label="Go to facebook">
           <svg
             width="20"
@@ -163,7 +163,7 @@ function Footer() {
           </svg>
         </button>
       </div>
-      <div className="flex items-center justify-center pt-10 font-light text-center text-gray-700 sm:pt-12">
+      <div className="flex items-center justify-center pt-10 text-center font-light text-gray-700 sm:pt-12">
         Powered by Jetshop
       </div>
     </footer>

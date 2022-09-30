@@ -1,18 +1,18 @@
-import { Response } from "@remix-run/node";
-import type { TypedResponse } from "@remix-run/node";
-import { type DataFunctionArgs, json, type Session } from "@remix-run/node";
-import { badRequest, serverError } from "remix-utils";
-import { commitSession, getSession } from "~/cookies";
-import type { AddMultipleToCartMutation } from "~/graphql/types";
+import { Response } from '@remix-run/node';
+import type { TypedResponse } from '@remix-run/node';
+import { type DataFunctionArgs, json, type Session } from '@remix-run/node';
+import { badRequest, serverError } from 'remix-utils';
+import { commitSession, getSession } from '~/cookies';
+import type { AddMultipleToCartMutation } from '~/graphql/types';
 import {
   type AddToCartMutation,
   ProductVariantsDocument,
   AddMultipleToCartDocument,
-} from "~/graphql/types";
-import { AddToCartDocument } from "~/graphql/types";
-import { sendJetshopRequest, type StoreAPIResponse } from "~/lib/jetshop";
-import { ProductType } from "~/lib/utils/product";
-import { arraysEqual } from "~/utils/common";
+} from '~/graphql/types';
+import { AddToCartDocument } from '~/graphql/types';
+import { sendJetshopRequest, type StoreAPIResponse } from '~/lib/jetshop';
+import { ProductType } from '~/lib/utils/product';
+import { arraysEqual } from '~/utils/common';
 
 const setCartIdAndReturnData = async (
   session: Session,
@@ -25,14 +25,14 @@ const setCartIdAndReturnData = async (
   const newCartId = data?.cart?.id;
 
   if (!newCartId) {
-    throw badRequest({ message: "Invalid cart id returned" });
+    throw badRequest({ message: 'Invalid cart id returned' });
   }
 
-  session.set("cartId", newCartId);
+  session.set('cartId', newCartId);
 
   return json(cart, {
     headers: {
-      "Set-Cookie": await commitSession(session),
+      'Set-Cookie': await commitSession(session),
     },
   });
 };
@@ -62,7 +62,7 @@ const getVariantFromOptions = async ({
         throw badRequest({
           errors: [
             {
-              message: "Invalid variant combination selected",
+              message: 'Invalid variant combination selected',
             },
           ],
         });
@@ -77,20 +77,20 @@ const getVariantFromOptions = async ({
 export const action = async (
   args: DataFunctionArgs
 ): Promise<TypedResponse<StoreAPIResponse<AddToCartMutation>>> => {
-  const cookieHeader = args.request.headers.get("Cookie");
+  const cookieHeader = args.request.headers.get('Cookie');
   const session = await getSession(cookieHeader);
-  const cartId = session.get("cartId");
+  const cartId = session.get('cartId');
   const formData = await args.request.formData();
 
-  const articleNumber = formData.get("_articleNumber");
+  const articleNumber = formData.get('_articleNumber');
 
   try {
-    if (typeof articleNumber !== "string") {
+    if (typeof articleNumber !== 'string') {
       throw badRequest({
-        errors: [{ message: "Invalid article number" }],
+        errors: [{ message: 'Invalid article number' }],
       });
     }
-    switch (formData.get("_productType")) {
+    switch (formData.get('_productType')) {
       case ProductType.Basic: {
         const cartResult = await sendJetshopRequest({
           args,
@@ -108,8 +108,8 @@ export const action = async (
       }
       case ProductType.Variant: {
         const variantValues = [
-          formData.get("_variantOption_0"),
-          formData.get("_variantOption_1"),
+          formData.get('_variantOption_0'),
+          formData.get('_variantOption_1'),
         ].filter(Boolean) as FormDataEntryValue[];
 
         const variant = await getVariantFromOptions({
@@ -120,7 +120,7 @@ export const action = async (
 
         if (!variant) {
           throw badRequest({
-            errors: [{ message: "No purchasable variant found" }],
+            errors: [{ message: 'No purchasable variant found' }],
           });
         }
 
@@ -140,7 +140,7 @@ export const action = async (
       }
 
       case ProductType.Configuration: {
-        const configurationIds = formData.getAll("_configurationId");
+        const configurationIds = formData.getAll('_configurationId');
 
         const cartResult = await sendJetshopRequest({
           args,
@@ -148,7 +148,7 @@ export const action = async (
           variables: {
             input: {
               cartId: cartId,
-              articleNumber: formData.get("_articleNumber") as string,
+              articleNumber: formData.get('_articleNumber') as string,
               configurationIds: configurationIds as string[],
             },
           },
@@ -159,7 +159,7 @@ export const action = async (
       }
       case ProductType.Package: {
         const basicProducts = formData
-          .getAll("_BasicProduct")
+          .getAll('_BasicProduct')
           .map((articleNumber) => ({ articleNumber: articleNumber as string }));
 
         /**
@@ -179,16 +179,16 @@ export const action = async (
         > = new Map();
 
         for (const [name, value] of formData.entries()) {
-          if (!name.startsWith("_packageVariantOption_")) continue;
+          if (!name.startsWith('_packageVariantOption_')) continue;
 
-          if (typeof value !== "string") {
+          if (typeof value !== 'string') {
             throw badRequest({
               errors: [{ message: `Invalid selection` }],
             });
           }
 
           // _packageVariantOption_<articleNumber>_<index>
-          const [, , articleNumber, index] = name.split("_");
+          const [, , articleNumber, index] = name.split('_');
           if (!variantProductOptions.has(articleNumber)) {
             variantProductOptions.set(articleNumber, new Map());
           }
@@ -243,7 +243,7 @@ export const action = async (
       }
       default: {
         throw badRequest({
-          errors: [{ message: "Invalid product type" }],
+          errors: [{ message: 'Invalid product type' }],
         });
       }
     }
@@ -252,7 +252,7 @@ export const action = async (
       return e;
     }
     return serverError({
-      errors: [{ message: "Something went wrong" }],
+      errors: [{ message: 'Something went wrong' }],
     });
   }
 };

@@ -1,12 +1,12 @@
-import type { LoaderFunction, MetaFunction } from "remix";
-import { useLoaderData } from "@remix-run/react";
-import CategoryPage from "~/components/CategoryPage";
-import ContentPage from "~/components/ContentPage";
-import ProductPage from "~/components/ProductPage";
-import type { RouteQuery } from "~/graphql/types";
-import { RouteDocument } from "~/graphql/types";
-import DynamicRoute from "~/lib/components/DynamicRoute";
-import { createRouteLoaderFunction } from "~/lib/loaderFunctions";
+import type { LoaderFunction, MetaFunction } from 'remix';
+import { useLoaderData } from '@remix-run/react';
+import CategoryPage from '~/components/CategoryPage';
+import ContentPage from '~/components/ContentPage';
+import ProductPage from '~/components/ProductPage';
+import type { RouteQuery } from '~/graphql/types';
+import { RouteDocument } from '~/graphql/types';
+import DynamicRoute from '~/lib/components/DynamicRoute';
+import { createRouteLoaderFunction } from '~/lib/loaderFunctions';
 
 export const loader: LoaderFunction = createRouteLoaderFunction({
   query: RouteDocument,
@@ -26,7 +26,7 @@ export const meta: MetaFunction = (args) => {
   }, {} as Record<string, string>);
 
   return {
-    title: data?.route?.object?.head?.title || "Demostore on Remix",
+    title: data?.route?.object?.head?.title || 'Demostore on Remix',
     ...tags,
   };
 };

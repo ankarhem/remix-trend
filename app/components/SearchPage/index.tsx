@@ -17,9 +17,9 @@ function SearchPage({ search }: Props) {
   if (!products?.result || !products.totalResults) return null;
 
   return (
-    <div className='container py-8 mx-auto'>
+    <div className="container mx-auto py-8">
       <SearchField />
-      <span className='px-4 text-sm sm:px-8'>
+      <span className="px-4 text-sm sm:px-8">
         {products?.totalResults} results for "{term}"
       </span>
       <ProductGrid products={products?.result} />

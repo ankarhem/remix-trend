@@ -25,20 +25,20 @@ const SearchButton = () => {
       <button
         ref={ref}
         onClick={() => setOpen(!open)}
-        className='rounded-lg border-transparent flex items-center gap-4 flex-1 appearance-none border border-gray-300  w-full py-1 pl-2 pr-4 bg-white text-gray-400 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-gray-700'
-        aria-label='Toggle search field'
+        className="flex w-full flex-1 appearance-none items-center gap-4 rounded-lg border border-transparent  border-gray-300 bg-white py-1 pl-2 pr-4 text-base text-gray-400 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-700"
+        aria-label="Toggle search field"
       >
-        <svg fill='none' viewBox='0 0 24 24' className='h-6 w-6'>
+        <svg fill="none" viewBox="0 0 24 24" className="h-6 w-6">
           <path
-            d='M9.657 16.713a7 7 0 100-14 7 7 0 000 14zm11 4l-6-6'
-            stroke='currentColor'
-            strokeLinecap='round'
-            strokeLinejoin='round'
-            strokeWidth='1.5'
+            d="M9.657 16.713a7 7 0 100-14 7 7 0 000 14zm11 4l-6-6"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
           ></path>
         </svg>
-        <span className='text-sm'>Quick search...</span>
-        <span className='text-xs min-w-[32px]'>
+        <span className="text-sm">Quick search...</span>
+        <span className="min-w-[32px] text-xs">
           {icon ? `${icon} K` : null}
         </span>
       </button>

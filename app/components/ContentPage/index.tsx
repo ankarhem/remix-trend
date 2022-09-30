@@ -18,7 +18,7 @@ const components: ContentComponents = {
     }
     return (
       <div
-        className='html-content'
+        className="html-content"
         dangerouslySetInnerHTML={{
           __html: props.html,
         }}
@@ -29,22 +29,22 @@ const components: ContentComponents = {
 
 function ContentPage({ page }: Props) {
   return (
-    <div className='container flex mx-auto my-10 lg:max-w-5xl'>
-      <aside className='max-w-[250px] flex-auto border-r border-gray-400 mr-8'>
+    <div className="container mx-auto my-10 flex lg:max-w-5xl">
+      <aside className="mr-8 max-w-[250px] flex-auto border-r border-gray-400">
         <ol>
           {page.subPages?.map((subPage) => {
             if (!subPage.primaryRoute?.path) return null;
 
             return (
-              <li key={subPage.id} className='block'>
+              <li key={subPage.id} className="block">
                 <Link to={subPage.primaryRoute.path}>{subPage.name}</Link>
               </li>
             );
           })}
         </ol>
       </aside>
-      <article className='max-w-3xl'>
-        <h1 className='mb-6 text-3xl font-semibold'>{page.name}</h1>
+      <article className="max-w-3xl">
+        <h1 className="mb-6 text-3xl font-semibold">{page.name}</h1>
         <ContentRenderer
           items={page.data?.items}
           components={components}
