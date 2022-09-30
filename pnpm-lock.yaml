@@ -6,7 +6,7 @@ specifiers:
   '@graphql-codegen/typescript': ^2.4.8
   '@graphql-codegen/typescript-operations': ^2.3.5
   '@graphql-typed-document-node/core': ^3.1.1
-  '@headlessui/react': ^1.6.0
+  '@headlessui/react': ^1.7.2
   '@heroicons/react': ^1.0.6
   '@remix-run/dev': ^1.7.2
   '@remix-run/eslint-config': ^1.7.2
@@ -42,7 +42,7 @@ specifiers:
   zod: ^3.19.1
 
 dependencies:
-  '@headlessui/react': 1.6.2_sfoxds7t5ydpegc3knd667wn6m
+  '@headlessui/react': 1.7.2_sfoxds7t5ydpegc3knd667wn6m
   '@heroicons/react': 1.0.6_react@17.0.2
   '@remix-run/node': 1.7.2_sfoxds7t5ydpegc3knd667wn6m
   '@remix-run/react': 1.7.2_sfoxds7t5ydpegc3knd667wn6m
@@ -2390,8 +2390,8 @@ packages:
       graphql: 16.5.0
     dev: true
 
-  /@headlessui/react/1.6.2_sfoxds7t5ydpegc3knd667wn6m:
-    resolution: {integrity: sha512-x+kbTjJ+ixgsignqUU9MluoZYBJAlIYMeya4w7dk/Mo13vIdI/mSnzJAVgHhHKzE/hX//+rXylr4jUVThuQq/A==}
+  /@headlessui/react/1.7.2_sfoxds7t5ydpegc3knd667wn6m:
+    resolution: {integrity: sha512-snLv2lxwsf2HNTOBNgHYdvoYZ3ChJE8QszPi1d/hl9js8KrFrUulTaQBfSyPbJP5BybVreWh9DxCgz9S0Z6hKQ==}
     engines: {node: '>=10'}
     peerDependencies:
       react: ^16 || ^17 || ^18
