@@ -22,7 +22,7 @@ export const ConfigurationOption = ({
   };
 
   return (
-    <div className="w-72">
+    <div className="mb-4 w-72">
       <Listbox name={"_configurationId"} defaultValue={defaultValue}>
         <Listbox.Label>{configuration.name}</Listbox.Label>
         <div className="relative mt-1">
