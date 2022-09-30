@@ -2,24 +2,21 @@ import { RefreshIcon } from "@heroicons/react/outline";
 import toast from "react-hot-toast";
 import { Link, useFetcher } from "@remix-run/react";
 import Cross from "~/components/Icons/Cross";
-import {
-  getProductType,
-  type ProductType,
-  useSelectedArticleNumber,
-} from "~/lib/utils/product";
-import type { CartActionData } from "~/routes/cart";
+import { getProductType, useSelectedArticleNumber } from "~/lib/utils/product";
 import { useClientData } from "~/routes/__layout/__client";
 import type { RouteProduct } from "~/utils/types";
 import SelectionFactory from "./SelectionFactory";
+import type { AddToCartMutation } from "~/graphql/types";
+import type { StoreAPIResponse } from "~/lib/jetshop";
 
 type Props = {
   product: RouteProduct;
 };
 
 function AddToCartForm({ product }: Props) {
-  const fetcher = useFetcher<CartActionData>();
+  const fetcher = useFetcher<StoreAPIResponse<AddToCartMutation>>();
   const state =
-    fetcher.state === "idle" && fetcher.data?.error ? "error" : fetcher.state;
+    fetcher.state === "idle" && fetcher.data?.errors ? "error" : fetcher.state;
   const productType = getProductType(product);
   const { cart } = useClientData();
   const articleNumber = useSelectedArticleNumber(product);
@@ -32,8 +29,9 @@ function AddToCartForm({ product }: Props) {
 
     return (
       <div className="max-w-xs px-4 py-2 border rounded bg-cerise-100 border-cerise-500 text-cerise-600">
-        <h3 className="my-2 text-xl font-semibold">{data?.error?.name}</h3>
-        <p className="mb-5">{data?.error?.message}</p>
+        <p className="my-2 mb-5 text-xl font-semibold">
+          {data?.errors?.[0]?.message}
+        </p>
         <Link
           to="."
           className="flex items-center justify-center gap-2 px-4 py-2 border rounded border-cerise-600 text-cerise-600 bg-cerise-300 hover:bg-cerise-400 hover:text-cerise-700"

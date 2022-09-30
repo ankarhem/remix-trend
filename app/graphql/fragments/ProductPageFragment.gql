@@ -9,6 +9,7 @@
 #
 #import ./InPackagesFragment.gql
 #import ./ProductGridFragment.gql
+#import ./PackageProductFragment.gql
 #import ./StockStatus/WarehouseStockFragment.gql
 
 fragment ProductPage on Product {
@@ -109,4 +110,5 @@ fragment ProductPage on Product {
   ...InPackages
   ...ProductConfigurations
   ...ProductCampaign
+  ...PackageProductFragment
 }

@@ -1,0 +1,69 @@
+#import "~lib/fragments/PriceFragment.gql"
+#import "~lib/fragments/StockStatusFragment.gql"
+#import "~lib/fragments/ProductVariantPriceFragment.gql"
+
+fragment PackageProductFragment on Product {
+  isPackage
+  package {
+    price {
+      ...Price
+    }
+    discountValue {
+      ...Price
+    }
+    items {
+      product {
+        id
+        name
+        articleNumber
+        hasVariants
+        hasConfigurations
+        stockStatus {
+          ...StockStatus
+        }
+        subName
+        primaryRoute {
+          path
+          id
+        }
+        images {
+          modifiedDate
+          alt
+          title
+          url
+        }
+        variants {
+          options {
+            name
+            values
+          }
+          values {
+            articleNumber
+            values
+            stockStatus {
+              ...StockStatus
+            }
+            ...ProductVariantPrice
+          }
+        }
+      }
+      minQuantity
+      discount {
+        ... on PackageDiscountPercentage {
+          percentage
+        }
+        ... on PackageDiscountValue {
+          valueExVat
+          valueIncVat
+          valueVat
+        }
+      }
+      price {
+        ...Price
+      }
+      previousPrice {
+        ...Price
+      }
+    }
+  }
+}

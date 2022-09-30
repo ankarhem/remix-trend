@@ -84,7 +84,6 @@ function ProductPage({ product }: Props) {
                       typeof _field,
                       { stringValue: any }
                     >;
-                    console.log(field);
                     value = field.stringValue;
                     break;
                   }

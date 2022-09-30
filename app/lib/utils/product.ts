@@ -9,9 +9,9 @@ export enum ProductType {
   Configuration = "Configuration",
 }
 
-export const getProductType: (product: RouteProduct) => ProductType = (
-  product
-) => {
+export const getProductType: (
+  product: Pick<RouteProduct, "hasVariants" | "isPackage" | "hasConfigurations">
+) => ProductType = (product) => {
   if (product.hasVariants) return ProductType.Variant;
   if (product.isPackage) return ProductType.Package;
   if (product.hasConfigurations) return ProductType.Configuration;

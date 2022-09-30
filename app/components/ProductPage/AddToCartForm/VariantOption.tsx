@@ -2,26 +2,24 @@ import { RadioGroup } from "@headlessui/react";
 import type { RouteProduct } from "~/utils/types";
 
 export const VariantOption = ({
+  name,
   option,
   product,
 }: {
+  name: string;
   product: RouteProduct;
   option: NonNullable<NonNullable<RouteProduct["variants"]>["options"][number]>;
 }) => {
   if (!option?.name) return null;
   const defaultValue = option.values[0];
 
-  const index = product.variants?.options.findIndex(
-    (o) => o?.name === option?.name
-  );
   return (
     <RadioGroup
       key={option.name}
-      name={`_variantOption_${index}`}
+      name={name}
       defaultValue={defaultValue!}
       onChange={(value) => {
         if (!value) return;
-        console.log(value);
       }}
       className="mb-2"
     >
