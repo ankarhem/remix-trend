@@ -1,7 +1,7 @@
-import { RemixServer } from '@remix-run/react';
-import type { EntryContext } from '@remix-run/server-runtime';
-import 'dotenv/config';
-import { renderToString } from 'react-dom/server';
+import { RemixServer } from "@remix-run/react";
+import type { EntryContext } from "@remix-run/node";
+import "dotenv/config";
+import { renderToString } from "react-dom/server";
 
 export default function handleRequest(
   request: Request,
@@ -13,9 +13,9 @@ export default function handleRequest(
     <RemixServer context={remixContext} url={request.url} />
   );
 
-  responseHeaders.set('Content-Type', 'text/html');
+  responseHeaders.set("Content-Type", "text/html");
 
-  return new Response('<!DOCTYPE html>' + markup, {
+  return new Response("<!DOCTYPE html>" + markup, {
     status: responseStatusCode,
     headers: responseHeaders,
   });
